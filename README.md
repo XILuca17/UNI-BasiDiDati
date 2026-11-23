@@ -3,7 +3,9 @@
 App per preparare l'esame di **Basi di Dati** (eCampus, 1 dicembre 2026: 24 domande chiuse + 2 aperte).
 È una pagina web statica (`index.html`). Funziona offline, si installa sul telefono come app (PWA) e non ha bisogno di un server.
 
-Usa **solo** i materiali del corso: `data/domande.json` (banca ufficiale) e `data/risposte.json`. Se manca una risposta, l'app scrive “risposta non ancora disponibile” e non la inventa.
+Usa **solo** i materiali forniti: `data/domande.json` (banca ufficiale), `data/risposte.json` e `data/modelli.json`.
+
+**Fonti delle risposte:** le lezioni 15–19 vengono dalle slide del corso. Tutte le altre sono le risposte evidenziate nel documento Studocu “Basi di Dati – voto 27”, che coincide con le slide su tutte le 20 risposte in comune. Anche le risposte modello delle domande aperte (`data/modelli.json`) vengono da quel documento: sono risposte di uno studente, non ufficiali. Se manca una risposta, l'app scrive “risposta non ancora disponibile” e non la inventa.
 
 ## Funzioni
 - **Quiz per lezione** (o su tutte le 187 domande chiuse insieme): una domanda alla volta, opzioni in ordine casuale, feedback immediato dove la risposta è nota.
@@ -38,7 +40,7 @@ Si aggiungono in due modi:
 ```
 
 ### Domande da correggere
-La L30 n.03 è stata estratta male dal PDF: ha 2 opzioni invece di 4, con le prime tre incollate insieme. È inclusa nei quiz con un avviso finché non la sistemi a mano in `domande.json`. Le opzioni spazzatura come “Powered by TCPDF” vengono ignorate in automatico.
+La L30 n.03 era stata estratta male dal PDF ufficiale (2 opzioni invece di 4): è stata corretta con il testo del documento Studocu. Nella L37 n.04 le opzioni A e C hanno lo stesso testo: l'app le considera giuste entrambe. Le opzioni spazzatura come “Powered by TCPDF” vengono ignorate in automatico.
 
 Dopo ogni modifica pubblica di nuovo (vedi sotto). L'app scarica sempre i dati aggiornati quando c'è rete e li usa offline quando non c'è. Se cambi `index.html`, aumenta `VERSION` in `sw.js` perché i telefoni ricevano la nuova versione.
 

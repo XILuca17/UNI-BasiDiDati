@@ -147,7 +147,9 @@ const startOfDay = t => { const d = new Date(t); d.setHours(0,0,0,0); return d.g
 function toast(msg){ const t = document.createElement("div"); t.className = "toast"; t.textContent = msg; document.body.append(t); setTimeout(() => t.remove(), 2600); }
 
 /* ============ Dati ============ */
-const DB = { lezioni: [], byId: {}, closed: [], open: [], anomalie: [], glossario: [], nRisposte: 0 };
+const DB = { lezioni: [], byId: {}, closed: [], open: [], anomalie: [], glossario: [], nRisposte: 0, fonteModelli: "" };
+// Giusta anche un'opzione con testo identico a quella corretta (capita nella banca: es. L37 n.04)
+const isRight = (q, L) => !!q.answer && (L === q.answer || q.opts[LETTERS.indexOf(L)]?.trim() === q.opts[LETTERS.indexOf(q.answer)]?.trim());
 // Opzioni che sono resti del PDF e non vere risposte
 const JUNK = [/powered by tcpdf/i];
 
@@ -168,6 +170,7 @@ async function loadData(){
   ]);
   const risposte = ris || {};
   const modelli = mod || {};
+  DB.fonteModelli = modelli._fonte || "";
   const lez = Object.keys(dom).filter(k => /^\d+$/.test(k)).map(Number).sort((a, b) => a - b);
   for (const l of lez){
     const L = String(l), ans = risposte[L] || {};
@@ -351,9 +354,9 @@ function runQuiz({ title, items, tab, fromReview, onEnd }){
       const chosen = LETTERS[+b.dataset.o]; // lettera originale
       btns.forEach(x => x.disabled = true);
       if (known){
-        const ok = chosen === q.answer;
+        const ok = isRight(q, chosen);
         graded++; if (ok) score++; else wrong.push(q);
-        btns.forEach(x => { const L = LETTERS[+x.dataset.o]; if (L === q.answer) x.classList.add("ok"); else if (x === b) x.classList.add("ko"); });
+        btns.forEach(x => { const L = LETTERS[+x.dataset.o]; if (isRight(q, L)) x.classList.add("ok"); else if (x === b) x.classList.add("ko"); });
         const pos = LETTERS[order.indexOf(LETTERS.indexOf(q.answer))];
         $("#fb").innerHTML = ok ? `<div class="fb ok">✓ Giusto!</div>` : `<div class="fb ko">✗ Sbagliato. La risposta corretta è la ${pos}.</div>`;
         record(q, ok, fromReview);
@@ -481,7 +484,7 @@ function runExam(closed, open, minutes){
     closed.forEach(({q, order}, k) => {
       const chosen = ans[k] != null ? LETTERS[ans[k]] : null;
       if (!q.answer){ unknown.push({q, chosen}); return; }
-      const right = chosen === q.answer;
+      const right = isRight(q, chosen);
       if (right) ok++; else errors.push({q, chosen});
       if (chosen) record(q, right);
     });
@@ -503,7 +506,7 @@ function runExam(closed, open, minutes){
           <div class="card stack">
             <div class="small muted">Lezione ${q.l}, n. ${q.n}</div><div style="font-weight:600">${esc(q.q)}</div>
             <details><summary>La tua risposta</summary><div class="model">${esc(texts[j] || "(nessuna risposta)")}</div></details>
-            ${q.modello ? `<details><summary>Risposta modello</summary><div class="model">${esc(q.modello)}</div></details>` : `<p class="small muted">Risposta modello non ancora disponibile per questa domanda.</p>`}
+            ${q.modello ? `<details><summary>Risposta modello</summary>${DB.fonteModelli ? `<div class="small muted">Fonte: ${esc(DB.fonteModelli)}</div>` : ""}<div class="model">${esc(q.modello)}</div></details>` : `<p class="small muted">Risposta modello non ancora disponibile per questa domanda.</p>`}
             <div class="row">${[0, 1, 2].map(v => `<button data-j="${j}" data-v="${v}" class="${e.openScores[j] === v ? "primary" : ""}">${v}</button>`).join("")}<span class="small muted">0 = assente · 1 = parziale · 2 = completa</span></div>
           </div>`).join("") : ""}
         ${errors.length ? `<h3>Errori (${errors.length})</h3>` + errors.map(({q, chosen}) => `
@@ -551,7 +554,7 @@ function viewOpenLesson(l){
       <textarea placeholder="Scrivi qui la tua risposta…">${esc(s.text || "")}</textarea>
       <button class="cmp">Confronta con la risposta modello</button>
       <div class="cmpbox" hidden>
-        ${q.modello ? `<div class="model">${esc(q.modello)}</div>` : `<div class="fb warn" style="font-weight:400">Risposta modello non ancora disponibile. Aggiungila nel campo “modello” (vedi README) e intanto valutati con gli appunti delle slide.</div>`}
+        ${q.modello ? `${DB.fonteModelli ? `<div class="small muted">Fonte: ${esc(DB.fonteModelli)}</div>` : ""}<div class="model">${esc(q.modello)}</div>` : `<div class="fb warn" style="font-weight:400">Risposta modello non ancora disponibile. Aggiungila nel campo “modello” (vedi README) e intanto valutati con gli appunti delle slide.</div>`}
         <div class="row" style="margin-top:10px"><span class="grow">Autovalutazione:</span>${[0, 1, 2].map(v => `<button data-v="${v}" class="${s.score === v ? "primary" : ""}">${v}</button>`).join("")}</div>
       </div>
       ${s.score != null ? `<div class="small muted">Ultimo voto: ${s.score}/2${s.ts ? " · " + fmtDate(s.ts) : ""}</div>` : ""}

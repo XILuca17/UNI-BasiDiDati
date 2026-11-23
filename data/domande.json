@@ -1470,7 +1470,9 @@
    "n": "03",
    "q": "Una entità può essere specializzata in una o più sotto-entità. Quale delle seguenti affermazioni riguardo le sotto-entà è falsa?",
    "opts": [
-    "Nessuna delle prescedenti. Possono definire nuovi attributi e nuove relazioni non presenti nell'entità genitore. Possono definire nuovi attributi e nuove relazioni non presenti nell'entità figlio.",
+    "Nessuna delle precedenti.",
+    "Possono definire nuovi attributi e nuove relazioni non presenti nell'entità genitore.",
+    "Possono definire nuovi attributi e nuove relazioni non presenti nell'entità figlio.",
     "Ereditano dall'entità genitore i suoi attributi e le sue relazioni."
    ]
   },
