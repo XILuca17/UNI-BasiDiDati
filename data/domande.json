@@ -1,0 +1,2426 @@
+{
+ "2": [
+  {
+   "n": "01",
+   "q": "Come qualsiasi altro bene i dati necessitano di strumenti per essere:",
+   "opts": [
+    "Custoditi, Formattati, Analizzati, Protetti.",
+    "Accessibili, Manipolati, Analizzati, Protetti.",
+    "Custoditi, Manipolati, Analizzati, Protetti.",
+    "Custoditi, Manipolati, Scansiti, Protetti."
+   ]
+  },
+  {
+   "n": "02",
+   "q": "Le informazioni di un’organizzazione prima di essere trattate automaticamente con gli elaboratori elettronici devono prima:",
+   "opts": [
+    "Essere ridotte a dati mediante un processo di quantificazione e formalizzazione.",
+    "Essere ridotte a dati mediante un processo di interpretazione, quantificazione e formalizzazione.",
+    "Essere ridotte a dati mediante un processo di interpretazione e quantificazione.",
+    "Essere ridotte a dati mediante un processo di interpretazione e formalizzazione."
+   ]
+  },
+  {
+   "n": "03",
+   "q": "Si definisce informazione:",
+   "opts": [
+    "Una notizia, o elemento che consente di avere conoscenza esatta di fatti, situazioni e modi d’essere.",
+    "Una notizia, o elemento che consente di avere conoscenza esatta di fatti e situazioni.",
+    "Una notizia, o elemento che consente di avere conoscenza più o meno esatta di fatti, situazioni e modi d’essere.",
+    "Una notizia, che consente di avere conoscenza più o meno esatta di fatti, situazioni e modi d’essere."
+   ]
+  },
+  {
+   "n": "04",
+   "q": "All'interno di un sistema informativo di un'organizzazione si definiscono informazioni di gestione:",
+   "opts": [
+    "Tutte le attività di controllo.",
+    "Tutte le attività di programmazione.",
+    "Tutte le attività di programmazione e controllo.",
+    "Tutte le attività di programmazione ed automazione."
+   ]
+  },
+  {
+   "n": "05",
+   "q": "Un Sistema Informativo (SI) è:",
+   "opts": [
+    "Una componente di un’organizzazione il cui scopo è quello di gestire le informazioni utili ad i fini dell’organizzazione stessa, la cui esistenza è indipendente dal suo processo di automazione.",
+    "Una componente di un’organizzazione il cui scopo è quello di gestire le informazioni utili ad i fini dell’organizzazione stessa, la cui esistenza dipende dal suo processo di automazione.",
+    "Una componente di un’organizzazione il cui scopo è quello di gestire i dati utili ad i fini dell’organizzazione stessa, la cui esistenza è indipendente dal suo processo di sviluppo.",
+    "Una componente di un’organizzazione il cui scopo è quello di gestire le informazioni utili ad i fini dell’organizzazione stessa."
+   ]
+  },
+  {
+   "n": "06",
+   "q": "Descrivere le componenti di un sistema informatico",
+   "opts": []
+  },
+  {
+   "n": "07",
+   "q": "Descrivere brevemente i concetti che stanno alla base dei quattro stadi dell'evoluzione dei sistemi informatici",
+   "opts": []
+  }
+ ],
+ "3": [
+  {
+   "n": "01",
+   "q": "Una struttura dati persistente è:",
+   "opts": [
+    "Una struttura dati che quando viene modificata conserva sempre la versione precedente di se stessa.",
+    "Una struttura dati memorizzata su una memoria persistente che quando viene modificata conserva sempre la versione precedente di se stessa.",
+    "Nessuna delle precedenti.",
+    "Una struttura dati memorizzata su una memoria persistente"
+   ]
+  },
+  {
+   "n": "02",
+   "q": "Con il termine transazionale si ci riferisce al fatto che le interazioni col sistema avvennono mediante:",
+   "opts": [
+    "Transazioni, un evento che innesca sulla base di dati una sequenza di relazioni che devono tutte andare a buon fine perché essa rimanga coerente.",
+    "Transazioni, un evento che innesca sulla base di dati una sequenza di azioni che devono tutte andare a buon fine perché essa rimanga coerente.",
+    "Transazioni, un evento che innesca sulla base di dati una sequenza di interrogazioni che devono tutte andare a buon fine perché essa rimanga coerente.",
+    "Transazioni, un evento che innesca sulla base di dati una sequenza di azioni che possono andare a buon fine perché essa rimanga coerente."
+   ]
+  },
+  {
+   "n": "03",
+   "q": "Nei sistemi informatici direzionali il data warehouse viene aggiornato:",
+   "opts": [
+    "Mediante appositi trigger con nuovi dati storici, o esterni.",
+    "Periodicamente con nuovi dati storici, o esterni.",
+    "Tempestivamente ad ogni verificarsi di un evento aziendale o periodicamente con nuovi dati storici.",
+    "Nessuna delle prescedenti."
+   ]
+  },
+  {
+   "n": "04",
+   "q": "Descrivere brevemente i concetti base dei metodi di approccio alla gestione dei dati di tipo convenzionale.",
+   "opts": []
+  },
+  {
+   "n": "05",
+   "q": "Descrivere brevemente i concetti che stanno alla base dei Sistemi informatici direzionali.",
+   "opts": []
+  }
+ ],
+ "4": [
+  {
+   "n": "01",
+   "q": "Un DBMS è:",
+   "opts": [
+    "Un insieme di programmi che permettono di creare e popolare una base di dati.",
+    "Una collezione omogenea di dati strutturati costruita per uno scopo ben preciso.",
+    "Un insieme di programmi che permettono di creare, popolare, manipolare e condividere una base di dati.",
+    "Una collezione omogenea di dati strutturati correlati tra loro costruita per uno scopo ben preciso."
+   ]
+  },
+  {
+   "n": "02",
+   "q": "Cosa deve garantire un DBMS ?",
+   "opts": [
+    "La condivisione, la conservazione e la reliability dei dati.",
+    "La condivisione, la previsione e la reliability dei dati.",
+    "La condivisione, la protezione e la reliability dei dati.",
+    "La condivisione, la protezione e la trasmissione dei dati."
+   ]
+  },
+  {
+   "n": "03",
+   "q": "Quali dei seguenti DBMS non è proprietario ?",
+   "opts": [
+    "Oracle.",
+    "Postgre SQL.",
+    "SQL Server.",
+    "DB2."
+   ]
+  },
+  {
+   "n": "04",
+   "q": "Una Base di Dati è:",
+   "opts": [
+    "Un insieme di programmi che permettono di creare, popolare, manipolare e condividere una base di dati.",
+    "Una collezione di dati strutturati correlati tra loro costruita per uno scopo ben preciso.",
+    "Una collezione omogenea di dati strutturati costruita per uno scopo ben preciso.",
+    "Una collezione omogenea di dati strutturati correlati tra loro costruita per uno scopo ben preciso."
+   ]
+  },
+  {
+   "n": "05",
+   "q": "Descrivere i vantaggi e limiti dei DBMS.",
+   "opts": []
+  },
+  {
+   "n": "06",
+   "q": "Definire il concetto di base di dati e di DBMS.",
+   "opts": []
+  }
+ ],
+ "5": [
+  {
+   "n": "01",
+   "q": "In cosa consiste il concetto di Horizontal Scaling ?",
+   "opts": [
+    "Si applica ai DBMS quando nasce l’esigenza di gestire database crittografati.",
+    "Si applica ai DBMS quando nasce l’esigenza di gestire database ridondanti.",
+    "Si applica ai DBMS quando nasce l’esigenza di gestire database ad oggetti.",
+    "Si applica ai DBMS quando nasce l’esigenza di gestire database distribuiti."
+   ]
+  },
+  {
+   "n": "02",
+   "q": "A cosa ci si riferisce con la regola detta \"Del tutto o niente\" ?",
+   "opts": [
+    "Alla proprietà di concorrenza di un DBMS che prevedono una gestione parallela delle operazioni.",
+    "Alla proprietà di concorrenza di un DBMS che prevedono una gestione deterministica delle operazioni.",
+    "Alla proprietà di affidabilità di un DBMS che prevedono una gestione sequnziale delle operazioni.",
+    "Alla proprietà di affidabilità di un DBMS che prevedono una gestione deterministica delle operazioni."
+   ]
+  },
+  {
+   "n": "03",
+   "q": "In che modo i DBMS gestiscono la concorrenza ?",
+   "opts": [
+    "Mediante particolari operazioni sulle query (interrogazioni) tali che eseguite in concorrenza producano lo stesso risultato di un’esecuzione in parallelo.",
+    "Mediante particolari operazioni sui dati (transazioni) tali che eseguite in parallelo producano lo stesso risultato di un’esecuzione in serie.",
+    "Mediante particolari operazioni sui dati (transazioni) tali che eseguite in sequenza producano lo stesso risultato di un’esecuzione in serie.",
+    "Mediante particolari operazioni sui dati (transazioni) tali che eseguite in concorrenza producano lo stesso risultato di un’esecuzione in serie."
+   ]
+  },
+  {
+   "n": "04",
+   "q": "L’efficienza di un DBMS quale caratteristica è particolarmente enfatizzata dal concetto di ?",
+   "opts": [
+    "Join.",
+    "Indice.",
+    "Query.",
+    "Tabella."
+   ]
+  },
+  {
+   "n": "05",
+   "q": "Quali tra le seguenti non è una caratteristica che un DBMS non necessariamente deve possedere ?",
+   "opts": [
+    "Sicurezza.",
+    "Efficienza.",
+    "Compatibilità.",
+    "Affidabilità."
+   ]
+  },
+  {
+   "n": "06",
+   "q": "Descrivere il concetto di Data Base Distribuito e scalabilità di un DBMS.",
+   "opts": []
+  },
+  {
+   "n": "07",
+   "q": "Descrivere due delle 4 caratteristiche che un DBMS deve possedere.",
+   "opts": []
+  }
+ ],
+ "6": [
+  {
+   "n": "01",
+   "q": "Da cosa è caratterizzato un DBMS NoSQL ?",
+   "opts": [
+    "Dal fatto che archivia ogni elemento singolarmente con una chiave univoca, e non garantisce la coerenza dei dati.",
+    "Dal fatto che archivia ogni elemento singolarmente con più chiavi, garantendo la coerenza dei dati.",
+    "Dal fatto che archivia ogni elemento singolarmente con più chiavi, e non garantisce la coerenza dei dati.",
+    "Dal fatto che archivia ogni elemento singolarmente con una chiave univoca, garantendo la coerenza dei dati."
+   ]
+  },
+  {
+   "n": "02",
+   "q": "Cosa s'intende per Data Control Language (DCL) ?",
+   "opts": [
+    "E' un linguaggio utilizzato per controllare l'integrità dei dati del database.",
+    "E' un linguaggio utilizzato per criptare il database.",
+    "E' un linguaggio utilizzato per interrogare il database.",
+    "E' un linguaggio utilizzato per definire e gestire le modalità di accesso degli utenti."
+   ]
+  },
+  {
+   "n": "03",
+   "q": "Quali tra i seguenti DBMS non segue l'approccio NoSQL ?",
+   "opts": [
+    "Cassandra di Facebook.",
+    "SimpleDB.",
+    "MySQL.",
+    "Dynamo di Amazon."
+   ]
+  },
+  {
+   "n": "04",
+   "q": "Chi ha progettato il primo DBMS basato sul modello reticolare ?",
+   "opts": [
+    "Edgar Codd.",
+    "Charles Bachman.",
+    "Steve Jobs.",
+    "Arthur Coleman."
+   ]
+  },
+  {
+   "n": "05",
+   "q": "Descrivere l'architettura a livelli dei DBMS.",
+   "opts": []
+  },
+  {
+   "n": "06",
+   "q": "Descrivere due dei 5 livelli funzionali di un DBMS.",
+   "opts": []
+  }
+ ],
+ "7": [
+  {
+   "n": "01",
+   "q": "Cosa s'intende con il concetto di collezione ?",
+   "opts": [
+    "Un insieme variabile nel tempo di entità interessanti dell’universo del discorso.",
+    "Un insieme variabile nel tempo di entità omogenee interessanti dell’universo del discorso.",
+    "Un insieme variabile nel tempo di entità omogenee interessanti dell’universo del problema.",
+    "Un insieme fisso nel tempo di entità omogenee interessanti dell’universo del discorso."
+   ]
+  },
+  {
+   "n": "02",
+   "q": "Come può essere classificata una proprietà ?",
+   "opts": [
+    "Atomica, Univoca, Totale o Parziale.",
+    "Atomica, Univoca, Totale.",
+    "Atomica, Univoca, Parziale.",
+    "Atomica, Deterministica, Totale o Parziale."
+   ]
+  },
+  {
+   "n": "03",
+   "q": "Da cosa è definito il dominio dell'associazione ?",
+   "opts": [
+    "Dalla somma delle relative estensioni.",
+    "Dall'intersezione delle relative estensioni.",
+    "Dall'unione delle relative estensioni.",
+    "Dal prodotto cartesiano delle relative estensioni."
+   ]
+  },
+  {
+   "n": "04",
+   "q": "Cosa s'intende per modello astratto nel caso della progettazione e modellazione ?",
+   "opts": [
+    "La rappresentazione formale di idee e conoscenze relative ad un software.",
+    "La rappresentazione formale di idee e conoscenze relative ad un fenomeno.",
+    "Nessuna delle prescedenti.",
+    "La rappresentazione sommaria di idee e conoscenze relative ad un fenomeno."
+   ]
+  },
+  {
+   "n": "05",
+   "q": "Descrivere brevemente il concetto di conoscenza concreta.",
+   "opts": []
+  },
+  {
+   "n": "06",
+   "q": "Descrivere l'aspetto ontologico nella modellazione dei Data Base.",
+   "opts": []
+  }
+ ],
+ "8": [
+  {
+   "n": "01",
+   "q": "Cosa s'intende per modellare la comunicazione ?",
+   "opts": [
+    "Significa rappresentare le interfacce del data base.",
+    "Significa rappresentare le interfacce del sistema informativo.",
+    "Significa rappresentare le interfacce del DBMS.",
+    "Significa rappresentare le interfacce per il networking."
+   ]
+  },
+  {
+   "n": "02",
+   "q": "Cosa si definiscono con il termine di conoscenza delle operazioni di base ?",
+   "opts": [
+    "Le operazioni elementari che interessano le entità dell’universo del discorso per produrre determinati effetti.",
+    "Le operazioni complesse che interessano le entità dell’universo del discorso per produrre determinati effetti.",
+    "Le operazioni che interessano le entità dell’universo del discorso per produrre determinate relazioni.",
+    "Le operazioni elementari che interessano le entità dell’universo del discorso astratto per produrre determinati effetti."
+   ]
+  },
+  {
+   "n": "03",
+   "q": "In cosa differisce la conoscenza astratta da quella procedurale ?",
+   "opts": [
+    "Nessuna delle precedenti.",
+    "La conoscenza astratta riguarda la struttura dell’universo del discorso, la conoscenza procedurale riguarda la struttura procedurale della conoscenza astratta.",
+    "La conoscenza astratta riguarda la struttura dell’universo del discorso, la conoscenza procedurale riguarda le procedure a cui può essere soggetta la conoscenza concreta.",
+    "La conoscenza astratta riguarda la struttura dell’universo del discorso, la conoscenza procedurale riguarda le operazioni a cui può essere soggetta la conoscenza concreta."
+   ]
+  },
+  {
+   "n": "04",
+   "q": "Cosa definiscono i vincoli d’integrità statici ?",
+   "opts": [
+    "Definiscono condizioni sui valori della conoscenza astratta che devono essere soddisfatte indipendentemente da come evolve l’universo del discorso.",
+    "Definiscono condizioni sui valori della conoscenza concreta che devono essere soddisfatte in funzione di come evolve l’universo del discorso.",
+    "Definiscono condizioni sui valori della conoscenza concreta che devono essere soddisfatte indipendentemente da come evolve l’universo del discorso.",
+    "Definiscono condizioni sui valori della conoscenza astratta che devono essere soddisfatte in funzione di come evolve l’universo del discorso."
+   ]
+  },
+  {
+   "n": "05",
+   "q": "Descrivere la differenza tra conoscenza astratta e conoscenza procedurale.",
+   "opts": []
+  },
+  {
+   "n": "06",
+   "q": "Descriver il concetto di aspetto linguistico concreto.",
+   "opts": []
+  }
+ ],
+ "9": [
+  {
+   "n": "01",
+   "q": "Come si definisce l'operatore di tipo enumerazione ?",
+   "opts": [
+    "Mediante un insieme di etichette separate da una virgola e racchiuse fra parentesi graffe.",
+    "Mediante un insieme di etichette separate da un punto e racchiuse fra parentesi tonde.",
+    "Mediante un insieme di etichette separate da un punto e virgola e racchiuse fra parentesi quadre.",
+    "Mediante un insieme di etichette separate da un punto e virgola e racchiuse fra parentesi tonde."
+   ]
+  },
+  {
+   "n": "02",
+   "q": "Come si definisce un'oggetto in informatica ?",
+   "opts": [
+    "Un oggetto è la rappresentazione nel modello informatico degli aspetti strutturali o comportamentali di un'entità della realtà.",
+    "Un oggetto è la rappresentazione nel modello informatico degli aspetti strutturali di un'entità della realtà.",
+    "Un oggetto è la rappresentazione nel modello informatico degli aspetti comportamentali di un'entità della realtà.",
+    "Un oggetto è la rappresentazione nel modello informatico degli aspetti strutturali e comportamentali di un'entità della realtà."
+   ]
+  },
+  {
+   "n": "03",
+   "q": "Come si definisce il comportamento di un oggetto ?",
+   "opts": [
+    "Mediante un insieme di procedure remote, eventualmente dotate di parametri, chiamate metodi, che modellano le operazioni di base che riguardano l’oggetto e le proprietà derivabili da altre.",
+    "Mediante un insieme di procedure locali, eventualmente dotate di parametri, chiamate metodi, che modellano le operazioni di base che riguardano l’oggetto e le proprietà derivabili da altre.",
+    "Nessuna delle prescedenti.",
+    "Mediante un insieme di procedure locali, dotate di parametri, chiamate metodi, che modellano le operazioni di base che riguardano l’oggetto e le proprietà derivabili da altre."
+   ]
+  },
+  {
+   "n": "04",
+   "q": "L’identità di due oggetti diversi è:",
+   "opts": [
+    "Sempre uguale.",
+    "Può essere uguale solo nel caso in cui gli oggetti appartengano alla stessa interfaccia.",
+    "Può essere diversa solo nel caso in cui il relativo OID è diverso.",
+    "Sempre diversa."
+   ]
+  },
+  {
+   "n": "05",
+   "q": "Fornire una breve descrizione del modello dei dati ad oggetti.",
+   "opts": []
+  },
+  {
+   "n": "06",
+   "q": "Descrivere le fasi per la costruzione di un modello informatico.",
+   "opts": []
+  }
+ ],
+ "10": [
+  {
+   "n": "01",
+   "q": "Come si definisce la gerarchia d'inclsione ?",
+   "opts": [
+    "E' una relazione di ordinamento parziale sull’insieme delle classi tale che se C1 è una sottoclasse di C2 (è inclusa in C2), allora gli elementi di C1 sono un sottoinsieme degli elementi di C2 ed ereditano le associazioni definite su C1 (vincolo estensionale).",
+    "E' una relazione di ordinamento totale sull’insieme delle classi tale che se C1 è una sottoclasse di C2 (è inclusa in C2), allora gli elementi di C1 sono un sottoinsieme degli elementi di C2 ed ereditano le associazioni definite su C2 (vincolo estensionale).",
+    "E' una relazione di ordinamento parziale sull’insieme delle classi tale che se C1 è una sottoclasse di C2 (è inclusa in C2), allora gli elementi di C1 sono un sottoinsieme degli elementi di C2 ed ereditano le associazioni definite su C2 (vincolo estensionale).",
+    "E' una relazione di ordinamento parziale sull’insieme delle classi tale che se C1 è una superclasse di C2 (è inclusa in C2), allora gli elementi di C1 sono un sottoinsieme degli elementi di C2 ed ereditano le associazioni definite su C2 (vincolo estensionale)."
+   ]
+  },
+  {
+   "n": "02",
+   "q": "Nella sua rappresentazione grafica come si rappresenta il vincolo di copertura ?",
+   "opts": [
+    "Mediante un pallino nero verso la superclasse.",
+    "Mediante una freccia verso la superclasse.",
+    "Mediante una freccia vuota verso la superclasse.",
+    "Mediante una freccia doppia verso la superclasse."
+   ]
+  },
+  {
+   "n": "03",
+   "q": "Come si definisce la relazione di sottotipo ?",
+   "opts": [
+    "E una relazione di ordinamento totale sull’insieme dei tipi tale che un valore che appartiene al sottotipo può essere utilizzato in tutti i contesti in cui è previsto un valore del supertipo.",
+    "E una relazione di ordinamento parziale sull’insieme dei tipi tale che un valore che appartiene al sottotipo può essere utilizzato in tutti i contesti in cui è previsto un valore del supertipo.",
+    "E una relazione di ordinamento sull’insieme dei tipi tale che un valore che appartiene al sottotipo può essere utilizzato in tutti i contesti in cui è previsto un valore del supertipo.",
+    "E una relazione di ordinamento parziale sull’insieme dei tipi tale che un valore che appartiene al supertipo può essere utilizzato in tutti i contesti in cui è previsto un valore del sottotipo."
+   ]
+  },
+  {
+   "n": "04",
+   "q": "Quale dei seguenti operatori associati al meccanismo delle sottoclassi è errato ?",
+   "opts": [
+    "Copiare un elemento in una classe.",
+    "Controllare se un elemento di una classe è anche in una sua sottoclasse.",
+    "Creare un elemento in una classe.",
+    "Rimuovere un elemento da una classe."
+   ]
+  },
+  {
+   "n": "05",
+   "q": "Quando si definiscono più sottoclassi di una stessa classe, sull'insieme di sottoclassi quali vincoli possono essere definiti ?",
+   "opts": []
+  },
+  {
+   "n": "06",
+   "q": "Quando un'interfaccia è definita per eredità?",
+   "opts": []
+  }
+ ],
+ "11": [
+  {
+   "n": "01",
+   "q": "Come si pone il modello relazionale rispetto ai modelli preesistenti di tipo gerarchico e reticolare ?",
+   "opts": [
+    "Nessuna delle prescedenti.",
+    "Il modello relazionale è più difficile da capire.",
+    "Il modello relazionale è molto più intuitivo.",
+    "Il modello relazionale è più essenziale."
+   ]
+  },
+  {
+   "n": "02",
+   "q": "Quali sono i meccanismi di astrazione del modello entità-relazione ?",
+   "opts": [
+    "Un meccanismo per modellare insiemi di oggetti; Un meccanismo per modellare le associazioni.",
+    "Un meccanismo per modellare insiemi di relazioni; Un meccanismo per modellare le associazioni.",
+    "Un meccanismo per modellare insiemi di entità; Un meccanismo per modellare le associazioni.",
+    "Un meccanismo per modellare insiemi di entità; Un meccanismo per modellare le proprietà."
+   ]
+  },
+  {
+   "n": "03",
+   "q": "Da cosa è definita una superchiave per R ?",
+   "opts": [
+    "Da un insieme di attributi i cui valori possono determinare un’ennupla di una relazione R.",
+    "Da un insieme di attributi i cui valori determinano un’ennupla di una relazione R.",
+    "Da un insieme di attributi i cui valori determinano univocamente uuna relazione R.",
+    "Da un insieme di attributi i cui valori determinano univocamente un’ennupla di una relazione R"
+   ]
+  },
+  {
+   "n": "04",
+   "q": "Cosa rappresenta l'entity-relationship diagrams ?",
+   "opts": [
+    "Il formalismo grafico usato per rappresentare i meccanismi di astrazione del modello entità-relazione",
+    "Il formalismo grafico usato per rappresentare i meccanismi di funzionamento del modello entità-relazione",
+    "Il formalismo grafico usato per rappresentare gli oggetti del modello entità-relazione",
+    "Il formalismo grafico usato per rappresentare i meccanismi di astrazione degli oggetti del modello entità-relazione"
+   ]
+  },
+  {
+   "n": "05",
+   "q": "In cosa differisce il modello entà-relazione da quello ad oggetti ?",
+   "opts": []
+  }
+ ],
+ "12": [
+  {
+   "n": "01",
+   "q": "Coe si definisce il concetto di applicazione ?",
+   "opts": [
+    "Un’applicazione è un sistema informatico finalizzata a soddisfare le esigenze informative di un settore dell’organizzazione.",
+    "Un’applicazione è una parte di un sistema informatico finalizzata a soddisfare le esigenze informative di un settore dell’organizzazione.",
+    "Un’applicazione è una parte di un sistema informatico finalizzata a soddisfare le esigenze informative dell’organizzazione.",
+    "Un’applicazione è un sistema informatico finalizzata a soddisfare le esigenze informative dell’organizzazione."
+   ]
+  },
+  {
+   "n": "02",
+   "q": "Nella costruzione di un sistema complesso sono coinvolte le seguenti fasi:",
+   "opts": [
+    "Analisi dei requisiti, Progettazione Grafica, Progttazione Logica, Progettazione Fisica.",
+    "Analisi dei requisiti, Progettazione Concettuale, Progttazione Logica, Progettazione Fisica.",
+    "Analisi dei requisiti, Progettazione Astratta, Progttazione Logica, Progettazione Fisica.",
+    "Analisi dei requisiti, Progettazione Concettuale, Progttazione Logica, Progettazione Fisica, Test Finali."
+   ]
+  },
+  {
+   "n": "03",
+   "q": "A cosa si rifriscono gli aspetti dinamici del processo di progettazione ?",
+   "opts": [
+    "Alla conoscenza procedurale e la comunicazione.",
+    "Alla struttura della conoscenza concreta e la conoscenza astratta",
+    "Alla conoscenza procedurale e conoscenza concreta.",
+    "Alle informazioni che descrivono i fatti rappresentati e il modo in cui essi evolvono nel tempo."
+   ]
+  },
+  {
+   "n": "04",
+   "q": "Perché sono importanti gli aspetti quantitativi in un processo di progettazione ?",
+   "opts": [
+    "Perché nelle fasi di progettazione fisica permettono di utilizzare al meglio il DBMS e per garantire che le applicazioni possano essere realizzate con le prestazioni desiderate.",
+    "Perché nelle fasi di progettazione logica e fisica permettono di utilizzare al meglio il DBMS e per garantire che le applicazioni possano essere realizzate con le prestazioni desiderate.",
+    "Perché nelle fasi di progettazione permettono di utilizzare al meglio il DBMS e per garantire che le applicazioni possano essere realizzate con le prestazioni minime.",
+    "Perché nelle fasi di progettazione logica permettono di utilizzare al meglio il DBMS e per garantire che le applicazioni possano essere realizzate con le prestazioni desiderate."
+   ]
+  },
+  {
+   "n": "05",
+   "q": "Quali sono le fasi delle metodologia di progettazione per la costruzione di stemi complessi ? Fornire una descrizione sintetica.",
+   "opts": []
+  },
+  {
+   "n": "06",
+   "q": "Quali obiettivi una metodologia di progettazione per la costruzione di stemi complessi dovrebbe soddisfare ?",
+   "opts": []
+  }
+ ],
+ "13": [
+  {
+   "n": "01",
+   "q": "A cosa servono i Diagrammi di flusso dati ?",
+   "opts": [
+    "Servono a descrivere la quantità di dati trasmessi ai sistemi di archiviazione.",
+    "Servono a descrivere la struttura dei dati.",
+    "Servono a descrivere le evoluzioni del sistema.",
+    "Servono a descrivere le operazioni."
+   ]
+  },
+  {
+   "n": "02",
+   "q": "Un diagramma di flusso dati:",
+   "opts": [
+    "Specifica il fatto che un flusso dati avviene solo sotto certe condizioni.",
+    "Specifica il flusso del controllo o la temporizzazione.",
+    "Rappresenta esplicitamente il flusso dei dati tra i vari processi e tra questi, i depositi e le interfacce.",
+    "Specifica il fatto che un flusso dati avviene prima di un altro."
+   ]
+  },
+  {
+   "n": "03",
+   "q": "Cosa specifica il criterio dell’indipendenza funzionale tra processi ?",
+   "opts": [
+    "Che ogni sottoprocesso deve fare una sola cosa e che sottoprocessi uguali devono scambiare meno dati possibili.",
+    "Che ogni sottoprocesso può fare più cose e che sottoprocessi diversi devono scambiare meno dati possibili.",
+    "Che ogni sottoprocesso deve fare una sola cosa e che sottoprocessi diversi devono scambiare meno dati possibili.",
+    "Che ogni sottoprocesso deve fare una sola cosa e che sottoprocessi diversi devono scambiare più dati possibili."
+   ]
+  },
+  {
+   "n": "04",
+   "q": "Cosa rappresenta un prototipo ?",
+   "opts": [
+    "Un prototipo è una versione preliminare di ciò che va realizzato, che esibisca le caratteristiche funzionali essenziali, prescindendo dai requisiti sulle prestazioni.",
+    "Un prototipo è una versione preliminare e funzionante di ciò che va realizzato, che esibisca tutte le caratteristiche funzionali, prescindendo dai requisiti sulle prestazioni.",
+    "Un prototipo è una versione preliminare e funzionante di ciò che va realizzato, che esibisca le caratteristiche funzionali essenziali, prescindendo dai requisiti sulle prestazioni.",
+    "Un prototipo è una versione funzionante di ciò che va realizzato, che esibisca tutte le caratteristiche funzionali, prescindendo dai requisiti sulle prestazioni."
+   ]
+  },
+  {
+   "n": "05",
+   "q": "Fornire una descrizione del metodo prototipazione rapida delle basi di dati.",
+   "opts": []
+  },
+  {
+   "n": "06",
+   "q": "Descrivere gli strumenti formali che si adoperano per la progettazione delle badi si dati.",
+   "opts": []
+  }
+ ],
+ "14": [
+  {
+   "n": "01",
+   "q": "Come si definisce un diagramma di stato ?",
+   "opts": [
+    "E' un grafo che modella il modo in cui un sistema reagisce ad eventi esterni.",
+    "E' un grafo etichettato che modella il modo in cui un sistema reagisce ad eventi esterni.",
+    "E' un grafo che modella il modo in cui un sistema reagisce ad eventi interni ed esterni.",
+    "E' un grafo etichettato che modella il modo in cui un sistema reagisce ad eventi interni."
+   ]
+  },
+  {
+   "n": "02",
+   "q": "Qual è la differenza fondamentale tra i diagrammi di stato ed i diagrammi di flusso dati ?",
+   "opts": [
+    "Nessuna delle prescedenti.",
+    "Sono sotanzialmente equivalenti.",
+    "I diagrammi di stato si concentrano sul flusso e sulla memorizzazione dei dati, mentre i diagrammi di flusso rappresentano il flusso del controllo.",
+    "La differenza consiste nel fatto che i primi rappresentano il flusso del controllo, che viene essenzialmente ignorato nei secondi, mentre questi si concentrano sul flusso e sulla memorizzazione dei dati, ignorati nei primi."
+   ]
+  },
+  {
+   "n": "03",
+   "q": "L’analisi dei requisiti:",
+   "opts": [
+    "Raffina i risultati dello studio preliminare specificando in maniera più precisa ciò che l’organizzazione si aspetta dal sistema informatico in corso di progettazione, arrivando a delineare la struttura delle informazioni da trattare e le procedure che dovranno essere testate.",
+    "Aggiunge ai risultati dello studio preliminare ciò che l’organizzazione si aspetta dal sistema informatico in corso di progettazione, arrivando a delineare la struttura delle logiche da trattare e le procedure che dovranno essere realizzate.",
+    "Affianca i risultati dello studio preliminare specificando in maniera più imprecisa ciò che l’organizzazione si aspetta dal sistema informatico in corso di progettazione, arrivando a delineare la struttura delle informazioni da trattare e le procedure che dovranno essere realizzate.",
+    "Raffina i risultati dello studio preliminare specificando in maniera più precisa ciò che l’organizzazione si aspetta dal sistema informatico in corso di progettazione, arrivando a delineare la struttura delle informazioni da trattare e le procedure che dovranno essere realizzate."
+   ]
+  },
+  {
+   "n": "04",
+   "q": "A cosa si riferisce lo stuio preliminare dell'organizzazione ?",
+   "opts": [
+    "Si riferisce alle scelte fondamentali dell’organizzazione e del suo modo di funzionare, presumibilmente invarianti nel medio termine, dalle quali si può prescindere nell’affrontare l’analisi dei requisiti.",
+    "Si riferisce alle scelte fondamentali dell’organizzazione e del suo modo di funzionare, presumibilmente variabili nel medio termine, dalle quali non si può prescindere nell’affrontare l’analisi dei requisiti.",
+    "Si riferisce alle scelte fondamentali dell’organizzazione e del suo modo di funzionare, presumibilmente invarianti nel medio termine, dalle quali non si può prescindere nell’affrontare l’analisi dei requisiti.",
+    "Si riferisce alle scelte fondamentali dell’organizzazione e del suo modo di funzionare, presumibilmente invarianti nel lungo termine, dalle quali non si può prescindere nell’affrontare l’analisi dei requisiti."
+   ]
+  },
+  {
+   "n": "05",
+   "q": "Descrivere il concetto di analisi dei requisiti nel contesto della progettazione delle basi di dati.",
+   "opts": []
+  },
+  {
+   "n": "06",
+   "q": "Con riferimento ai diagrammi di stato spiegare il concetto di progettazione per raffinamento.",
+   "opts": []
+  }
+ ],
+ "15": [
+  {
+   "n": "01",
+   "q": "In generale è bene che la specifica dei requisiti sia scritta utilizzando:",
+   "opts": [
+    "Frasi con una struttura il più possibile elementare ed omogenea possibile.",
+    "Frasi con una struttura il più possibile complessa ed omogenea possibile.",
+    "Frasi con una struttura il più possibile riproducibile ed omogenea possibile.",
+    "Frasi con una struttura il più possibile elementare e disomogenea possibile."
+   ]
+  },
+  {
+   "n": "02",
+   "q": "Una visione panoramica di alto livello della struttura della base di dati:",
+   "opts": [
+    "Consente di anticipare con i committenti una verifica sulla corretta interpretazione degli aspetti essenziali dei requisiti, prima di procedere con i passi di raffinamento e di completamento previsti nella fase di progettazione concettuale.",
+    "Consente di anticipare con i committenti una verifica sulla corretta interpretazione degli aspetti superflui dei requisiti, prima di procedere con i passi di raffinamento e di completamento previsti nella fase di progettazione concettuale.",
+    "Consente di anticipare con gli sviluppatori una verifica sulla corretta interpretazione degli aspetti essenziali dei requisiti, prima di procedere con i passi di verifica previsti nella fase di progettazione concettuale.",
+    "Consente di concordare con i committenti una verifica sulla corretta interpretazione degli aspetti essenziali dei requisiti, prima di procedere con i passi di raffinamento e di completamento previsti nella fase di progettazione concettuale."
+   ]
+  },
+  {
+   "n": "03",
+   "q": "Lo schema scheletro si definisce procedendo nel seguente ordine:",
+   "opts": [
+    "Descrivi le associazioni fra le classi; Individua le sottoclassi; Identifica le classi.",
+    "Identifica le classi; Descrivi le associazioni fra le classi; Individua le sottoclassi.",
+    "Individua le sottoclassi; Descrivi le associazioni fra le classi; Identifica le classi.",
+    "Identifica le classi; Individua le sottoclassi; Descrivi le associazioni fra le classi."
+   ]
+  },
+  {
+   "n": "04",
+   "q": "Per descrivere le associazioni fra le classi:",
+   "opts": [
+    "Si individuano le possibili associazioni fra le classi finora definite e le loro proprietà strutturali, arrivando ad un risultato che porti ad una prima versione dello schema esemplificato.",
+    "Si individuano le possibili associazioni fra le classi da definite e le loro proprietà strutturali, arrivando ad un risultato che porti ad una prima versione dello schema esemplificato.",
+    "Si individuano le possibili associazioni fra le sotto-classi finora definite e le loro proprietà strutturali, arrivando ad un risultato che porti ad una prima versione dello schema esemplificato.",
+    "Si individuano le possibili associazioni fra le classi finora definite e le loro proprietà strutturali, arrivando ad un risultato che porti ad una prima versione dello schema finale."
+   ]
+  },
+  {
+   "n": "05",
+   "q": "La scrittura di frasi nella specifica dei requisiti che tipo di caratteristiche deve avere ? Elencare almeno due esempi.",
+   "opts": []
+  },
+  {
+   "n": "06",
+   "q": "Descrivere brevemente i passi caratteristici dell'analisi dei requisiti.",
+   "opts": []
+  }
+ ],
+ "16": [
+  {
+   "n": "01",
+   "q": "In cosa consiste l’approccio per integrazione ?",
+   "opts": [
+    "Nel definire come primo passo per ogni settore uno schema parziale delle informazioni, eventualmente per aggregazioni successive dei sottoschemi associati ad ogni applicazione.",
+    "Nel definire come primo passo i dati comuni a tutti i settori, successivamente si particolarizzano le definizioni prodotte tenendo conto delle esigenze specifiche dei settori comuni.",
+    "Nel definire come primo passo i dati comuni a tutti i settori, successivamente si particolarizzano le definizioni prodotte tenendo conto delle esigenze specifiche di ciascun settore.",
+    "Nel definire come primo passo per ogni settore uno schema parziale delle informazioni, eventualmente per aggregazioni successive dei sottoschemi associati ad ogni settore."
+   ]
+  },
+  {
+   "n": "02",
+   "q": "In cosa consiste l’approccio per particolarizzazione ?",
+   "opts": [
+    "Nel definire come primo passo i dati comuni a tutti i settori, successivamente si particolarizzano le definizioni prodotte tenendo conto delle esigenze specifiche di ciascun settore.",
+    "Nel definire come primo passo i dati diversi tra tutti i settori, successivamente si particolarizzano le definizioni prodotte tenendo conto delle esigenze specifiche di ciascun settore.",
+    "Nessuna delle prescedenti.",
+    "Nel definire come primo passo i dati comuni a tutti i settori, successivamente si particolarizzano le definizioni prodotte tenendo conto delle esigenze specifiche dei settori comuni."
+   ]
+  },
+  {
+   "n": "03",
+   "q": "Quali sono le tre principali proprietà che caratterizzano un buon progetto concettuale ?",
+   "opts": [
+    "Completezza procedurale, Indipendenza dalle applicazioni, Indipendenza dal DBMS.",
+    "Completezza concettuale, Indipendenza dall'hardware, Indipendenza dal DBMS.",
+    "Completezza concettuale, Indipendenza dalle applicazioni, Indipendenza dal DBMS.",
+    "Completezza concettuale, Indipendenza dalle applicazioni, Indipendenza dal Data Base."
+   ]
+  },
+  {
+   "n": "04",
+   "q": "Il risultato della progettazione concettuale è :",
+   "opts": [
+    "Lo schema o progetto concettuale, scritto in un linguaggio formale, indipendente dal DBMS che verrà usato nella realizzazione, con costrutti ad alto livello, adatti a descrivere in modo naturale il significato di ciò che si sta modellando.",
+    "Lo schema o progetto concettuale, scritto in un linguaggio formale, dipendente dal DBMS che verrà usato nella realizzazione, con costrutti ad alto livello, adatti a descrivere in modo naturale il significato di ciò che si sta modellando.",
+    "Lo schema o progetto concettuale, scritto in un linguaggio formale, indipendente dal DBMS che verrà usato nella realizzazione, con costrutti a basso livello, adatti a descrivere in modo naturale il significato di ciò che si sta modellando.",
+    "Lo schema o progetto concettuale, scritto in un linguaggio ad oggetti, indipendente dal DBMS che verrà usato nella realizzazione, con costrutti ad alto livello, adatti a descrivere in modo naturale il significato di ciò che si sta modellando."
+   ]
+  },
+  {
+   "n": "05",
+   "q": "Quali passi prevede la progettazione per la produzione del progetto concettuale nell’approccio per integrazione ?",
+   "opts": []
+  },
+  {
+   "n": "06",
+   "q": "Descrivere gli obiettivi della progettazione concettuale di una base di dati.",
+   "opts": []
+  }
+ ],
+ "17": [
+  {
+   "n": "01",
+   "q": "In uno schema relazionale quando non interessa evidenziare il tipo degli attributi la notazione si abbrevierà in:",
+   "opts": [
+    "R (A1 : T1, . . . , An : Tn)",
+    "Nessuna delle precedenti.",
+    "R : {(A1 : T1, . . . , An : Tn)}",
+    "R(A1, . . . , An)"
+   ]
+  },
+  {
+   "n": "02",
+   "q": "A cosa ci si riferisce con la notazione dom(Ai) ?",
+   "opts": [
+    "Si riferisce all’insieme dei possibili valori che può assumere un attributo Ai in tutte le possibili istanze degli schemi di relazione in cui non compare.",
+    "Si riferisce all’insieme dei valori che assume l’attributo Ai in un’estensione della base di dati.",
+    "Si riferisce all’insieme dei valori che assume l’attributo Ai in un’estensione del DBMS.",
+    "Si riferisce all’insieme dei possibili valori che può assumere un attributo Ai in tutte le possibili istanze degli schemi di relazione in cui compare."
+   ]
+  },
+  {
+   "n": "03",
+   "q": "Quali sono i due vincoli d'integrità più importanti ?",
+   "opts": [
+    "Sono quelli che specificano quali attributi sono chiavi interne, e quali attributi sono chiavi esterne.",
+    "Sono quelli che specificano quali attributi sono chiavi, e quali attributi sono chiavi esterne.",
+    "Sono quelli che specificano quali attributi sono chiavi esterne, e quali attributi sono chiavi interne.",
+    "Sono quelli che specificano quali attributi sono chiavi, e quali attributi sono chiavi interne."
+   ]
+  },
+  {
+   "n": "04",
+   "q": "Cosa rappresenta la cardinalità di una relazione ?",
+   "opts": [
+    "E' un insieme di ennuple.",
+    "E' un insieme di coppie di ennuple.",
+    "E' il numero delle sue ennuple.",
+    "Nessuna delle prescedenti."
+   ]
+  },
+  {
+   "n": "05",
+   "q": "Quali sono le famiglie dei linguaggi per interrogare una base di dati relazionale?",
+   "opts": []
+  },
+  {
+   "n": "06",
+   "q": "Cosa s’intende per aspetto intensionale del modello dei dati relazionale ?",
+   "opts": []
+  }
+ ],
+ "18": [
+  {
+   "n": "01",
+   "q": "Sia data una classe A con due sottoclassi B e C, tali che i tipi associati alle tre classi abbiano, rispettivamente, attributi (XA), (XAXB) e (XAXC). Sia KA la chiave primaria di A.3. Nel modello relazionale vi sono almeno tre modi diversi di rappresentare questa situazione quali di questi è errato ?",
+   "opts": [
+    "Relazione unica.",
+    "Partizionamento verticale.",
+    "Partizionamento diagonale.",
+    "Partizionamento orizzontale."
+   ]
+  },
+  {
+   "n": "02",
+   "q": "Quale dei seguenti passi è falso nella trasformazione di uno schema ad oggetti in uno schema relazionale ?",
+   "opts": [
+    "Rappresentazione delle associazioni molti a molti.",
+    "Rappresentazione delle associazioni molti ad uno.",
+    "Appiattimento degli attributi composti.",
+    "Rappresentazione degli attributi multivalore."
+   ]
+  },
+  {
+   "n": "03",
+   "q": "Come si rappresenta un’associazione molti a molti tra due classi ?",
+   "opts": [
+    "Si rappresenta aggiungendo allo schema una nuova relazione che contiene due chiavi interne che riferiscono le due relazioni coinvolte.",
+    "Si rappresenta aggiungendo allo schema una nuova relazione che contiene due chiavi che riferiscono le due relazioni coinvolte.",
+    "Si rappresenta aggiungendo allo schema una nuova relazione che contiene una chiave esterna che riferisce le due relazioni coinvolte.",
+    "Si rappresenta aggiungendo allo schema una nuova relazione che contiene due chiavi esterne che riferiscono le due relazioni coinvolte."
+   ]
+  },
+  {
+   "n": "04",
+   "q": "Nella rappresentazione delle gerarchie fra classi il partizionamento verticale:",
+   "opts": [
+    "Divide gli elementi della superclasse in più relazioni diverse.",
+    "E' preferibile in presenza di un vincolo di copertura perché ne può garantire il mantenimento.",
+    "Rende più complessa l’operazione di visita a tutti gli elementi della superclasse.",
+    "Rende più complessa la ricostituzione di tutte le informazioni relative ad un elemento della sottoclasse."
+   ]
+  },
+  {
+   "n": "05",
+   "q": "Quali sonoi passi da seguire per la trasformazione di uno schema ad oggetti in uno schema relazionale?",
+   "opts": []
+  }
+ ],
+ "19": [
+  {
+   "n": "01",
+   "q": "Quale di questi operatori non è derivato ?",
+   "opts": [
+    "Intersezione.",
+    "Divisione.",
+    "Giunzione.",
+    "Restrizione."
+   ]
+  },
+  {
+   "n": "02",
+   "q": "Con il termine algebra relazionale si designa in generale:",
+   "opts": [
+    "Un insieme di operatori su relazioni che danno come risultato altri operatori.",
+    "Un insieme di operatori su relazioni che danno come risultato altre relazioni.",
+    "Un insieme di relazioni su operatori che danno come risultato altre relazioni.",
+    "Un insieme di operatori su relazioni che danno come risultato altri operatori o relazioni."
+   ]
+  },
+  {
+   "n": "03",
+   "q": "Che differenza c'è tra gli operatori primitivi e quelli derivati ?",
+   "opts": [
+    "Gli operatori primitivi rappresentano un insieme minimo di operatori non derivabili da altri mentre gli operatori derivati derivano da quelli secondari.",
+    "Gli operatori primitivi rappresentano un insieme minimo di operatori derivabili da quelli assoluti, mentre gli operatori derivati derivano da quelli primitivi.",
+    "Nessuna delle prescedenti.",
+    "Gli operatori primitivi rappresentano un insieme minimo di operatori non derivabili da altri, mentre gli operatori derivati derivano da quelli primitivi."
+   ]
+  },
+  {
+   "n": "04",
+   "q": "Quale di questi operatori non è primitivo ?",
+   "opts": [
+    "Restrizione.",
+    "Intersezione.",
+    "Proiezione.",
+    "Ridenominazione."
+   ]
+  },
+  {
+   "n": "05",
+   "q": "Fornire una descrizione degli operatori derivati dell'algebra relazionale.",
+   "opts": []
+  },
+  {
+   "n": "06",
+   "q": "Descrivere la differenza tra operatori primitivi e derivati dell'algebra relazionale.",
+   "opts": []
+  }
+ ],
+ "20": [
+  {
+   "n": "01",
+   "q": "La proiezione generalizzata:",
+   "opts": [
+    "Riduce la proiezione con la possibilità di usare costanti o espressioni aritmetiche nella lista degli attributi.",
+    "Estende la proiezione con la possibilità di usare costanti o espressioni aritmetiche nella lista degli attributi.",
+    "Estende la proiezione con la possibilità di usare costanti o espressioni aritmetiche nella lista delle proiezioni.",
+    "Estende la proiezione con la possibilità di usare costanti e espressioni aritmetiche nella lista degli attributi."
+   ]
+  },
+  {
+   "n": "02",
+   "q": "Secondo il possibile algoritmo di riscrittura algebrica visto nella lezione 20L:",
+   "opts": [
+    "Il risultato di questo algoritmo sarà un’espressione in cui la restrizione e la proiezione sono eseguite il più presto possibile, e la restrizione è anticipata rispetto alla proiezione.",
+    "Il risultato di questo algoritmo sarà un’espressione in cui la restrizione e la proiezione sono eseguite il più presto possibile, e la restrizione è posticipata rispetto alla proiezione.",
+    "Il risultato di questo algoritmo sarà un’espressione in cui la restrizione e la proiezione sono eseguite il più tardi possibile, e la restrizione è posticipata rispetto alla proiezione.",
+    "Il risultato di questo algoritmo sarà un’espressione in cui la restrizione e la proiezione sono eseguite il più tardi possibile, e la restrizione è anticipata rispetto alla proiezione."
+   ]
+  },
+  {
+   "n": "03",
+   "q": "Quale delle seguenti proprietà algebriche degli operatori relazionali non esiste ?",
+   "opts": [
+    "Eliminazioni di proiezioni superflue.",
+    "Raggruppamento di proiezioni.",
+    "Raggruppamento di restrizioni.",
+    "Commutatività della rstrizine e della giunzione."
+   ]
+  },
+  {
+   "n": "04",
+   "q": "Le funzioni di aggregazione hanno come argomenti:",
+   "opts": [
+    "Valori.",
+    "Sottoinsiemi.",
+    "Multinsiemi.",
+    "Insiemi."
+   ]
+  },
+  {
+   "n": "05",
+   "q": "Descrivere le proprietà di associatività degli operatori insiemistii dell'algebra relazionale.",
+   "opts": []
+  },
+  {
+   "n": "06",
+   "q": "Descrivere le proprietà di commutazione degli operatori insiemistii dell'algebra relazionale.",
+   "opts": []
+  }
+ ],
+ "21": [
+  {
+   "n": "01",
+   "q": "Il Datalog senza definizioni ricorsive:",
+   "opts": [
+    "Nessuna delle prescedenti.",
+    "Ha lo stesso potere espressivo dell’algebra e del calcolo nelle loro versioni positive.",
+    "Ha lo stesso potere espressivo dell’algebra e del calcolo.",
+    "Ha lo stesso potere espressivo del Datalog arricchito con un’opportuna forma di negazione."
+   ]
+  },
+  {
+   "n": "02",
+   "q": "Com'è vista una base di dati secondo la proof theoretic perspective ?",
+   "opts": [
+    "E' vista come un modello piuttosto che un insieme di formule di un linguaggio del primo ordine, e le interrogazioni sono formule da dimostrare, a partire dalla base di dati come premessa.",
+    "E' vista come un insieme di formule di un linguaggio del secondo ordine, piuttosto che come un modello, e le interrogazioni sono formule da dimostrare, a partire dalla base di dati come premessa.",
+    "E' vista come un modello piuttosto che un insieme di formule di un linguaggio del secondo ordine, e le interrogazioni sono formule da dimostrare, a partire dalla base di dati come premessa.",
+    "E' vista come un insieme di formule di un linguaggio del primo ordine, piuttosto che come un modello, e le interrogazioni sono formule da dimostrare, a partire dalla base di dati come premessa."
+   ]
+  },
+  {
+   "n": "03",
+   "q": "Cosa sono le clausole Horn piatte ?",
+   "opts": [
+    "Sono un'insieme di clausole adoperate per definire un'interrogazione in Prolog.",
+    "Sono un'insieme di clusole adoperate per definire delle variabili in Prolog.",
+    "Sono un sottoinsieme di clusole adoperate per definire un'interrogazione in Prolog.",
+    "Sono un'insieme di clausole adoperate per definire un'interrogazione in SQL."
+   ]
+  },
+  {
+   "n": "04",
+   "q": "Un risultato importante della teoria relazionale consiste nel fatto che:",
+   "opts": [
+    "L’algebra relazionale ed il calcolo relazionale su ennuple e su domini hanno un potere espressivo simile.",
+    "L’algebra relazionale ed il calcolo relazionale su ennuple e su domini hanno lo stesso potere espressivo.",
+    "L’algebra relazionale ed il calcolo relazionale su ennuple e su domini hanno dicerso potere espressivo.",
+    "L’algebra relazionale ed il calcolo relazionale su ennuple e su domini hanno lo stesso potere espressivo a patto che le relazioni siano definite in modo semplice."
+   ]
+  },
+  {
+   "n": "05",
+   "q": "Definire il concetto di calcolo relazionale su ennuple.",
+   "opts": []
+  },
+  {
+   "n": "06",
+   "q": "Cosa è il Datalog e da cosa è caratterizzato ?",
+   "opts": []
+  }
+ ],
+ "22": [
+  {
+   "n": "01",
+   "q": "Di quali dei seguentiproblemi non si occupa la teoria della normalizzazione ?",
+   "opts": [
+    "Trovare metodi euristici per generare da uno schema uno schema migliore.",
+    "Definire criteri di bontà per schemi .",
+    "Definire quando due schemi sono equivalenti.",
+    "Trovare metodi algoritmici per ottenere da uno schema uno schema migliore ed equivalente."
+   ]
+  },
+  {
+   "n": "02",
+   "q": "Di cosa si occupa la teoria della normalizzazione ?",
+   "opts": [
+    "Definisce criteri formali per giudicare l’equivalenza di schemi e la qualità delle relazioni, e gli algoritmi per trasformare uno schema in un altro equivalente ma privo di anomalie.",
+    "Definisce criteri formali per giudicare l’equivalenza di schemi e la qualità di tali schemi, e gli algoritmi per trasformare uno schema in un altro equivalente senza escluder possibili anomalie.",
+    "Definisce criteri formali per giudicare l’equivalenza di schemi e la qualità di tali schemi, e gli algoritmi per trasformare uno schema in un altro equivalente ma privo di anomalie.",
+    "Definisce criteri formali per giudicare l’equivalenza di schemi e la qualità di tali schemi, e gli algoritmi per trasformare uno schema in un altro equivalente."
+   ]
+  },
+  {
+   "n": "03",
+   "q": "Lo schema di relazione universale U di una base di dati relazionale ha come attributi:",
+   "opts": [
+    "Un insieme degli attributi di tutte le relazioni della base di dati.",
+    "Un sttoinsieme degli attributi di tutte le relazioni della base di dati.",
+    "L’unione degli attributi di tutte le relazioni della base di dati.",
+    "L'intersezione degli attributi di tutte le relazioni della base di dati."
+   ]
+  },
+  {
+   "n": "04",
+   "q": "Quando l'attività di progettazione è equivalente a quella di normalizzazione ?",
+   "opts": [
+    "Mai.",
+    "Dipende dal DBMS.",
+    "Sempre.",
+    "Dipende dalla base di dati."
+   ]
+  },
+  {
+   "n": "05",
+   "q": "Qual'è lo scopo principale della teoria della normalizzazione ?",
+   "opts": []
+  },
+  {
+   "n": "06",
+   "q": "Cosa sono le anomalie negli schemi relazionali ?",
+   "opts": []
+  }
+ ],
+ "23": [
+  {
+   "n": "01",
+   "q": "Un modo per rappresentare formalmente informazioni sulle proprietà dei fatti che si modellano è stato introdotto per la prima volta da ?",
+   "opts": [
+    "Codd nel 1950.",
+    "Codd nel 1970.",
+    "Codd nel 1960.",
+    "Codd nel 1980."
+   ]
+  },
+  {
+   "n": "02",
+   "q": "A cosa servono le dipendenze funzionali ?",
+   "opts": [
+    "Servono a specificare il significato delle relazioni binarie rappresentate e vengono utilizzate per verificare l’eventuale presenza di anomalie nel DBMS e nel caso per normalizzare lo schema.",
+    "Nessuna delle prescedenti.",
+    "Servono a specificare il significato delle variabili rappresentate e vengono utilizzate per verificare l’eventuale presenza di anomalie nel progetto e nel caso per normalizzare lo schema.",
+    "Servono a specificare il significato dei fatti rappresentati e vengono utilizzate per verificare l’eventuale presenza di anomalie nel progetto e nel caso per normalizzare lo schema."
+   ]
+  },
+  {
+   "n": "03",
+   "q": "L’implicazione di un insieme di dipendenze da altre viene definita nel modo seguente:",
+   "opts": [
+    "Dato R⟨T⟩ e dato F, diciamo che F |= X → Y (F implica logicamente X → Y), se almeno un'istanza r di R⟨T⟩ che soddisfa F soddisfa anche X → Y.",
+    "Dato R⟨T⟩ e dato F, diciamo che F |= X → Y (F implica logicamente X → Y), se ogni istanza r di R⟨T⟩ che soddisfa F soddisfa anche X → Y.",
+    "Nessuna delle prescedenti.",
+    "Dato R⟨T⟩ e dato F, diciamo che F |= X → Y (F implica logicamente X → Y), se ogni istanza r di R⟨T⟩ che soddisfa F soddisfa anche Y → X."
+   ]
+  },
+  {
+   "n": "04",
+   "q": "Quali dei seguenti assioni non è un assiona di Armstrong ?",
+   "opts": [
+    "Riflessività.",
+    "Completezza.",
+    "Transitività.",
+    "Arricchimento."
+   ]
+  },
+  {
+   "n": "05",
+   "q": "Definire il concetto di derivazione di una dipendenza.",
+   "opts": []
+  },
+  {
+   "n": "06",
+   "q": "Cosa definiscono le regole di Armstrong ?",
+   "opts": []
+  }
+ ],
+ "24": [
+  {
+   "n": "01",
+   "q": "Cosa afferma il teorema che fornisce un criterio per stabilire se uno schema di relazione sia in BCNF con un algoritmo di complessità polinomiale ?",
+   "opts": [
+    "Che uno schema R⟨T, F⟩ è in BCNF se e solo se per ogni dipendenza funzionale banale X → Y ∈ F, X è una superchiave.",
+    "Che uno schema R⟨T, F⟩ è in BCNF se e solo se per almeno una dipendenza funzionale non banale X → Y ∈ F, X è una superchiave.",
+    "Che uno schema R⟨T, F⟩ è in BCNF se e solo se per ogni dipendenza funzionale non banale X → Y ∈ F, X è una chiave.",
+    "Che uno schema R⟨T, F⟩ è in BCNF se e solo se per ogni dipendenza funzionale non banale X → Y ∈ F, X è una superchiave."
+   ]
+  },
+  {
+   "n": "02",
+   "q": "La prima forma normale richiede che:",
+   "opts": [
+    "I valori di tutti i domini di una relazione siano atomici.",
+    "I valori di alcuni domini di una relazione non siano atomici.",
+    "I valori di alcuni domini di una relazione siano atomici.",
+    "I valori di tutti i domini di una relazione non siano atomici."
+   ]
+  },
+  {
+   "n": "03",
+   "q": "Cosa ci permette di formalizzare la definizione di proiezione di un insieme di dipendenze ?",
+   "opts": [
+    "L’equivalenza fra le dipendenze dello schema originale e quelle degli schemi decomposti.",
+    "Nessuna delle prescedenti.",
+    "L’equivalenza fra le dipendenze dello schema originale e quelle degli schemi non decomponibili.",
+    "L’equivalenza fra le dipendenze dello schema originale e quelle degli schemi composti."
+   ]
+  },
+  {
+   "n": "04",
+   "q": "Secondo la definizione di decomposizione che preserva i dati:",
+   "opts": [
+    "Ogni istanza valida r della relazione di partenza deve essere uguale alla giunzione naturale della sua proiezione sui Ti, mentre, per una decomposizione qualunque, ne è solo un sottoinsieme.",
+    "Ogni istanza valida r della relazione di partenza deve essere uguale all'unione naturale della sua proiezione sui Ti, mentre, per una decomposizione qualunque, ne è solo un sottoinsieme.",
+    "Ogni istanza valida r della relazione di partenza deve essere sottoinsieme naturale della sua proiezione sui Ti, mentre, per una decomposizione qualunque, ne è solo un sottoinsieme.",
+    "Ogni istanza valida r della relazione di partenza deve essere uguale alla giunzione naturale della sua proiezione sui Ti, mentre, per una decomposizione qualunque, ne è solo l'intersezione."
+   ]
+  },
+  {
+   "n": "05",
+   "q": "Come si preservano le dipendenze nella decomCosa sono le forme normali ?",
+   "opts": []
+  },
+  {
+   "n": "06",
+   "q": "Definire il concetto di decomposizione degli schemi.",
+   "opts": []
+  }
+ ],
+ "25": [
+  {
+   "n": "01",
+   "q": "Che tipo di complessità ha l’algoritmo di decomposizione per forma normale di Boyce-Codd ?",
+   "opts": [
+    "Ha complessità esponenziale.",
+    "Ha complessità lineare.",
+    "Ha complessità polimoniale.",
+    "Ha complessità logaritmica."
+   ]
+  },
+  {
+   "n": "02",
+   "q": "Che tipo di complessità ha l’algoritmo di decomposizione in terza forma normale ?",
+   "opts": [
+    "Ha complessità logaritmica.",
+    "Ha complessità polimoniale.",
+    "Ha complessità lineare.",
+    "Ha complessità esponenziale."
+   ]
+  },
+  {
+   "n": "03",
+   "q": "Per stabilire se uno schema è in 3NF occorre conoscere ?",
+   "opts": [
+    "Gli attributi primi.",
+    "Gli attributi in generale",
+    "Nessuna delle prescedenti.",
+    "Gli attributi secondari."
+   ]
+  },
+  {
+   "n": "04",
+   "q": "Quali operazioni descrive il Passo 1 dell'algoritmo intuitivo per la sintesi di schemi in 3NF ?",
+   "opts": [
+    "Trova una copertura canonica G di F e poni p={}.",
+    "Nessuna delle prescedenti.",
+    "Elimina da ρ ogni schema che sia contenuto in un altro schema di ρ",
+    "Per ogni dipendenza X->Y in G, metti uno schema con attributi XY in ρ."
+   ]
+  },
+  {
+   "n": "05",
+   "q": "Descrivere il concetto di Normalizzazione di schemi in 3NF.",
+   "opts": []
+  },
+  {
+   "n": "06",
+   "q": "Esprimere il cocetto che sta alla base della normalizzazione di schemi in BCNF.",
+   "opts": []
+  }
+ ],
+ "26": [
+  {
+   "n": "01",
+   "q": "Per quale motivo va perseguita l’eliminazione di ogni dipendenza anomala da uno schema ?",
+   "opts": [
+    "Nessuna delle prescedenti.",
+    "Quando non è necessario produrre un buon schema concettuale ed un buon schema logico della realtà modellata.",
+    "Per produrre un buon schema concettuale ed un buon schema logico della realtà modellata.",
+    "Per produrre un buon schema concettuale della realtà modellata denormalizzata."
+   ]
+  },
+  {
+   "n": "02",
+   "q": "Quando è consigliabile adoperare la modalità di memorizzazione aggregata ?",
+   "opts": [
+    "Quando è nenessario rende estremamente efficiente l’esecuzione della giunzione, a discapito dell'occupazione di memoria.",
+    "Quando è nenessario rende estremamente efficiente l’esecuzione della giunzione, senza appesantire troppo l'occupazione di memoria.",
+    "Quando non è nenessario rende estremamente efficiente l’esecuzione della giunzione, senza appesantire troppo l'occupazione di memoria.",
+    "Quando è nenessario rende sufficientemente efficiente l’esecuzione della giunzione, senza appesantire troppo l'occupazione di memoria."
+   ]
+  },
+  {
+   "n": "03",
+   "q": "La denormalizzazione è molto comune quando i dati sono gestiti usando:",
+   "opts": [
+    "Un linguaggio tipo Prolog.",
+    "Un foglio elettronico.",
+    "Un DBMS.",
+    "Una base di dati."
+   ]
+  },
+  {
+   "n": "04",
+   "q": "Esprimere il concetto di denomarlizzazione.",
+   "opts": []
+  },
+  {
+   "n": "05",
+   "q": "Nel processo di normalizzazione come si eliminano le dipendenze multi valore?",
+   "opts": []
+  }
+ ],
+ "27": [
+  {
+   "n": "01",
+   "q": "Il linguaggio di definizione dei dati (data-definition language, DDL): Permette di:",
+   "opts": [
+    "Inserire, cancellare, modificare e reperire i dati.",
+    "Inserire, cancellare, analizzare, modificare e reperire i dati.",
+    "Definire i tre livelli di astrazione della base di dati: esterno, logico e fisico.",
+    "Definire i tre livelli di astrazione della base di dati: interno, logico e fisico."
+   ]
+  },
+  {
+   "n": "02",
+   "q": "Nella fase di realizzazione e ottimizzazione del sistema della base di dati vengono fisicamente create:",
+   "opts": [
+    "Le tabelle, I dati, Le viste sfruttando le definizioni dello schema fisico.",
+    "Le tabelle, I vincoli di integrità sui dati, Le viste sfruttando le definizioni dello schema fisico.",
+    "Le tabelle, I vincoli di integrità sui dati, Le viste sfruttando le definizioni dello schema teorico.",
+    "Gli oggetti, I vincoli di integrità sui dati, Le viste sfruttando le definizioni dello schema fisico."
+   ]
+  },
+  {
+   "n": "03",
+   "q": "Qual è l’obiettivo della fase di raccolta e analisi dei requisiti ?",
+   "opts": [
+    "E' quella di ottenere una descrizione in linguaggio procedurale del micro-mondo (universo del discorso) che si vuole modellare.",
+    "E' quella di ottenere una descrizione in linguaggio grafico del micro-mondo (universo del discorso) che si vuole modellare.",
+    "E' quella di ottenere una descrizione in linguaggio ad oggetti del micro-mondo (universo del discorso) che si vuole modellare.",
+    "E' quella di ottenere una descrizione in linguaggio naturale del micro-mondo (universo del discorso) che si vuole modellare."
+   ]
+  },
+  {
+   "n": "04",
+   "q": "Qual è l'obiettivo della fase di progettazione concettuale di una base di dati ?",
+   "opts": [
+    "E' la formalizzazione dei requisiti della base di dati in uno schema concettuale indipendente sia dal tipo che dalla base di dati specifica che verrà utilizzata.",
+    "E' la formalizzazione dei requisiti della base di dati in uno schema concettuale indipendente sia dal tipo che dallo specifico DBMS che verrà utilizzato.",
+    "E' la formalizzazione dei requisiti della base di dati in uno schema logico indipendente sia dal tipo che dallo specifico DBMS che verrà utilizzato.",
+    "E' la formalizzazione dei requisiti del DBMS in uno schema concettuale indipendente sia dal tipo che dallo specifico DBMS che verrà utilizzato."
+   ]
+  },
+  {
+   "n": "05",
+   "q": "In che modo può avvenire l'integrazione tra il linguaggio ospite ad alto livello e SQL ?",
+   "opts": []
+  },
+  {
+   "n": "06",
+   "q": "Descrivere i linguaggi per l'accesso alle basi di dati.",
+   "opts": []
+  }
+ ],
+ "28": [
+  {
+   "n": "01",
+   "q": "Quali delle seguenti regole generali da seguire per ottenere una specifica precisa e priva di ambiguità è falsa?",
+   "opts": [
+    "Evitare termini troppo generici o troppo precisi.",
+    "Evitare l'uso di sinonimi (termini diversi con il medesimo significato) e contrari.",
+    "Usare frasi brevi e semplici possibilmente uniformandone la struttura.",
+    "Dividere il testo in pragrafi."
+   ]
+  },
+  {
+   "n": "02",
+   "q": "Perché è importante il coinvolgimento del cliente nel processo di sviluppo ?",
+   "opts": [
+    "Perché il suo coinvolgimento permette di coordinare il lavoro dei progettisti.",
+    "Perché il suo coinvolgimento aumenta il suo livello di soddisfazione nei confronti del sistema che gli verrà consegnato agevolando il lavoro di raccolta dei requisiti dei progettisti.",
+    "Meglio evitare ogni coinvolgimento in questa fase poiché potrebbe interferire con ila voro dei progettisti.",
+    "Perché il suo coinvolgimento aumenta la gratificazione dei progettisti."
+   ]
+  },
+  {
+   "n": "03",
+   "q": "Nella progettazione delle basi di dati relazionali in cosa consiste la raccolta dei requisiti ?",
+   "opts": [
+    "Consiste nell’individuazione delle caratteristiche dinamiche (dei dati) e statiche (delle operazioni) delle tabelle da realizzare.",
+    "Consiste nell’individuazione delle caratteristiche statiche (dei dati) e dinamiche (delle operazioni) dell'applicazione da realizzare.",
+    "Consiste nell’individuazione delle caratteristiche statiche (dei dati) e dinamiche (delle operazioni) delle query da realizzare.",
+    "Consiste nell’individuazione delle caratteristiche statiche (delle operazioni) e dinamiche (dei dati) dell'applicazione da realizzare."
+   ]
+  },
+  {
+   "n": "04",
+   "q": "Nella fasie di progettazione dei dati delle basi di dati relazionali si:",
+   "opts": [
+    "Si definiscono le caratteristiche delle operazioni che usano i dati.",
+    "Individuano la struttura e l'organizzazione dei dati.",
+    "Si definiscono le caratteristiche delle operazioni che usano i dati e la relativa struttura.",
+    "Valutano la struttura e le caratteristiche delle operazioni."
+   ]
+  },
+  {
+   "n": "05",
+   "q": "Nella progettazione di basi di dati relazionali descrivere le regole generali da seguire per ottenere una specifica precisa e priva di ambiguità:",
+   "opts": []
+  },
+  {
+   "n": "06",
+   "q": "Nella progettazione di basi di dati relazionali descrivere la differenza tra la progettazione dei dati e delle transazioni.",
+   "opts": []
+  }
+ ],
+ "29": [
+  {
+   "n": "01",
+   "q": "Quale dei seguenti costruttiIl non è un elemento caratterizzante del diagramma entità-relazione ?",
+   "opts": [
+    "Specilizzazioni.",
+    "Entità.",
+    "Chiavi.",
+    "Oggetti."
+   ]
+  },
+  {
+   "n": "02",
+   "q": "Lo schema ER è costituito dalle seguenti tre componenti:",
+   "opts": [
+    "Diagramma ER, Relazioni, Regole Aziendali.",
+    "Diagramma ER, Vincoli, Regole Aziendali.",
+    "Diagramma ER, Attributi, Regole Aziendali.",
+    "Diagramma ER, Documentazione, Regole Aziendali."
+   ]
+  },
+  {
+   "n": "03",
+   "q": "Nella progettazione concettuale col modello entità-relazione quale delle seguenti fasi è errata ?",
+   "opts": [
+    "Formalizzare i requisiti sui dati in un diagramma entità-relazione.",
+    "Progettare le transazioni.",
+    "Normlizzare gli schemi concettuali prodotti.",
+    "Documentare il diagramma."
+   ]
+  },
+  {
+   "n": "04",
+   "q": "Nel modello entità-relazione formalmente una relazione è definita come :",
+   "opts": [
+    "Un sottoinsieme del prodotto cartesiano degli oggetti che la compongono.",
+    "Il prodotto cartesiano delle classi che la compongono.",
+    "Un sottoinsieme del prodotto cartesiano delle classi che la compongono.",
+    "Un sottoinsieme delle istanze delle classi che la compongono."
+   ]
+  },
+  {
+   "n": "05",
+   "q": "Descrivere in termini pratici quali sono le fasi che contraddistinguono la progettazione concettuale col modello entittà-relazione.",
+   "opts": []
+  },
+  {
+   "n": "06",
+   "q": "Defnire il concetto di cardinalità di una relazione fornendo anche un esempio.",
+   "opts": []
+  }
+ ],
+ "30": [
+  {
+   "n": "01",
+   "q": "Una sotto-entità può avere:",
+   "opts": [
+    "Più entità genitore,ed eredita gli attributi da tutti i genitori.",
+    "Più entità genitore,ed eredita gli attributi e le relazioni da tutti i genitori.",
+    "Più entità genitore,ed eredita gli attributi e le relazioni da un solo genitore.",
+    "Una sola entità genitore,ed eredita le relazioni da tutti i genitori."
+   ]
+  },
+  {
+   "n": "02",
+   "q": "L'insieme delle istanze di una sotto-entità è:",
+   "opts": [
+    "L'insieme delle istanze dell'entità genitore.",
+    "Il prodotto cartesiano dell'insieme delle istanze dell'entità genitore.",
+    "Un sottoinsieme dell'insieme delle istanze dell'entità genitore.",
+    "Nessuna delle prescedenti."
+   ]
+  },
+  {
+   "n": "03",
+   "q": "Una entità può essere specializzata in una o più sotto-entità. Quale delle seguenti affermazioni riguardo le sotto-entà è falsa?",
+   "opts": [
+    "Nessuna delle prescedenti. Possono definire nuovi attributi e nuove relazioni non presenti nell'entità genitore. Possono definire nuovi attributi e nuove relazioni non presenti nell'entità figlio.",
+    "Ereditano dall'entità genitore i suoi attributi e le sue relazioni."
+   ]
+  },
+  {
+   "n": "04",
+   "q": "L'ereditarietà multipla generalmente:",
+   "opts": [
+    "Non viene ammessa per le classi dei linguaggi orientati agli oggetti.",
+    "Viene ammessa per le classi dei linguaggi orientati agli oggetti.",
+    "Non viene ammessa per gli attributi dei linguaggi orientati agli oggetti.",
+    "Viene ammessa con riserva per le classi dei linguaggi orientati agli oggetti."
+   ]
+  },
+  {
+   "n": "05",
+   "q": "Con riferimento ai costrutti del diagramma entità-relazione descrivere la differenza tra specializzazione totale e disgiunta.",
+   "opts": []
+  },
+  {
+   "n": "06",
+   "q": "Con riferimento ai costrutti del diagramma entità-relazione definire il concetto di specializzazione.",
+   "opts": []
+  }
+ ],
+ "31": [
+  {
+   "n": "01",
+   "q": "Uno schema di qualità deve essere per definizione:",
+   "opts": [
+    "Corretto, completo e minimale.",
+    "Corretto, consistente e minimale.",
+    "Corretto, completo e scalabile.",
+    "Modificabile, completo e minimale."
+   ]
+  },
+  {
+   "n": "02",
+   "q": "La soluzione basata su XML ha numerosi vantaggi, quale delle seguenti affermazioni a riguardo è errata ?",
+   "opts": [
+    "Necessita di un DBMS.",
+    "La documentazione può essere validata rispetto allo schema DTD definito.",
+    "La documentazione può essere interrogata mediante linguaggi di interrogazione per XML, quali XPath e Xquery.",
+    "La documentazione può essere trasformata, mediante XSLT, in altri formati, quali LaTeX e HTML."
+   ]
+  },
+  {
+   "n": "03",
+   "q": "Nel caso delle relazioni, la documentazione del diagramma ER deve contenere:",
+   "opts": [
+    "Il nome, una descrizione, le entità partecipanti e le relative cardinalità, gli eventuali attributi e il tipo (normale o identificante).",
+    "Il nome, una descrizione, il tipo (semplice, multivalore, composto, calcolato) e il fatto che sia obbligatorio o opzionale.",
+    "Le regole aziendali.",
+    "Il nome, una descrizione, la lista degli attributi, la chiave, il tipo (normale o debole) e eventuali specializzazioni."
+   ]
+  },
+  {
+   "n": "04",
+   "q": "Perché è necessario che il diagramma ER sia integrato da un insieme di regole aziendali (business rules) ?",
+   "opts": [
+    "Perché Il diagramma ER dice quali sono gli attributi calcolati ma non specifica come rappresentarli.",
+    "Perché Il diagramma ER specifica come calcolare gli attributi ma non dice quali sono gli attributi calcolati.",
+    "Perché Il diagramma ER dice quali sono gli attributi calcolati specificando come calcolarli.",
+    "Perché Il diagramma ER dice quali sono gli attributi calcolati ma non specifica come calcolarli."
+   ]
+  },
+  {
+   "n": "05",
+   "q": "In che modo è possibile descrivere uno schema concettuale basato in XML ?",
+   "opts": []
+  },
+  {
+   "n": "06",
+   "q": "Cosa deve contenere la documentazione del diagramma ER ?",
+   "opts": []
+  }
+ ],
+ "32": [
+  {
+   "n": "01",
+   "q": "Una istanza di base di dati (o base di dati) su uno schema di base di dati è:",
+   "opts": [
+    "Un insieme di istanze di relazione, tutte le istanze per ogni schema di relazione dello schema della base di dati.",
+    "Un insieme di istanze di relazione, una istanza per ogni schema di relazione dello schema del DBMS.",
+    "Un insieme di istanze di relazione, una istanza per ogni schema di relazione dello schema della base di dati.",
+    "Un sottoinsieme di istanze di relazione, una istanza per ogni schema di relazione dello schema della base di dati."
+   ]
+  },
+  {
+   "n": "02",
+   "q": "Uno schema di relazione R(X) è formato da:",
+   "opts": [
+    "Una variabile R, detta nome della relazione, e da un insieme di attributi X, ognuno dei quali è associato ad un dominio.",
+    "Un simbolo R, detto nome della relazione, e da un insieme di attributi X, ognuno dei quali è associato ad un dominio.",
+    "Un simbolo R, detto nome degli attributi, e da un insieme di relazioni X, ognuna delle quali è associato ad un dominio.",
+    "Un simbolo R, detto nome della relazione, e da un sottoinsieme di attributi X, ognuno dei quali è associato ad un dominio."
+   ]
+  },
+  {
+   "n": "03",
+   "q": "Il numero di righe di dati si definisce:",
+   "opts": [
+    "Cardinalità delle tuple.",
+    "Cardinalità dei dati.",
+    "Cardinalità della relazione.",
+    "Cardinalità degli attributi."
+   ]
+  },
+  {
+   "n": "04",
+   "q": "La progettazione logica della base di dati consiste nella:",
+   "opts": [
+    "Traduzione dello schema logico dei dati in uno schema fisico che rispecchia il modello dei dati scelto.",
+    "Traduzione dello schema logico dei dati in uno schema logico delle relazioni che rispecchia il modello dei dati scelto.",
+    "Traduzione dello schema concettuale dei dati in uno schema logico che rispecchia il modello dei dati scelto.",
+    "Traduzione dello schema concettuale dei dati in uno schema logico che rispecchia il DBMS scelto."
+   ]
+  },
+  {
+   "n": "05",
+   "q": "Nella progettazione logica della base di dati relazionale che differenza c'è tra i vincoli di dominio e vincoli di chiave ?",
+   "opts": []
+  },
+  {
+   "n": "06",
+   "q": "Nella progettazione logica della base di dati relazionale cosa s'intende per modello basato su valori ?",
+   "opts": []
+  }
+ ],
+ "33": [
+  {
+   "n": "01",
+   "q": "La rinominazione degli attributi può essere essenziale ?",
+   "opts": [
+    "Si. Per evitare attributi con nome diverso nello stesso schema di relazione.",
+    "Si. Per evitare attributi con lo stesso nome nello stesso schema di relazione.",
+    "Nessuna delle prescedenti.",
+    "No. Non serve affatto."
+   ]
+  },
+  {
+   "n": "02",
+   "q": "Nella traduzione del modello ER nel modello relazionale, gli attributi composti vengono sostituiti con:",
+   "opts": [
+    "Gli attributi componenti ed eventuali gerarchie di attributi composti si traducono, in modo simile, procedendo dalle foglie verso la radice.",
+    "Gli attributi componenti ed eventuali gerarchie di attributi composti si traducono, in modo simile, procedendo dalla radice verso le foglie.",
+    "Gli attributi componenti. E eventuali gerarchie di attributi composti non possono essere tradotti.",
+    "Nessuna delle prescedenti."
+   ]
+  },
+  {
+   "n": "03",
+   "q": "Una relazione molti a molti tra due entità si traduce:",
+   "opts": [
+    "Con una relazione con nome diverso avente come attributi le chiavi delle entità coinvolte, che formano la chiave della relazione, più eventuali attributi della relazione.",
+    "Con una relazione con lo stesso nome avente come attributi le chiavi delle entità coinvolte, che formano la chiave della relazione, senza mai considerare eventuali attributi della relazione.",
+    "Con una relazione con lo stesso nome avente come attributi le chiavi delle entità coinvolte, che formano la chiave della relazione, più eventuali attributi della relazione.",
+    "Con una relazione con lo stesso nome avente come attributi le entità delle chiavi coinvolte, che formano la chiave della relazione, più eventuali attributi della relazione."
+   ]
+  },
+  {
+   "n": "04",
+   "q": "Per rimuovere gli attributi multivalore:",
+   "opts": [
+    "Si crea una nuova entità che contiene i valori dell'attributo e la si collega all'entità che possedeva l'attributo mediante una nuova relazione molti a molti.",
+    "Si crea una nuova entità che contiene i valori dell'attributo e la si collega all'entità che possedeva l'attributo mediante una nuova relazione uno a molti o molti a molti, a seconda dei casi.",
+    "Si crea una nuova entità che contiene i valori dell'attributo e la si collega all'entità che possedeva l'attributo mediante una nuova relazione uno a molti.",
+    "Si crea una nuova entità che contiene i valori dell'attributo e la si collega all'entità che possedeva l'attributo mediante una nuova relazione uno ad uno."
+   ]
+  },
+  {
+   "n": "05",
+   "q": "Nel contesto della traduzione del modello ER nel modello relazionale come si traducono le relazione molti a molti tra due entità ?",
+   "opts": []
+  },
+  {
+   "n": "06",
+   "q": "Nel contesto della traduzione del modello ER nel modello relazionale come si traducono gli attributi composti ?",
+   "opts": []
+  }
+ ],
+ "34": [
+  {
+   "n": "01",
+   "q": "Come si traducono le specializzazioni multiple ?",
+   "opts": [
+    "Come le normali specializzazioni, facendo attenzione ad ereditare solo una volta un sottoinsieme di attributi.",
+    "Come le normali specializzazioni, facendo attenzione ad ereditare solo una volta attributi diversi.",
+    "Come le normali specializzazioni, facendo attenzione ad ereditare solo una volta il prodotto cartesiano degli attributi.",
+    "Come le normali specializzazioni, facendo attenzione ad ereditare solo una volta attributi comuni."
+   ]
+  },
+  {
+   "n": "02",
+   "q": "Considerando la documentazione del modello relazionale, quale delle seguenti informazioni che non deve essere contenuta nelo schema di base di dati è corretta ?",
+   "opts": [
+    "Il tipo degli attributi calcolato e la loro obbligatorietà.",
+    "Il tipo degli attributi semplice o calcolato.",
+    "Il tipo degli attributi semplice e la loro obbligatorietà.",
+    "Il tipo degli attributi (semplice o calcolato) e la loro obbligatorietà."
+   ]
+  },
+  {
+   "n": "03",
+   "q": "Nella DTD che descrive un possibile modello per la documentazione di uno schema relazionale l'attributo relazione dell'elemento chiaveEsterna:",
+   "opts": [
+    "Contiene il nome della corrispondente relazione concettuale se questa è stata rimossa nella traduzione dallo schema ER a quello relazionale.",
+    "E' un identificatore della relazione a cui la chiave esterna si riferisce.",
+    "Nessuna delle prescedenti.",
+    "E' una lista di identificatori dei corrispondenti attributi che formalo la chiave."
+   ]
+  },
+  {
+   "n": "04",
+   "q": "Nel contesto della traduzione del modello ER nel modello relazionale come si traducono le relazioni uno a uno ?",
+   "opts": []
+  },
+  {
+   "n": "05",
+   "q": "Come si documenta il modello relazionale?",
+   "opts": []
+  }
+ ],
+ "35": [
+  {
+   "n": "01",
+   "q": "SQL è l'acronimo di:",
+   "opts": [
+    "Statistic Query Language.",
+    "Structured Query Language.",
+    "Structured Question Language.",
+    "Static Query Language."
+   ]
+  },
+  {
+   "n": "02",
+   "q": "SQL permette di definire, in modo integrato, i livelli della base di dati che sono:",
+   "opts": [
+    "I livelli: logico, fisico ed esterno.",
+    "I livelli: logico, fisico ed interno.",
+    "I livelli: concettuale, fisico ed esterno.",
+    "I livelli: logico, dati ed esterno."
+   ]
+  },
+  {
+   "n": "03",
+   "q": "Riguardo la versione SQL:1999 (SQL-3), possiamo dire che:",
+   "opts": [
+    "Contiene tutti i costrutti base del linguaggio di interrogazione, ma offre un supporto limitato alla definizione e all’aggiornamento dei dati.",
+    "Introduce la nozione di integrità referenziale.",
+    "Include nuove parti quali SQL/JRT (integrazione di SQL col linguaggio Java) e SQL/XML (gestione dei dati XML).",
+    "Introduce delle estensioni ad oggetti, vari nuovi costrutti e nuovi servizi quali trigger e viste ricorsive."
+   ]
+  },
+  {
+   "n": "04",
+   "q": "In SQL qual è il compito dell'ottimizzatore delle interrogazioni (query optimizer) ?",
+   "opts": [
+    "Di scegliere il piano di esecuzione più scalabile.",
+    "Di scegliere il piano di esecuzione più efficiente.",
+    "Di scegliere il piano di esecuzione più veloce.",
+    "Di scegliere il piano di esecuzione più efficace."
+   ]
+  },
+  {
+   "n": "05",
+   "q": "Quali sono le differenze fondamentali tra relazioni del modello relazionale e tabelle SQL ?",
+   "opts": []
+  },
+  {
+   "n": "06",
+   "q": "Quali sono in SQL gli elementi di differenziazione rispetto all’algebra/calcolo relazionale ?",
+   "opts": []
+  }
+ ],
+ "36": [
+  {
+   "n": "01",
+   "q": "Da quali clausole è costituito il blocco fondamentale detto mapping in SQL ?",
+   "opts": [
+    "SELECT, FROM, ORDER BY.",
+    "SELECT, HAVING, WHERE.",
+    "SELECT, FROM, WHERE.",
+    "SELECT, GROUP BY, WHERE."
+   ]
+  },
+  {
+   "n": "02",
+   "q": "Nella swguente interrogazione SQL 'select * from università' cosa rappresenta l'operatore *?",
+   "opts": [
+    "Permette di selezionare tutte le righe e colonne della tabella università.",
+    "Permette di selezionare tutte le righe della tabella università.",
+    "Permette di indicare di usare la tabella Università.",
+    "Permette di selezionare tutte le colonne della tabella università."
+   ]
+  },
+  {
+   "n": "03",
+   "q": "Come si gestiscono in SQL le stringhe che contengono al loro interno il carattere apice ' ?",
+   "opts": [
+    "Tale carattere dovrà essere preceduto dal carattere /.",
+    "Tale carattere dovrà essere preceduto dal carattere \\.",
+    "Tale carattere dovrà essere preceduto dal carattere _.",
+    "Tale carattere dovrà essere preceduto dal carattere |."
+   ]
+  },
+  {
+   "n": "04",
+   "q": "In SQL la clausola WHERE cosa specifica?",
+   "opts": [
+    "Specifica le funzioni il cui valore viene restituito dalla valutazione dell’interrogazione.",
+    "Specifica gli attributi il cui valore viene restituito dalla valutazione dell’interrogazione.",
+    "Specifica tutte le relazioni cui occorre accedere per recuperare l’informazione richiesta dall’interrogazione.",
+    "Specifica le condizioni (espressioni Booleane) per la selezione delle tuple delle relazioni indicate nella clausola FROM."
+   ]
+  },
+  {
+   "n": "05",
+   "q": "Descrivere i coponenti del Mapping in SQL.",
+   "opts": []
+  },
+  {
+   "n": "06",
+   "q": "Descrivere le interrogazioni di base in SQL fornendo anche un esempio.",
+   "opts": []
+  }
+ ],
+ "37": [
+  {
+   "n": "01",
+   "q": "Le interrogazioni di congiunzione Join sfruttano il modello:",
+   "opts": [
+    "Di corrispondenza basato sulle relazioni.",
+    "Di corrispondenza basato su valori.",
+    "Di corrispondenza basato sui dati e sulle relazioni.",
+    "Di corrispondenza delle chiavi."
+   ]
+  },
+  {
+   "n": "02",
+   "q": "Una condizione di join tra due tabelle R e S è una congiunzione (secondo l'operatore Booleano and) di:",
+   "opts": [
+    "Di condizioni non atomiche di tipo A theta B, dove A è un attributo di R, B è un attributo di S, e theta è un operatore di confronto.",
+    "Di condizioni atomiche di tipo A theta B, dove A è un attributo di S, B è un attributo di R, e theta è un operatore di confronto.",
+    "Di condizioni atomiche di tipo A theta B, dove A è un attributo di R, B è un attributo di S, e theta è un operatore di confronto.",
+    "Di condizioni atomiche di tipo A theta B, dove A è un attributo di R, B è un attributo di S, e theta è un operatore di selezione."
+   ]
+  },
+  {
+   "n": "03",
+   "q": "Quale tecnica si adotta per individuare un attributo senza ambiguità se vi sono attributi con lo stesso nome in tabelle diverse ?",
+   "opts": [
+    "Con il costrutto 'on'.",
+    "Con il costrutto 'as'.",
+    "Con il costrutto 'sin'.",
+    "Con il costrutto 'in'."
+   ]
+  },
+  {
+   "n": "04",
+   "q": "Quale operazione compie il seguente codice SQL \"select teatro.città from lavoro, teatro where (lavoro.dipendente = 'CLLDGS76') and (lavoro.teatro = teatro.nome)\" ?",
+   "opts": [
+    "Recupera tutte le città in cui lavora il dipendente identificato dal codice CLLDGS76.",
+    "Recupera tutte le città e teatri in cui lavora il dipendente identificato dal codice CLLDGS76.",
+    "Recupera tutte le città in cui lavora il dipendente identificato dal codice CLLDGS76.",
+    "Recupera tutti i teatri in cui lavora il dipendente identificato dal codice CLLDGS76."
+   ]
+  },
+  {
+   "n": "05",
+   "q": "Cosa s'intende in SQL per condizione di join ?",
+   "opts": []
+  },
+  {
+   "n": "06",
+   "q": "Descrivere il concetto di interrogazioni di congiunzione Join fornendo anche un esempio.",
+   "opts": []
+  }
+ ],
+ "38": [
+  {
+   "n": "01",
+   "q": "Con quale costrutto in SQL è possibile ordinare le tabelle secondo specifici criteri ?",
+   "opts": [
+    "Mediante il costrutto 'order for'.",
+    "Mediante il costrutto 'order by'.",
+    "Mediante il costrutto 'order'.",
+    "Mediante il costrutto 'order table'."
+   ]
+  },
+  {
+   "n": "02",
+   "q": "Quali sono gli operatori aggregati dell'SQL standard ?",
+   "opts": [
+    "Count, min, max, sum e int.",
+    "Count, min, max, sum e sub.",
+    "Count, min, max, sum e avg.",
+    "Count, min, max, sum, e log."
+   ]
+  },
+  {
+   "n": "03",
+   "q": "Cosa restituisce il seguente codice SQL \"select avg(stipendio) from dipendente select sum(stipendio)/count(stipendio) from dipendente\" ?",
+   "opts": [
+    "La media degli stipendi dei dipendenti.",
+    "La media ponderata degli stipendi dei dipendenti.",
+    "La frazione degli stipendi dei dipendenti.",
+    "La mediana degli stipendi dei dipendenti."
+   ]
+  },
+  {
+   "n": "04",
+   "q": "A cosa serve la clausola 'group by' di SQL ?",
+   "opts": [
+    "A partizionare le righe di una tabella in insiemi e applicare gli operatori aggregati ai singoli sottoinsiemi.",
+    "A partizionare le colonne di una tabella in sottoinsiemi e applicare gli operatori aggregati ai singoli sottoinsiemi.",
+    "A partizionare le righe di una tabella in sottoinsiemi e applicare gli operatori aggregati ai singoli sottoinsiemi.",
+    "A partizionare le righe e le colonne di una tabella in sottoinsiemi e applicare gli operatori aggregati ai singoli sottoinsiemi."
+   ]
+  },
+  {
+   "n": "05",
+   "q": "Definire il concetto di raggruppamento in SQL fornendo anche un esempio.",
+   "opts": []
+  },
+  {
+   "n": "06",
+   "q": "Descrivere gli operatori aggregati di SQL fornendo un semplice esempio per ciascuno di essi.",
+   "opts": []
+  }
+ ],
+ "39": [
+  {
+   "n": "01",
+   "q": "Cosa restituisce il seguente codice SQL \"select nome from attore intersect select nome from autore\" ?",
+   "opts": [
+    "Seleziona tutte le persone che sono attori oppure autori.",
+    "Seleziona tutte le persone che sono autori.",
+    "Seleziona tutte le persone che sono attori.",
+    "Seleziona tutte le persone che sono attori e autori."
+   ]
+  },
+  {
+   "n": "02",
+   "q": "Cosa restituisce il seguente codice SQL \"select nome from attore where nome = any (select nome from autore)\" ?",
+   "opts": [
+    "Seleziona tutte le persone che sono attori oppure autori.",
+    "Seleziona tutti gli attori che sono anche autori.",
+    "Seleziona tutte le persone che sono autori.",
+    "Seleziona tutte le persone che sono attori e autori."
+   ]
+  },
+  {
+   "n": "03",
+   "q": "In SQL tra gli insiemi di ricghe di tabelle è possibile fare:",
+   "opts": [
+    "L'unione, l'intersezione, la moltiplicazione.",
+    "L'unione, l'intersezione, la differenza.",
+    "Nessuna delle prescedenti.",
+    "L'unione, l'intersezione, il prodotto cartesiano."
+   ]
+  },
+  {
+   "n": "04",
+   "q": "Cosa restituisce il seguente codice SQL \"select nome from attore union select nome from autore\" ?",
+   "opts": [
+    "Seleziona tutte le persone che sono autori.",
+    "Seleziona tutte le persone che sono attori.",
+    "Seleziona tutte le persone che sono attori e autori.",
+    "Seleziona tutte le persone che sono attori oppure autori."
+   ]
+  },
+  {
+   "n": "05",
+   "q": "Descrivere il concetto di insieme esplicito nelle interrogazioni nidificate di SQL fornendo anche un esempio.",
+   "opts": []
+  },
+  {
+   "n": "06",
+   "q": "Descrivere il concetto di interrogazione nidificata in SQL fornendo anche un esempio.",
+   "opts": []
+  }
+ ],
+ "40": [
+  {
+   "n": "01",
+   "q": "Con quali operazioni SQL permette di aggiornare lo stato della base di dati ?",
+   "opts": [
+    "Inserimento e cancellazione.",
+    "Inserimento, cancellazione e selezione.",
+    "Nessuna delle prescedenti.",
+    "Inserimento, cancellazione e join."
+   ]
+  },
+  {
+   "n": "02",
+   "q": "In SQL nella clausola 'set' ad ogni attributo può essere assegnato al valore di:",
+   "opts": [
+    "Un'espressione, una interrogazione, default, null.",
+    "Un'espressione, una interrogazione, un valore, null.",
+    "Un'espressione, una interrogazione, un argomento, null.",
+    "Un'espressione, una interrogazione, selezione, null."
+   ]
+  },
+  {
+   "n": "03",
+   "q": "Cosa restituisce il seguente codice SQL \"update dipendente set stipendio = stipendio * 1.1 where cf = 'ALSBRT69'\" ?",
+   "opts": [
+    "Incrementa del 1.1% lo stipendio del dipendente identificato dal codice ALSBRT69.",
+    "Riduce del 10% lo stipendio del dipendente identificato dal codice ALSBRT69.",
+    "Incrementa del 1.1% lo stipendio del dipendenti.",
+    "Incrementa del 10% lo stipendio del dipendente identificato dal codice ALSBRT69."
+   ]
+  },
+  {
+   "n": "04",
+   "q": "BLOB è un dominio introdotto da SQL-3:",
+   "opts": [
+    "Per oggetti di piccole dimensioni costituiti da sequenze di parole.",
+    "Per oggetti di gradi dimensioni costituiti da sequenze di caratteri.",
+    "Per oggetti di piccole dimensioni costituiti da sequenze di valori numerici.",
+    "Per oggetti di gradi dimensioni costituiti da sequenze di valori binari."
+   ]
+  },
+  {
+   "n": "05",
+   "q": "Descrivere il concetto di dominio atomico in SQL fornendo anche un esempio.",
+   "opts": []
+  },
+  {
+   "n": "06",
+   "q": "Descrivere le operazioni di inserimento, cancellazione e modifica in SQL fornendo anche un esempio.",
+   "opts": []
+  }
+ ],
+ "41": [
+  {
+   "n": "01",
+   "q": "Come si chiamano in SQL i vincoli imposti dalle regole aziendali ?",
+   "opts": [
+    "Vincoli di integrità specifici.",
+    "Vincoli di integrità generici.",
+    "Vincoli di integrità aziendali.",
+    "Vincoli di integrità delle regole."
+   ]
+  },
+  {
+   "n": "02",
+   "q": "In SQL una violazione di un vincolo di chiave esterna:",
+   "opts": [
+    "Non genera necessariamente un errore.",
+    "Genera un errore.",
+    "Non genera un errore.",
+    "Nessuna delle prescedenti."
+   ]
+  },
+  {
+   "n": "03",
+   "q": "In SQL i valori assunti da una chiave candidata:",
+   "opts": [
+    "Potrebbero essere univoci ma possono essere nulli.",
+    "Devono essere univoci ma possono essere nulli.",
+    "Potrebbero essere univoci ma possono essere nulli.",
+    "Devono essere univoci ma non possono essere nulli."
+   ]
+  },
+  {
+   "n": "04",
+   "q": "In SQL per rendere obbligatorio un attributo, cioè per fare in modo che il suo valore sia sempre diverso da NULL, si usa il vincolo:",
+   "opts": [
+    "no null.",
+    "avoid null.",
+    "force null.",
+    "not null."
+   ]
+  },
+  {
+   "n": "05",
+   "q": "Descrivere il concetto di obbligatorietà degli attributi in SQL fornendo anche un esempio.",
+   "opts": []
+  },
+  {
+   "n": "06",
+   "q": "Desrivere il concetto di chiave esterna in SQL fornendo anche un esempio.",
+   "opts": []
+  }
+ ],
+ "42": [
+  {
+   "n": "01",
+   "q": "Cosa succede quando un vincolo non è descrivibile in SQL ?",
+   "opts": [
+    "Viene gestito a livello di definizione implementandolo in qualche linguaggio di programmazione.",
+    "Viene catturato a livello di applicazione implementandolo in qualche linguaggio di programmazione.",
+    "Genera un errore nel database.",
+    "Viene ignorato."
+   ]
+  },
+  {
+   "n": "02",
+   "q": "Da chi è gestito il catalogo dei dati in SQL ?",
+   "opts": [
+    "Dall'utente solo per essere modificato.",
+    "Dall'utente solo per essere creato.",
+    "Dall'utente solo per essere eliminato.",
+    "Solitamente dal DBMS."
+   ]
+  },
+  {
+   "n": "03",
+   "q": "A cosa serve in SQL il comando 'alter' ?",
+   "opts": [
+    "Ad aggiungere vincoli di integrità definiti su una tabella.",
+    "A rimuovere vincoli di integrità definiti su una relazione.",
+    "Ad aggiungere e rimuovere vincoli di integrità definiti su una tabella.",
+    "Ad aggiungere e rimuovere vincoli di integrità definiti su una relazione."
+   ]
+  },
+  {
+   "n": "04",
+   "q": "In SQL ci possono essere più trigger associati ad un evento. L'ordine di esecuzione dei trigger:",
+   "opts": [
+    "E' gestito dal progettista e generalmente tiene conto dell'ordine di creazione dei trigger.",
+    "E' gestito dal sistema secondo un metodo concorrente.",
+    "E' gestito dal sistema e generalmente tiene conto dell'ordine di creazione dei trigger.",
+    "E' gestito dal sistema e generalmente tiene conto dell'ordine di attivazione dei trigger."
+   ]
+  },
+  {
+   "n": "05",
+   "q": "Descrivere in che modo un trigger in SQL potrebbe violare i vincoli d'integrità.",
+   "opts": []
+  },
+  {
+   "n": "06",
+   "q": "Descrivere come i trigger possono essere usati per specificare le regole di calcolo degli attributi calcolati, fornire anche un esempio.",
+   "opts": []
+  }
+ ],
+ "43": [
+  {
+   "n": "01",
+   "q": "Una vista temporanea in SQL è:",
+   "opts": [
+    "Accessibile dall'interrogazione nella quale appare e appartiene allo schema della base di dati e non può essere usata da altre interrogazioni oltre a quella a cui appartiene e non può essere rimossa dallo schema.",
+    "Accessibile dall'interrogazione nella quale appare ma non appartiene allo schema della base di dati e non può essere usata da altre interrogazioni oltre a quella a cui appartiene e non può essere rimossa dallo schema.",
+    "Accessibile dall'interrogazione nella quale appare ma non appartiene allo schema della base di dati e non può essere usata da altre interrogazioni oltre a quella a cui appartiene e può essere rimossa dallo schema.",
+    "Accessibile dall'interrogazione nella quale appare ma non appartiene allo schema della base di dati e può essere usata da altre interrogazioni oltre a quella a cui appartiene e non può essere rimossa dallo schema."
+   ]
+  },
+  {
+   "n": "02",
+   "q": "Una vista ricorsiva in SQL è:",
+   "opts": [
+    "Una vista V definita usando V stessa oppure usando un'altra vista V' che usa, direttamente, la vista V.",
+    "Nessuna delle prescedenti.",
+    "Una vista V definita usando V stessa oppure usando un'altra vista V' che usa, indirettamente, la vista V.",
+    "Una vista V definita usando V stessa oppure usando un'altra vista V' che usa, direttamente o indirettamente, la vista V."
+   ]
+  },
+  {
+   "n": "03",
+   "q": "L'approccio per implementare le viste che si riferisce a riscrivere le interrogazioni che usano viste in termini di interrogazioni che usano tabelle di base ha il vantaggio di:",
+   "opts": [
+    "Nessuna delle precedenti.",
+    "Essere efficiente quando vi sono molte query che si riferiscono alla medesima vista.",
+    "Materializzare le viste, ovvero nel calcolare le relative tabelle virtuali, e usare queste tabelle per risolvere le interrogazioni che le usano.",
+    "Non dover salvare i dati delle tabelle virtuali associate alle viste."
+   ]
+  },
+  {
+   "n": "04",
+   "q": "Cosa sono le viste in SQL ?",
+   "opts": [
+    "Sono relazioni virtuali contenenti dati provenienti da altre tabelle della base di dati.",
+    "Sono tabelle virtuali contenenti dati provenienti da altre tabelle della base di dati.",
+    "Sono tabelle contenenti dati provenienti da altre tabelle virtuali della base di dati.",
+    "Sono tabelle contenenti dati provenienti da altre tabelle della base di dati."
+   ]
+  },
+  {
+   "n": "05",
+   "q": "Descrivere gli approcci per implementare le viste in SQL.",
+   "opts": []
+  },
+  {
+   "n": "06",
+   "q": "Descrivere il concetto di vista temporanea in SQL.",
+   "opts": []
+  }
+ ],
+ "44": [
+  {
+   "n": "01",
+   "q": "Il problema della valutazione (del calcolo del risultato), di una espressione dell'algebra relazionale rispetto ad una base di dati è completo nella classe di complessità:",
+   "opts": [
+    "EXPSPACE.",
+    "PSPACE.",
+    "NL.",
+    "L."
+   ]
+  },
+  {
+   "n": "02",
+   "q": "Il problema della valutazione dell'algebra relazionale sta in particolare nella classe:",
+   "opts": [
+    "NL.",
+    "LOGSPACE.",
+    "EXPSPACE.",
+    "PSPACE."
+   ]
+  },
+  {
+   "n": "03",
+   "q": "Nelle interrogazioni SQL a cosa serve l'operazione fondamentale definita col termine Selezione ?",
+   "opts": [
+    "E' l'operazione di congiunzione di due tabelle rispetto ad un predicato di join che confronta coppie formate da attributi delle due tabelle.",
+    "E' l'operazione di selezione delle righe di una tabella che soddisfano un certo predicato.",
+    "E' l'operazione di selezione delle righe di una tabella.",
+    "E' l'operazione di selezione di alcune colonne a partire da una tabella."
+   ]
+  },
+  {
+   "n": "04",
+   "q": "Nelle interrogazioni SQL a cosa serve l'operazione fondamentale definita col termine Proiezione ?",
+   "opts": [
+    "E' l'operazione di congiunzione di due tabelle rispetto ad un predicato di join che confronta coppie formate da attributi delle due tabelle.",
+    "E' l'operazione di selezione di alcune colonne a partire da una tabella.",
+    "E' l'operazione di selezione delle righe di una tabella che soddisfano un certo predicato.",
+    "E' l'operazione di selezione delle righe di una tabella."
+   ]
+  },
+  {
+   "n": "05",
+   "q": "Spiegare in che modo l'algebra relazionale può essere intesa come una controparte procedurale (o operazionale) del linguaggio SQL ?",
+   "opts": []
+  },
+  {
+   "n": "06",
+   "q": "In SQL nelle interrogazioni per il recupero di informazione quali operazioni fondamentali sono nascoste?",
+   "opts": []
+  }
+ ],
+ "45": [
+  {
+   "n": "01",
+   "q": "Riguardo la memoria secondaria, quali delle seguenti affermazioni è falsa?",
+   "opts": [
+    "Le basi di dati sono solitamente molto grandi e eccedono la memoria primaria a disposizione.",
+    "La memoria secondaria può essere ridondata.",
+    "Il costo della memoria secondaria è un ordine di grandezza inferiore rispetto al costo della memoria principale.",
+    "Le basi di dati contengono informazioni che devono essere memorizzate in modo permanente per lunghi periodi di tempo."
+   ]
+  },
+  {
+   "n": "02",
+   "q": "Nel contesto della progettazione fisica delle strutture di memorizzazione un file è:",
+   "opts": [
+    "Un insieme di campi formati da record.",
+    "Un insieme di campi opzionali a dimensione variabile",
+    "Un insieme di campi a dimensione variabile",
+    "Un insieme di record formati da campi."
+   ]
+  },
+  {
+   "n": "03",
+   "q": "L'allocazione dei blocchi di un file su disco si dice concatenata quando:",
+   "opts": [
+    "I segmenti sono collegati da puntatori.",
+    "I blocchi non sono necessariamente consecutivi e sono collegati tra loro mediante puntatori.",
+    "I blocchi di un file sono allocati consecutivamente.",
+    "Uno o più blocchi indice contengono i puntatori ai blocchi di dati del file."
+   ]
+  },
+  {
+   "n": "04",
+   "q": "Se la tabella è soggetta a frequenti aggiornamenti, soprattutto rispetto alle altre interrogazioni che riceve, conviene:",
+   "opts": [
+    "Definire un indice sulla chiave primaria e sulle chiavi esterne.",
+    "Definire un indice su altri attributi usati di frequenza in interrogazioni che prevedono le operazioni di selezione, join o ordinamento.",
+    "Ridurre al minimo l'uso degli indici sulla tabella.",
+    "Definire un indice sulla chiave primaria di ogni tabella."
+   ]
+  },
+  {
+   "n": "05",
+   "q": "Descrivere i tre metodi principali per organizzare i record nei file.",
+   "opts": []
+  },
+  {
+   "n": "06",
+   "q": "Descrivere la struttura dati definita col termine indice definendone le tipologie.",
+   "opts": []
+  }
+ ],
+ "46": [
+  {
+   "n": "01",
+   "q": "A cosa si riferisce il seguente codice MySQL: grant select on univ.esame to 'alan'@'localhost' identified by 'nala' ?",
+   "opts": [
+    "Nessuna delle prescedenti.",
+    "Crea (se già non esiste) l'utente alan e gli assegna il privilegio di effettuare select su tutte le tabelle del database univ.",
+    "Crea (se già non esiste) l'utente alan e gli assegna il solo privilegio di effettuare select su tutte le tabelle del database univ tranne quella esame.",
+    "Crea (se già non esiste) l'utente alan e gli assegna il solo privilegio di effettuare select sulla tabella esame del database univ."
+   ]
+  },
+  {
+   "n": "02",
+   "q": "Con quale comando MySQL si crea un nuovo utente ?",
+   "opts": [
+    "grant.",
+    "grant new user.",
+    "user define.",
+    "create user."
+   ]
+  },
+  {
+   "n": "03",
+   "q": "A cosa serve il programma mysql del pacchetto MySQL ?",
+   "opts": [
+    "E' il client MySQL che permette connettersi al server e eseguire le interrogazioni SQL.",
+    "Questo è il server MySQL che accoglie le richieste (interrogazioni) dei client.",
+    "Serve per esportare schemi e tabelle su file di testo. Il client MySQL oppure il programma mysqlimport sono in grado di caricare tabelle leggendole dai file esportati.",
+    "Serve per ottenere informazioni sulla base di dati, sulle tabelle e sulle colonne."
+   ]
+  },
+  {
+   "n": "04",
+   "q": "Da chi è stato creato MySQL ?",
+   "opts": [
+    "Da Dennis Ritchie nel 1995.",
+    "Da Michael Wideius nel 1995.",
+    "Donald Chamberlin nel 1990.",
+    "Da Raymond F. Boyce nel 1993."
+   ]
+  },
+  {
+   "n": "05",
+   "q": "Definire in concetto di engine in MySQL descrivendo le diversew tipologie.",
+   "opts": []
+  },
+  {
+   "n": "06",
+   "q": "Come si definiscono i privilegi in MySQL ? Fornire anche un esempio.",
+   "opts": []
+  }
+ ],
+ "47": [
+  {
+   "n": "01",
+   "q": "Quale dei seguenti tipi di join non è supportato da MySQL ?",
+   "opts": [
+    "full join.",
+    "left join.",
+    "right join.",
+    "join di più tabelle."
+   ]
+  },
+  {
+   "n": "02",
+   "q": "Con quale comando MySQL i controlli referenziali possono essere disattivati ?",
+   "opts": [
+    "SET FOREIGN_KEY_CHECKS = OFF;",
+    "SET FOREIGN_KEY_CHECKS = 1;",
+    "SET FOREIGN_KEY_CHECKS = 2;",
+    "SET FOREIGN_KEY_CHECKS = 0;"
+   ]
+  },
+  {
+   "n": "03",
+   "q": "In MySQL qual è il comando adoperato per vedere gli avvertimenti provocati dall'ultimo comando eseguito ?",
+   "opts": [
+    "warning-show",
+    "show warning.",
+    "warning?",
+    "Nessuna delle prescedenti."
+   ]
+  },
+  {
+   "n": "04",
+   "q": "Con riferimento al comando insert di MySQL che valore assumono gli attributi non specificati ?",
+   "opts": [
+    "Assumono il valore null.",
+    "Assumono il valore di default, se è stato specificato, oppure null altrimenti.",
+    "Assumono il valore di default.",
+    "Nessuna delle precedenti."
+   ]
+  },
+  {
+   "n": "05",
+   "q": "Come si effettua un'operazione di aggiornamento dei dati in MySQL ? Fornre anche un esempio.",
+   "opts": []
+  },
+  {
+   "n": "06",
+   "q": "Come si effettua un'operazione d'interrogazione in MySQL ? Fornire anche un esempio.",
+   "opts": []
+  }
+ ],
+ "48": [
+  {
+   "n": "01",
+   "q": "Quali tipi di viste sono supportate da MySQL?",
+   "opts": [
+    "Le viste ricorsive.",
+    "Le viste che non siano temporanee e le viste che non siano ricorsive.",
+    "Le viste temporanee.",
+    "Nessuna delle prescedenti."
+   ]
+  },
+  {
+   "n": "02",
+   "q": "Cosa è MySQL Connector/J ?",
+   "opts": [
+    "E' un driver che permette la connettività di applicazioni client sviluppate nel linguaggio Java.",
+    "E' un driver che permette la connettività di applicazioni server sviluppate nel linguaggio Java.",
+    "E' un driver che permette la connettività di applicazioni client sviluppate nel linguaggio Javascript.",
+    "E' un driver che permette la connettività di applicazioni server sviluppate nel linguaggio Javascript."
+   ]
+  },
+  {
+   "n": "03",
+   "q": "In MySQL a cosa si riferisce il comando commit ?",
+   "opts": [
+    "Blocca l'accesso ad una tabella.",
+    "Termina una transazione annullandone gli effetti.",
+    "Termina una transazione rendendone persistenti gli effetti.",
+    "Inizia una transazione."
+   ]
+  },
+  {
+   "n": "04",
+   "q": "Con riferimento al comando mysqldump quale delle seguenti opzioni non esiste?",
+   "opts": [
+    "--lock-tables.",
+    "--look-query.",
+    "--routines.",
+    "--xml."
+   ]
+  },
+  {
+   "n": "05",
+   "q": "Come si definiscono le viste in MySQL ?",
+   "opts": []
+  },
+  {
+   "n": "06",
+   "q": "Come si definiscono le procedure e funzioni definite dall’utente in MySQL ? Fornire anche un esempio.",
+   "opts": [
+    "Powered by TCPDF (www.tcpdf.org)"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,669 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Basi di Dati – Allenamento</title>
+<meta name="description" content="Quiz, simulazioni d'esame e ripasso per l'esame di Basi di Dati (eCampus).">
+<meta name="theme-color" content="#1f4e8c" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0f1720" media="(prefers-color-scheme: dark)">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+:root{
+  --bg:#f5f7fa;--surface:#fff;--surface2:#eef2f7;--text:#16202c;--muted:#5b6878;--border:#d6dde6;
+  --primary:#1f4e8c;--primary-ink:#fff;--ok:#1d7a46;--ok-bg:#e3f4ea;--ko:#b3261e;--ko-bg:#fbe7e5;
+  --warn:#8a5a00;--warn-bg:#fff2d6;--radius:14px;--shadow:0 1px 3px rgba(0,0,0,.08);
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f1720;--surface:#18222e;--surface2:#212d3b;--text:#e6edf5;--muted:#9aa8b8;--border:#2e3c4d;
+  --primary:#6ea8ff;--primary-ink:#0b1320;--ok:#5fd08f;--ok-bg:#163527;--ko:#ff8a80;--ko-bg:#3d1c1a;
+  --warn:#ffcc66;--warn-bg:#3a2e12;--shadow:none;color-scheme:dark;}}
+:root[data-theme="dark"]{
+  --bg:#0f1720;--surface:#18222e;--surface2:#212d3b;--text:#e6edf5;--muted:#9aa8b8;--border:#2e3c4d;
+  --primary:#6ea8ff;--primary-ink:#0b1320;--ok:#5fd08f;--ok-bg:#163527;--ko:#ff8a80;--ko-bg:#3d1c1a;
+  --warn:#ffcc66;--warn-bg:#3a2e12;--shadow:none;color-scheme:dark;}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font:17px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;min-height:100vh}
+header{position:sticky;top:0;z-index:5;background:var(--surface);border-bottom:1px solid var(--border);padding:calc(8px + env(safe-area-inset-top)) 16px 8px;display:flex;align-items:center;gap:8px}
+header h1{font-size:18px;margin:0;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+header button{min-height:40px;font-size:22px;padding:4px 12px}
+main{max-width:760px;margin:0 auto;padding:16px 16px calc(96px + env(safe-area-inset-bottom))}
+nav.tabs{position:fixed;bottom:0;left:0;right:0;z-index:5;background:var(--surface);border-top:1px solid var(--border);display:flex;justify-content:space-around;padding:4px 4px calc(4px + env(safe-area-inset-bottom))}
+nav.tabs a{flex:1;text-align:center;color:var(--muted);text-decoration:none;font-size:12px;padding:6px 2px;border-radius:10px}
+nav.tabs a .i{display:block;font-size:20px;line-height:1.2}
+nav.tabs a.on{color:var(--primary);font-weight:600}
+h2{font-size:22px;margin:4px 0 12px}
+h3{font-size:17px;margin:20px 0 8px}
+p{margin:8px 0}
+.muted{color:var(--muted)}
+.small{font-size:14px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin:12px 0;box-shadow:var(--shadow)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px}
+.stat b{display:block;font-size:26px;line-height:1.2}
+button,.btn{font:inherit;font-size:17px;border:1px solid var(--border);background:var(--surface);color:var(--text);border-radius:12px;padding:12px 16px;min-height:48px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:6px}
+button.primary,.btn.primary{background:var(--primary);color:var(--primary-ink);border-color:var(--primary);font-weight:600}
+button.ghost{background:transparent;border-color:transparent}
+button:disabled{opacity:.5;cursor:default}
+button:focus-visible,a:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid var(--primary);outline-offset:2px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.row>.grow{flex:1}
+.full{width:100%}
+.stack>*+*{margin-top:10px}
+.opt{display:flex;width:100%;text-align:left;justify-content:flex-start;align-items:flex-start;gap:12px;padding:14px;margin:8px 0;line-height:1.4}
+.opt .k{flex:none;width:28px;height:28px;border-radius:50%;background:var(--surface2);display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:14px}
+.opt.sel{border-color:var(--primary);box-shadow:inset 0 0 0 2px var(--primary)}
+.opt.ok{background:var(--ok-bg);border-color:var(--ok);color:var(--text)}
+.opt.ko{background:var(--ko-bg);border-color:var(--ko);color:var(--text)}
+.opt:disabled{opacity:1}
+.fb{border-radius:12px;padding:12px 14px;margin:12px 0;font-weight:600}
+.fb.ok{background:var(--ok-bg);color:var(--ok)}
+.fb.ko{background:var(--ko-bg);color:var(--ko)}
+.fb.warn{background:var(--warn-bg);color:var(--warn)}
+.tag{display:inline-block;font-size:12px;padding:2px 8px;border-radius:99px;background:var(--surface2);color:var(--muted);font-weight:600}
+.tag.warn{background:var(--warn-bg);color:var(--warn)}
+.tag.ok{background:var(--ok-bg);color:var(--ok)}
+.tag.ko{background:var(--ko-bg);color:var(--ko)}
+.q{font-size:19px;font-weight:600;margin:8px 0 12px}
+.list{list-style:none;padding:0;margin:0}
+.list li{border-top:1px solid var(--border)}
+.list li:first-child{border-top:0}
+.lrow{display:flex;align-items:center;gap:10px;padding:12px 4px;width:100%;background:none;border:0;border-radius:0;text-align:left;min-height:56px;color:var(--text)}
+.lrow .t{flex:1}
+.bar{height:8px;background:var(--surface2);border-radius:99px;overflow:hidden}
+.bar>i{display:block;height:100%;background:var(--primary)}
+.bar.good>i{background:var(--ok)}.bar.bad>i{background:var(--ko)}
+textarea{width:100%;min-height:180px;font:inherit;padding:12px;border-radius:12px;border:1px solid var(--border);background:var(--surface);color:var(--text);resize:vertical}
+select{font:inherit;padding:10px;border-radius:10px;border:1px solid var(--border);background:var(--surface);color:var(--text);min-height:48px}
+details summary{cursor:pointer;font-weight:600;padding:8px 0}
+.model{white-space:pre-wrap;background:var(--surface2);border-radius:12px;padding:12px}
+.timer{font-variant-numeric:tabular-nums;font-weight:700}
+.timer.low{color:var(--ko)}
+.dots{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.dots button{min-height:36px;min-width:36px;padding:0 6px;font-size:14px;border-radius:8px}
+.dots button.done{background:var(--surface2)}
+.dots button.cur{border-color:var(--primary);box-shadow:inset 0 0 0 2px var(--primary)}
+.flash{min-height:220px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;font-size:20px;cursor:pointer;user-select:none}
+.flash .back{font-size:17px;margin-top:12px}
+.empty{text-align:center;padding:24px 8px;color:var(--muted)}
+.hero{background:var(--primary);color:var(--primary-ink);border-color:var(--primary)}
+.hero .muted{color:inherit;opacity:.85}
+.hero b.big{font-size:40px;line-height:1}
+.toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--text);color:var(--bg);padding:10px 16px;border-radius:10px;z-index:20;font-size:15px;max-width:90vw}
+@media (min-width:800px){nav.tabs{top:0;bottom:auto;left:auto;right:16px;border:0;background:none;padding-top:8px;gap:4px;justify-content:flex-end;width:auto}
+ nav.tabs a{flex:none;padding:6px 10px;font-size:14px}nav.tabs a .i{display:inline;font-size:16px;margin-right:4px}
+ header{padding-right:520px}main{padding-bottom:40px}.toast{bottom:24px}}
+</style>
+</head>
+<body>
+<header>
+  <h1 id="title">Basi di Dati</h1>
+  <button class="ghost" id="themeBtn" aria-label="Cambia tema" title="Tema chiaro/scuro">◐</button>
+</header>
+<nav class="tabs" aria-label="Sezioni">
+  <a href="#/" data-r="home"><span class="i">⌂</span>Home</a>
+  <a href="#/quiz" data-r="quiz"><span class="i">✓</span>Quiz</a>
+  <a href="#/esame" data-r="esame"><span class="i">⏱</span>Esame</a>
+  <a href="#/ripasso" data-r="ripasso"><span class="i">↻</span>Ripasso</a>
+  <a href="#/statistiche" data-r="statistiche"><span class="i">▦</span>Statistiche</a>
+  <a href="#/altro" data-r="altro"><span class="i">⋯</span>Altro</a>
+</nav>
+<main id="app"><p class="empty">Caricamento…</p></main>
+<script>
+"use strict";
+/* ============ Costanti ============ */
+const EXAM_DATE = new Date(2026, 11, 1); // 1 dicembre 2026
+const STORE_KEY = "bdd-progressi-v1";
+const LETTERS = ["A","B","C","D"];
+const REVIEW_DAYS = [1, 3, 7];
+const DAY = 86400000;
+const NUCLEI = [
+  {id:1, nome:"Sistemi per le basi di dati", da:2, a:6},
+  {id:2, nome:"Modelli dei dati", da:7, a:11},
+  {id:3, nome:"Progettazione di basi di dati", da:12, a:16},
+  {id:4, nome:"Il modello relazionale", da:17, a:21},
+  {id:5, nome:"Normalizzazione", da:22, a:27},
+  {id:6, nome:"Progettazione di basi di dati relazionali", da:28, a:34},
+  {id:7, nome:"Il linguaggio SQL", da:35, a:45},
+  {id:8, nome:"Il DBMS MySQL", da:46, a:48},
+];
+const nucleoOf = l => NUCLEI.find(n => l >= n.da && l <= n.a) || {id:0, nome:"Altro"};
+
+/* ============ Utilità ============ */
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const pct = (a, b) => b ? Math.round(100 * a / b) : null;
+const fmtPct = v => v == null ? "–" : v + "%";
+const fmtTime = s => { s = Math.max(0, Math.round(s)); const m = Math.floor(s / 60), r = s % 60; return `${m}:${String(r).padStart(2, "0")}`; };
+const fmtDate = t => new Date(t).toLocaleDateString("it-IT", {day:"numeric", month:"short"});
+const startOfDay = t => { const d = new Date(t); d.setHours(0,0,0,0); return d.getTime(); };
+function toast(msg){ const t = document.createElement("div"); t.className = "toast"; t.textContent = msg; document.body.append(t); setTimeout(() => t.remove(), 2600); }
+
+/* ============ Dati ============ */
+const DB = { lezioni: [], byId: {}, closed: [], open: [], anomalie: [], glossario: [], nRisposte: 0 };
+// Opzioni che sono resti del PDF e non vere risposte
+const JUNK = [/powered by tcpdf/i];
+
+async function fetchJSON(url, optional){
+  try {
+    const r = await fetch(url, {cache:"no-cache"});
+    if (!r.ok) { if (optional) return null; throw new Error(url + ": HTTP " + r.status); }
+    return await r.json();
+  } catch (e) { if (optional) return null; throw e; }
+}
+
+async function loadData(){
+  const [dom, ris, glo, mod] = await Promise.all([
+    fetchJSON("data/domande.json"),
+    fetchJSON("data/risposte.json", true),
+    fetchJSON("data/glossario.json", true),
+    fetchJSON("data/modelli.json", true),
+  ]);
+  const risposte = ris || {};
+  const modelli = mod || {};
+  const lez = Object.keys(dom).filter(k => /^\d+$/.test(k)).map(Number).sort((a, b) => a - b);
+  for (const l of lez){
+    const L = String(l), ans = risposte[L] || {};
+    for (const raw of dom[L] || []){
+      const n = String(raw.n).padStart(2, "0");
+      const id = `${l}-${n}`;
+      const opts = (Array.isArray(raw.opts) ? raw.opts : []).filter(o => String(o).trim() && !JUNK.some(rx => rx.test(o)));
+      const q = { id, l, n, q: String(raw.q || "").trim(), opts };
+      if (opts.length === 4){
+        q.type = "closed";
+        const a = String(ans[n] ?? ans[raw.n] ?? "").trim().toUpperCase();
+        q.answer = LETTERS.includes(a) ? a : null;
+        if (ans[n] != null && !q.answer) DB.anomalie.push({id, msg:`risposta "${ans[n]}" non valida in risposte.json (attese A, B, C o D)`});
+        DB.closed.push(q);
+      } else if (opts.length === 0){
+        q.type = "open";
+        q.modello = raw.modello || (modelli[L] && (modelli[L][n] || modelli[L][raw.n])) || null;
+        DB.open.push(q);
+      } else {
+        q.type = "broken";
+        DB.anomalie.push({id, msg:`ha ${opts.length} opzioni invece di 4: probabile errore di estrazione dal PDF, esclusa dai quiz`});
+      }
+      DB.byId[id] = q;
+    }
+    DB.lezioni.push(l);
+  }
+  for (const L of Object.keys(risposte)){
+    if (!/^\d+$/.test(L)) continue;
+    for (const n of Object.keys(risposte[L])){
+      const q = DB.byId[`${Number(L)}-${String(n).padStart(2,"0")}`];
+      if (!q) DB.anomalie.push({id:`${L}-${n}`, msg:"in risposte.json ma la domanda non esiste in domande.json"});
+      else if (q.type !== "closed") DB.anomalie.push({id:q.id, msg:"in risposte.json ma non è una domanda chiusa valida"});
+    }
+  }
+  DB.nRisposte = DB.closed.filter(q => q.answer).length;
+  if (Array.isArray(glo)) DB.glossario = glo.filter(g => g && g.termine && g.significato).map((g, i) => ({...g, id: "g" + i + ":" + g.termine}));
+}
+const closedOf = l => DB.closed.filter(q => q.l === l);
+const openOf = l => DB.open.filter(q => q.l === l);
+
+/* ============ Progressi (localStorage) ============ */
+let P;
+function blankProgress(){ return { v:1, answers:{}, review:{}, open:{}, exams:[], flash:{}, settings:{ examMinutes:60 } }; }
+function loadProgress(){
+  try { P = JSON.parse(localStorage.getItem(STORE_KEY)) || blankProgress(); } catch { P = blankProgress(); }
+  const b = blankProgress();
+  for (const k in b) if (P[k] == null) P[k] = b[k];
+}
+function save(){ try { localStorage.setItem(STORE_KEY, JSON.stringify(P)); } catch { toast("Impossibile salvare i progressi su questo dispositivo"); } }
+
+// Registra una risposta a una domanda chiusa con risposta nota
+function record(q, correct, fromReview){
+  const a = P.answers[q.id] || (P.answers[q.id] = {ok:0, ko:0});
+  correct ? a.ok++ : a.ko++;
+  a.last = Date.now(); a.lastOk = correct;
+  const r = P.review[q.id];
+  if (!correct){
+    P.review[q.id] = { step:0, due: Date.now(), wrong:(r?.wrong || 0) + 1 };
+  } else if (r && (fromReview || r.due <= Date.now())){
+    if (r.step >= REVIEW_DAYS.length) delete P.review[q.id];
+    else { r.due = startOfDay(Date.now()) + REVIEW_DAYS[r.step] * DAY; r.step++; }
+  }
+  save();
+}
+const dueReviews = () => Object.entries(P.review).filter(([id, r]) => r.due <= Date.now() && DB.byId[id]?.answer).map(([id]) => DB.byId[id]);
+
+/* ============ Tema ============ */
+function applyTheme(){
+  const t = P.settings.theme;
+  if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; else delete document.documentElement.dataset.theme;
+  $("#themeBtn").textContent = t === "dark" ? "☾" : t === "light" ? "☀" : "◐";
+  $("#themeBtn").title = "Tema: " + (t === "dark" ? "scuro" : t === "light" ? "chiaro" : "automatico");
+}
+$("#themeBtn").onclick = () => {
+  const order = [undefined, "light", "dark"], i = order.indexOf(P.settings.theme);
+  P.settings.theme = order[(i + 1) % 3]; save(); applyTheme(); toast($("#themeBtn").title);
+};
+
+/* ============ Router ============ */
+let cleanup = null;
+function setView(title, html, tab){
+  $("#title").textContent = title;
+  $("#app").innerHTML = html;
+  document.querySelectorAll("nav.tabs a").forEach(a => a.classList.toggle("on", a.dataset.r === tab));
+  window.scrollTo(0, 0);
+}
+function route(){
+  if (cleanup){ cleanup(); cleanup = null; }
+  const parts = location.hash.replace(/^#\/?/, "").split("/").filter(Boolean);
+  const [r, a, b] = parts;
+  ({
+    "": viewHome, quiz: () => a ? startLessonQuiz(+a, b) : viewQuizList(),
+    esame: viewExamIntro, ripasso: viewReview, statistiche: viewStats,
+    aperte: () => a ? viewOpenLesson(+a) : viewOpenList(),
+    flashcard: viewFlash, altro: viewMore, anomalie: viewAnomalies,
+  }[r || ""] || viewHome)();
+}
+window.addEventListener("hashchange", route);
+
+/* ============ Home ============ */
+function daysLeft(){ return Math.ceil((startOfDay(EXAM_DATE) - startOfDay(Date.now())) / DAY); }
+function viewHome(){
+  const d = daysLeft(), due = dueReviews().length;
+  const tot = Object.values(P.answers).reduce((s, a) => ({ok:s.ok + a.ok, n:s.n + a.ok + a.ko}), {ok:0, n:0});
+  const seen = Object.keys(P.answers).length;
+  setView("Basi di Dati", `
+    <div class="card hero">
+      <div class="muted small">Esame del 1 dicembre 2026</div>
+      <b class="big">${d > 0 ? d : d === 0 ? "Oggi" : "Passato"}</b> ${d > 0 ? (d === 1 ? "giorno mancante" : "giorni mancanti") : ""}
+      <p class="small muted">Formato: 24 domande chiuse + 2 aperte</p>
+    </div>
+    <div class="grid">
+      <div class="stat"><span class="muted small">Risposte giuste</span><b>${fmtPct(pct(tot.ok, tot.n))}</b><span class="small muted">${tot.n} risposte date</span></div>
+      <div class="stat"><span class="muted small">Domande viste</span><b>${seen}/${DB.nRisposte}</b><span class="small muted">chiuse con risposta nota</span></div>
+      <div class="stat"><span class="muted small">Da ripassare oggi</span><b>${due}</b><span class="small muted">errori in scadenza</span></div>
+    </div>
+    <div class="stack" style="margin-top:16px">
+      ${due ? `<a class="btn primary full" href="#/ripasso">↻ Ripassa ${due} ${due === 1 ? "errore" : "errori"}</a>` : ""}
+      <a class="btn ${due ? "" : "primary"} full" href="#/quiz">✓ Quiz per lezione</a>
+      <a class="btn full" href="#/esame">⏱ Simulazione d'esame</a>
+      <a class="btn full" href="#/aperte">✎ Domande aperte</a>
+      <a class="btn full" href="#/flashcard">▭ Flashcard glossario</a>
+    </div>
+    <p class="small muted" style="margin-top:16px">Banca dati: ${DB.closed.length} domande chiuse (${DB.nRisposte} con risposta nota), ${DB.open.length} aperte, lezioni ${DB.lezioni[0]}–${DB.lezioni.at(-1)}.
+    ${DB.anomalie.length ? `<a href="#/anomalie">${DB.anomalie.length} ${DB.anomalie.length === 1 ? "anomalia" : "anomalie"} nei dati</a>.` : ""}</p>`, "home");
+}
+
+/* ============ Elenco lezioni (quiz) ============ */
+function lessonStats(l){
+  let ok = 0, n = 0;
+  for (const q of closedOf(l)){ const a = P.answers[q.id]; if (a){ ok += a.ok; n += a.ok + a.ko; } }
+  return {ok, n, p: pct(ok, n)};
+}
+function viewQuizList(){
+  let html = `<p class="muted small">Scegli una lezione. Le domande con risposta nota danno subito il feedback; le altre sono segnate come “risposta non ancora disponibile”.</p>`;
+  for (const nu of NUCLEI){
+    const ls = DB.lezioni.filter(l => l >= nu.da && l <= nu.a);
+    if (!ls.length) continue;
+    html += `<h3>${nu.id}. ${esc(nu.nome)} <span class="muted small">(L${nu.da}–${nu.a})</span></h3><div class="card" style="padding:4px 12px"><ul class="list">`;
+    for (const l of ls){
+      const cs = closedOf(l), known = cs.filter(q => q.answer).length, st = lessonStats(l);
+      html += `<li><a class="lrow" href="#/quiz/${l}" style="text-decoration:none">
+        <span class="t"><b>Lezione ${l}</b><br><span class="small muted">${cs.length} chiuse · ${known ? `${known} con risposta` : "risposte non ancora disponibili"}</span></span>
+        ${known ? `<span class="tag ${st.p == null ? "" : st.p >= 70 ? "ok" : st.p < 50 ? "ko" : "warn"}">${fmtPct(st.p)}</span>` : `<span class="tag warn">n.d.</span>`}
+      </a></li>`;
+    }
+    html += `</ul></div>`;
+  }
+  setView("Quiz per lezione", html, "quiz");
+}
+
+/* ============ Motore quiz (una domanda alla volta) ============ */
+function prepare(q){ return { q, order: shuffle([0,1,2,3]) }; }
+function runQuiz({ title, items, tab, fromReview, onEnd }){
+  let i = 0, score = 0, graded = 0;
+  const wrong = [];
+  function show(){
+    if (i >= items.length) return finish();
+    const { q, order } = items[i];
+    const known = !!q.answer;
+    setView(title, `
+      <div class="row small muted"><span class="grow">Domanda ${i + 1} di ${items.length} · Lezione ${q.l}, n. ${q.n}</span>${known ? "" : `<span class="tag warn">risposta non ancora disponibile</span>`}</div>
+      <div class="bar" style="margin:8px 0"><i style="width:${100 * i / items.length}%"></i></div>
+      <div class="q">${esc(q.q)}</div>
+      <div id="opts">${order.map((o, k) => `<button class="opt" data-o="${o}"><span class="k">${LETTERS[k]}</span><span>${esc(q.opts[o])}</span></button>`).join("")}</div>
+      <div id="fb"></div>
+      <div class="row" style="margin-top:12px"><a class="btn" href="#/${tab === "quiz" ? "quiz" : tab}">Esci</a><span class="grow"></span><button class="primary" id="next" hidden>${i + 1 < items.length ? "Avanti →" : "Fine"}</button></div>`, tab);
+    const btns = [...document.querySelectorAll("#opts .opt")];
+    btns.forEach(b => b.onclick = () => {
+      const chosen = LETTERS[+b.dataset.o]; // lettera originale
+      btns.forEach(x => x.disabled = true);
+      if (known){
+        const ok = chosen === q.answer;
+        graded++; if (ok) score++; else wrong.push(q);
+        btns.forEach(x => { const L = LETTERS[+x.dataset.o]; if (L === q.answer) x.classList.add("ok"); else if (x === b) x.classList.add("ko"); });
+        const pos = LETTERS[order.indexOf(LETTERS.indexOf(q.answer))];
+        $("#fb").innerHTML = ok ? `<div class="fb ok">✓ Giusto!</div>` : `<div class="fb ko">✗ Sbagliato. La risposta corretta è la ${pos}.</div>`;
+        record(q, ok, fromReview);
+      } else {
+        b.classList.add("sel");
+        $("#fb").innerHTML = `<div class="fb warn">Risposta non ancora disponibile per questa domanda: non viene conteggiata. Aggiungila in risposte.json quando studi la lezione ${q.l}.</div>`;
+      }
+      const nx = $("#next"); nx.hidden = false; nx.focus();
+      nx.onclick = () => { i++; show(); };
+    });
+  }
+  function finish(){
+    setView(title, `
+      <div class="card" style="text-align:center">
+        <div class="muted">Risultato</div>
+        <div style="font-size:40px;font-weight:700">${graded ? `${score}/${graded}` : "–"}</div>
+        <div class="muted">${graded ? fmtPct(pct(score, graded)) + " di risposte giuste" : "Nessuna domanda con risposta nota"}${items.length > graded ? ` · ${items.length - graded} senza risposta` : ""}</div>
+      </div>
+      ${wrong.length ? `<h3>Da rivedere</h3>${wrong.map(q => `<div class="card"><div class="small muted">Lezione ${q.l}, n. ${q.n}</div><div style="font-weight:600">${esc(q.q)}</div><div class="fb ok" style="font-weight:400">${q.answer}. ${esc(q.opts[LETTERS.indexOf(q.answer)])}</div></div>`).join("")}<p class="small muted">Gli errori sono stati aggiunti al ripasso.</p>` : ""}
+      <div class="stack">${onEnd ? onEnd() : ""}<a class="btn full" href="#/">Torna alla home</a></div>`, tab);
+  }
+  show();
+}
+function startLessonQuiz(l, mode){
+  const cs = closedOf(l);
+  if (!cs.length){ setView(`Lezione ${l}`, `<p class="empty">Nessuna domanda chiusa per questa lezione.</p><a class="btn full" href="#/quiz">← Lezioni</a>`, "quiz"); return; }
+  const known = cs.filter(q => q.answer);
+  const pool = mode === "tutte" || !known.length ? cs : known;
+  runQuiz({ title: `Lezione ${l}`, items: shuffle(pool).map(prepare), tab: "quiz",
+    onEnd: () => `<a class="btn primary full" href="#/quiz/${l}/${mode || ""}" onclick="setTimeout(route,0)">Ripeti la lezione ${l}</a>
+      ${known.length && known.length < cs.length && mode !== "tutte" ? `<a class="btn full" href="#/quiz/${l}/tutte">Vedi anche le ${cs.length - known.length} senza risposta</a>` : ""}
+      ${DB.lezioni.includes(l + 1) ? `<a class="btn full" href="#/quiz/${l + 1}">Lezione ${l + 1} →</a>` : ""}` });
+}
+
+/* ============ Ripasso errori ============ */
+function viewReview(){
+  const due = dueReviews();
+  const later = Object.entries(P.review).filter(([id, r]) => r.due > Date.now() && DB.byId[id]).sort((a, b) => a[1].due - b[1].due);
+  if (!due.length){
+    setView("Ripasso errori", `
+      <div class="card empty">${Object.keys(P.review).length ? "Niente da ripassare oggi. 👍" : "Ancora nessun errore da ripassare. Le domande che sbagli finiscono qui."}</div>
+      <p class="small muted">Ogni domanda sbagliata torna subito in ripasso. Quando la indovini ricompare dopo 1, poi 3, poi 7 giorni; dopo l'ultima risposta giusta esce dal ripasso.</p>
+      ${later.length ? `<h3>In arrivo</h3><div class="card" style="padding:4px 12px"><ul class="list">${later.map(([id, r]) => `<li class="lrow"><span class="t small">L${DB.byId[id].l} n.${DB.byId[id].n} – ${esc(DB.byId[id].q.slice(0, 80))}${DB.byId[id].q.length > 80 ? "…" : ""}</span><span class="tag">${fmtDate(r.due)}</span></li>`).join("")}</ul></div>` : ""}`, "ripasso");
+    return;
+  }
+  setView("Ripasso errori", `
+    <div class="card"><b>${due.length}</b> ${due.length === 1 ? "domanda da ripassare" : "domande da ripassare"} oggi${later.length ? `, ${later.length} in arrivo nei prossimi giorni` : ""}.</div>
+    <button class="primary full" id="go">Inizia il ripasso</button>`, "ripasso");
+  $("#go").onclick = () => runQuiz({ title:"Ripasso errori", items: shuffle(due).map(prepare), tab:"ripasso", fromReview:true,
+    onEnd: () => dueReviews().length ? `<a class="btn primary full" href="#/ripasso" onclick="setTimeout(route,0)">Ripassa ancora (${dueReviews().length})</a>` : "" });
+}
+
+/* ============ Simulazione d'esame ============ */
+function viewExamIntro(){
+  const known = DB.closed.filter(q => q.answer);
+  const nC = Math.min(24, known.length), mins = P.settings.examMinutes || 60;
+  const last = P.exams.slice(-5).reverse();
+  setView("Simulazione d'esame", `
+    <div class="card stack">
+      <p><b>${nC} domande chiuse</b> casuali tra quelle con risposta nota + <b>${Math.min(2, DB.open.length)} domande aperte</b>.</p>
+      ${known.length < 24 ? `<div class="fb warn" style="font-weight:400">Per ora le domande chiuse con risposta nota sono solo ${known.length} (l'esame vero ne ha 24). La simulazione usa tutte quelle disponibili; aggiungi altre risposte in risposte.json per arrivare a 24.</div>` : ""}
+      <label class="row"><span class="grow">Tempo a disposizione</span>
+        <select id="mins">${[30, 45, 60, 75, 90, 120].map(m => `<option value="${m}" ${m === mins ? "selected" : ""}>${m} minuti</option>`).join("")}</select></label>
+      <p class="small muted">La durata è un'impostazione tua: verifica sul regolamento d'esame quella ufficiale.</p>
+      <button class="primary full" id="go" ${nC ? "" : "disabled"}>Inizia la simulazione</button>
+    </div>
+    ${last.length ? `<h3>Ultime simulazioni</h3><div class="card" style="padding:4px 12px"><ul class="list">${last.map(e => `<li class="lrow"><span class="t">${fmtDate(e.ts)} · ${e.closedOk}/${e.closedTot} chiuse${e.openScore != null ? ` · aperte ${e.openScore}/${e.openMax}` : ""}</span><span class="tag ${pct(e.closedOk, e.closedTot) >= 60 ? "ok" : "ko"}">${fmtPct(pct(e.closedOk, e.closedTot))}</span></li>`).join("")}</ul></div>` : ""}`, "esame");
+  $("#mins").onchange = e => { P.settings.examMinutes = +e.target.value; save(); };
+  $("#go").onclick = () => runExam(shuffle(known).slice(0, nC).map(prepare), shuffle(DB.open).slice(0, 2), P.settings.examMinutes || 60);
+}
+function runExam(closed, open, minutes){
+  const total = closed.length + open.length;
+  const ans = {}; const texts = {};
+  const end = Date.now() + minutes * 60000, startT = Date.now();
+  let i = 0, done = false, tick;
+  window.onbeforeunload = () => "Simulazione in corso";
+  cleanup = () => { clearInterval(tick); window.onbeforeunload = null; };
+  function updTimer(){
+    const left = (end - Date.now()) / 1000, el = $("#timer");
+    if (el){ el.textContent = "⏱ " + fmtTime(left); el.classList.toggle("low", left < 300); }
+    if (left <= 0 && !done){ toast("Tempo scaduto!"); submit(); }
+  }
+  tick = setInterval(updTimer, 1000);
+  function show(){
+    const isOpen = i >= closed.length;
+    const dots = Array.from({length: total}, (_, k) => {
+      const d = k < closed.length ? ans[k] != null : (texts[k - closed.length] || "").trim();
+      return `<button data-k="${k}" class="${d ? "done" : ""} ${k === i ? "cur" : ""}" aria-label="Domanda ${k + 1}">${k < closed.length ? k + 1 : "A" + (k - closed.length + 1)}</button>`;
+    }).join("");
+    let body;
+    if (!isOpen){
+      const { q, order } = closed[i];
+      body = `<div class="small muted">Domanda chiusa ${i + 1} di ${closed.length}</div><div class="q">${esc(q.q)}</div>
+        <div id="opts">${order.map((o, k) => `<button class="opt ${ans[i] === o ? "sel" : ""}" data-o="${o}"><span class="k">${LETTERS[k]}</span><span>${esc(q.opts[o])}</span></button>`).join("")}</div>`;
+    } else {
+      const j = i - closed.length, q = open[j];
+      body = `<div class="small muted">Domanda aperta ${j + 1} di ${open.length} · Lezione ${q.l}</div><div class="q">${esc(q.q)}</div>
+        <textarea id="txt" placeholder="Scrivi qui la tua risposta…">${esc(texts[j] || "")}</textarea>`;
+    }
+    setView("Simulazione", `
+      <div class="row"><span class="timer grow" id="timer"></span><button id="sub" class="primary">Consegna</button></div>
+      <div class="dots">${dots}</div>
+      ${body}
+      <div class="row" style="margin-top:12px"><button id="prev" ${i ? "" : "disabled"}>← Indietro</button><span class="grow"></span><button id="nxt" ${i < total - 1 ? "" : "disabled"}>Avanti →</button></div>`, "esame");
+    updTimer();
+    document.querySelectorAll(".dots button").forEach(b => b.onclick = () => { i = +b.dataset.k; show(); });
+    document.querySelectorAll("#opts .opt").forEach(b => b.onclick = () => { ans[i] = +b.dataset.o; if (i < total - 1) { i++; } show(); });
+    const t = $("#txt"); if (t) t.oninput = () => { texts[i - closed.length] = t.value; };
+    $("#prev").onclick = () => { i--; show(); };
+    $("#nxt").onclick = () => { i++; show(); };
+    $("#sub").onclick = () => {
+      const missing = closed.filter((_, k) => ans[k] == null).length;
+      if (confirm(missing ? `Hai ${missing} domande chiuse senza risposta. Consegnare comunque?` : "Consegnare la simulazione?")) submit();
+    };
+  }
+  function submit(){
+    if (done) return; done = true; cleanup(); cleanup = null;
+    let ok = 0; const errors = [];
+    closed.forEach(({q, order}, k) => {
+      const chosen = ans[k] != null ? LETTERS[ans[k]] : null, right = chosen === q.answer;
+      if (right) ok++; else errors.push({q, chosen});
+      if (chosen) record(q, right);
+    });
+    const exam = { ts: Date.now(), closedOk: ok, closedTot: closed.length, openIds: open.map(q => q.id), openScores: {}, openScore: null, openMax: open.length * 2, secs: Math.round((Date.now() - startT) / 1000) };
+    open.forEach((q, j) => { if ((texts[j] || "").trim()) P.open[q.id] = { ...(P.open[q.id] || {}), text: texts[j], ts: Date.now() }; });
+    P.exams.push(exam); save();
+    const ex = P.exams.length - 1;
+    function render(){
+      const e = P.exams[ex];
+      setView("Risultato simulazione", `
+        <div class="card" style="text-align:center">
+          <div class="muted">Domande chiuse</div>
+          <div style="font-size:40px;font-weight:700">${ok}/${closed.length}</div>
+          <div class="muted">${fmtPct(pct(ok, closed.length))} · tempo ${fmtTime(e.secs)}${e.openScore != null ? ` · aperte ${e.openScore}/${e.openMax}` : ""}</div>
+        </div>
+        ${open.length ? `<h3>Domande aperte: autovalutazione</h3>` + open.map((q, j) => `
+          <div class="card stack">
+            <div class="small muted">Lezione ${q.l}, n. ${q.n}</div><div style="font-weight:600">${esc(q.q)}</div>
+            <details><summary>La tua risposta</summary><div class="model">${esc(texts[j] || "(nessuna risposta)")}</div></details>
+            ${q.modello ? `<details><summary>Risposta modello</summary><div class="model">${esc(q.modello)}</div></details>` : `<p class="small muted">Risposta modello non ancora disponibile per questa domanda.</p>`}
+            <div class="row">${[0, 1, 2].map(v => `<button data-j="${j}" data-v="${v}" class="${e.openScores[j] === v ? "primary" : ""}">${v}</button>`).join("")}<span class="small muted">0 = assente · 1 = parziale · 2 = completa</span></div>
+          </div>`).join("") : ""}
+        ${errors.length ? `<h3>Errori (${errors.length})</h3>` + errors.map(({q, chosen}) => `
+          <div class="card"><div class="small muted">Lezione ${q.l}, n. ${q.n}</div><div style="font-weight:600">${esc(q.q)}</div>
+          ${chosen ? `<div class="fb ko" style="font-weight:400">Tua: ${esc(q.opts[LETTERS.indexOf(chosen)])}</div>` : `<div class="fb warn" style="font-weight:400">Non risposta</div>`}
+          <div class="fb ok" style="font-weight:400">Corretta: ${esc(q.opts[LETTERS.indexOf(q.answer)])}</div></div>`).join("") : `<p class="fb ok">Nessun errore nelle domande chiuse!</p>`}
+        <div class="stack"><a class="btn primary full" href="#/esame">Nuova simulazione</a><a class="btn full" href="#/">Home</a></div>`, "esame");
+      document.querySelectorAll("button[data-v]").forEach(b => b.onclick = () => {
+        const j = +b.dataset.j, v = +b.dataset.v, q = open[j];
+        e.openScores[j] = v;
+        e.openScore = Object.keys(e.openScores).length === open.length ? Object.values(e.openScores).reduce((a, x) => a + x, 0) : null;
+        P.open[q.id] = { ...(P.open[q.id] || {}), score: v, ts: Date.now() };
+        save(); render();
+      });
+    }
+    render();
+  }
+  show();
+}
+
+/* ============ Domande aperte ============ */
+function viewOpenList(){
+  let html = `<p class="muted small">Scrivi la tua risposta, poi confrontala con la risposta modello (se disponibile) e assegnati un voto da 0 a 2.</p>`;
+  for (const nu of NUCLEI){
+    const ls = DB.lezioni.filter(l => l >= nu.da && l <= nu.a && openOf(l).length);
+    if (!ls.length) continue;
+    html += `<h3>${nu.id}. ${esc(nu.nome)}</h3><div class="card" style="padding:4px 12px"><ul class="list">`;
+    for (const l of ls){
+      const os = openOf(l), done = os.filter(q => P.open[q.id]?.score != null).length, mod = os.filter(q => q.modello).length;
+      html += `<li><a class="lrow" href="#/aperte/${l}" style="text-decoration:none"><span class="t"><b>Lezione ${l}</b><br><span class="small muted">${os.length} ${os.length === 1 ? "domanda" : "domande"} · ${mod ? `${mod} con risposta modello` : "senza risposta modello"}</span></span><span class="tag">${done}/${os.length}</span></a></li>`;
+    }
+    html += `</ul></div>`;
+  }
+  setView("Domande aperte", html, "altro");
+}
+function viewOpenLesson(l){
+  const os = openOf(l);
+  setView(`Aperte · Lezione ${l}`, (os.length ? os.map(q => {
+    const s = P.open[q.id] || {};
+    return `<div class="card stack" data-id="${q.id}">
+      <div class="small muted">Domanda ${q.n}</div><div class="q" style="margin:0">${esc(q.q)}</div>
+      <textarea placeholder="Scrivi qui la tua risposta…">${esc(s.text || "")}</textarea>
+      <button class="cmp">Confronta con la risposta modello</button>
+      <div class="cmpbox" hidden>
+        ${q.modello ? `<div class="model">${esc(q.modello)}</div>` : `<div class="fb warn" style="font-weight:400">Risposta modello non ancora disponibile. Aggiungila nel campo “modello” (vedi README) e intanto valutati con gli appunti delle slide.</div>`}
+        <div class="row" style="margin-top:10px"><span class="grow">Autovalutazione:</span>${[0, 1, 2].map(v => `<button data-v="${v}" class="${s.score === v ? "primary" : ""}">${v}</button>`).join("")}</div>
+      </div>
+      ${s.score != null ? `<div class="small muted">Ultimo voto: ${s.score}/2${s.ts ? " · " + fmtDate(s.ts) : ""}</div>` : ""}
+    </div>`;
+  }).join("") : `<p class="empty">Nessuna domanda aperta per questa lezione.</p>`) + `<a class="btn full" href="#/aperte">← Tutte le lezioni</a>`, "altro");
+  document.querySelectorAll(".card[data-id]").forEach(c => {
+    const id = c.dataset.id, ta = c.querySelector("textarea");
+    let tmr; ta.oninput = () => { clearTimeout(tmr); tmr = setTimeout(() => { P.open[id] = { ...(P.open[id] || {}), text: ta.value }; save(); }, 400); };
+    c.querySelector(".cmp").onclick = () => { P.open[id] = { ...(P.open[id] || {}), text: ta.value }; save(); c.querySelector(".cmpbox").hidden = false; };
+    c.querySelectorAll("button[data-v]").forEach(b => b.onclick = () => { P.open[id] = { ...(P.open[id] || {}), text: ta.value, score: +b.dataset.v, ts: Date.now() }; save(); viewOpenLesson(l); toast("Voto salvato"); });
+  });
+}
+
+/* ============ Statistiche ============ */
+function viewStats(){
+  const d = daysLeft();
+  const rows = DB.lezioni.map(l => ({ l, ...lessonStats(l), known: closedOf(l).filter(q => q.answer).length }));
+  const nucl = NUCLEI.map(nu => {
+    const rs = rows.filter(r => r.l >= nu.da && r.l <= nu.a);
+    const ok = rs.reduce((s, r) => s + r.ok, 0), n = rs.reduce((s, r) => s + r.n, 0);
+    const os = DB.open.filter(q => q.l >= nu.da && q.l <= nu.a), osv = os.filter(q => P.open[q.id]?.score != null);
+    return { ...nu, ok, n, p: pct(ok, n), known: rs.reduce((s, r) => s + r.known, 0), openP: pct(osv.reduce((s, q) => s + P.open[q.id].score, 0), osv.length * 2), openN: osv.length };
+  });
+  const weak = rows.filter(r => r.n).sort((a, b) => a.p - b.p || b.n - a.n).slice(0, 5);
+  const bar = p => `<div class="bar ${p == null ? "" : p >= 70 ? "good" : p < 50 ? "bad" : ""}"><i style="width:${p || 0}%"></i></div>`;
+  const tot = rows.reduce((s, r) => ({ok:s.ok + r.ok, n:s.n + r.n}), {ok:0, n:0});
+  setView("Statistiche", `
+    <div class="grid">
+      <div class="stat"><span class="muted small">Giorni al 1 dicembre</span><b>${Math.max(0, d)}</b></div>
+      <div class="stat"><span class="muted small">Risposte giuste</span><b>${fmtPct(pct(tot.ok, tot.n))}</b><span class="small muted">${tot.n} risposte</span></div>
+      <div class="stat"><span class="muted small">Simulazioni</span><b>${P.exams.length}</b></div>
+      <div class="stat"><span class="muted small">Copertura risposte</span><b>${DB.nRisposte}/${DB.closed.length}</b><span class="small muted">chiuse con risposta nota</span></div>
+    </div>
+    <h3>Lezioni più deboli</h3>
+    ${weak.length ? `<div class="card" style="padding:4px 12px"><ul class="list">${weak.map(r => `<li><a class="lrow" href="#/quiz/${r.l}" style="text-decoration:none"><span class="t">Lezione ${r.l} <span class="small muted">· ${esc(nucleoOf(r.l).nome)}</span></span><span class="tag ${r.p < 50 ? "ko" : r.p < 70 ? "warn" : "ok"}">${fmtPct(r.p)}</span></a></li>`).join("")}</ul></div>` : `<p class="muted">Rispondi a qualche quiz per vedere le lezioni più deboli.</p>`}
+    <h3>Per nucleo tematico</h3>
+    <div class="card">${nucl.map(nu => `<div style="margin:10px 0"><div class="row small"><span class="grow"><b>${nu.id}. ${esc(nu.nome)}</b> <span class="muted">L${nu.da}–${nu.a}</span></span><span>${nu.known ? fmtPct(nu.p) : `<span class="tag warn">risposte n.d.</span>`}</span></div>${bar(nu.p)}
+      <div class="small muted">${nu.n} risposte · ${nu.known} chiuse con risposta${nu.openN ? ` · aperte (autovalutate) ${fmtPct(nu.openP)}` : ""}</div></div>`).join("")}</div>
+    <h3>Per lezione</h3>
+    <div class="card">${rows.filter(r => r.known).map(r => `<div style="margin:8px 0"><div class="row small"><span class="grow">Lezione ${r.l}</span><span>${fmtPct(r.p)} <span class="muted">(${r.ok}/${r.n})</span></span></div>${bar(r.p)}</div>`).join("") || `<p class="muted">Nessuna lezione con risposte note.</p>`}
+      ${rows.some(r => !r.known) ? `<p class="small muted">Lezioni senza risposte note: ${rows.filter(r => !r.known).map(r => r.l).join(", ")}.</p>` : ""}</div>`, "statistiche");
+}
+
+/* ============ Flashcard ============ */
+function viewFlash(){
+  const g = DB.glossario;
+  if (!g.length){
+    setView("Flashcard", `<div class="card empty">Glossario non ancora disponibile.<br><span class="small">Aggiungi il file <code>data/glossario.json</code> (vedi README) per usare le flashcard.</span></div><a class="btn full" href="#/altro">← Altro</a>`, "altro");
+    return;
+  }
+  const lez = [...new Set(g.map(x => x.lezione).filter(x => x != null))].sort((a, b) => a - b);
+  let filter = "tutte", deck = [], i = 0, flipped = false;
+  function build(){
+    deck = shuffle(g.filter(x => filter === "tutte" ? true : filter === "darivedere" ? !P.flash[x.id]?.known : String(x.lezione) === filter));
+    i = 0; flipped = false; show();
+  }
+  function show(){
+    const known = g.filter(x => P.flash[x.id]?.known).length;
+    const c = deck[i];
+    setView("Flashcard", `
+      <div class="row"><select id="f" class="grow"><option value="tutte">Tutti i termini (${g.length})</option><option value="darivedere">Solo da rivedere (${g.length - known})</option>${lez.map(l => `<option value="${l}">Lezione ${l}</option>`).join("")}</select></div>
+      ${c ? `<p class="small muted">Carta ${i + 1} di ${deck.length} · ${known} termini segnati come “la so”</p>
+        <div class="card flash" id="card" role="button" tabindex="0" aria-label="Gira la carta">
+          <div><b>${esc(c.termine)}</b>${c.lezione != null ? `<div class="small muted">Lezione ${esc(c.lezione)}</div>` : ""}</div>
+          ${flipped ? `<div class="back">${esc(c.significato)}</div>` : `<div class="small muted" style="margin-top:12px">Tocca per vedere il significato</div>`}
+        </div>
+        <div class="row"><button class="grow" id="no">Da rivedere</button><button class="grow primary" id="yes">La so ✓</button></div>`
+      : `<p class="empty">Nessuna carta in questo gruppo.</p>`}
+      <a class="btn full" href="#/altro" style="margin-top:12px">← Altro</a>`, "altro");
+    $("#f").value = filter;
+    $("#f").onchange = e => { filter = e.target.value; build(); };
+    if (!c) return;
+    const flip = () => { flipped = !flipped; show(); };
+    $("#card").onclick = flip; $("#card").onkeydown = e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); flip(); } };
+    const mark = k => { P.flash[c.id] = { known: k, ts: Date.now() }; save(); i = (i + 1) % deck.length; flipped = false; show(); };
+    $("#yes").onclick = () => mark(true); $("#no").onclick = () => mark(false);
+  }
+  build();
+}
+
+/* ============ Altro: impostazioni, esporta/importa ============ */
+function viewMore(){
+  setView("Altro", `
+    <div class="stack">
+      <a class="btn full" href="#/aperte">✎ Domande aperte</a>
+      <a class="btn full" href="#/flashcard">▭ Flashcard glossario</a>
+      <a class="btn full" href="#/anomalie">⚠ Anomalie nei dati (${DB.anomalie.length})</a>
+    </div>
+    <h3>Progressi</h3>
+    <div class="card stack">
+      <p class="small muted">I progressi restano solo su questo dispositivo. Esportali per farne un backup o per spostarli dal telefono al computer.</p>
+      <button class="full" id="exp">⬇ Esporta progressi (JSON)</button>
+      <label class="btn full" for="imp">⬆ Importa progressi</label><input type="file" id="imp" accept="application/json,.json" hidden>
+      <button class="full" id="reset" style="color:var(--ko)">Azzera tutti i progressi</button>
+    </div>
+    <h3>Tema</h3>
+    <div class="row">${[["", "Automatico"], ["light", "Chiaro"], ["dark", "Scuro"]].map(([v, t]) => `<button class="grow ${(P.settings.theme || "") === v ? "primary" : ""}" data-t="${v}">${t}</button>`).join("")}</div>
+    <p class="small muted" style="margin-top:24px">Contenuti: solo la banca domande ufficiale del corso e le risposte ricavate dalle slide. Nessun contenuto esterno.</p>`, "altro");
+  $("#exp").onclick = () => {
+    const blob = new Blob([JSON.stringify({ app:"basi-di-dati", exported: new Date().toISOString(), progressi: P }, null, 2)], {type:"application/json"});
+    const a = document.createElement("a"); a.href = URL.createObjectURL(blob);
+    a.download = `progressi-basi-di-dati-${new Date().toISOString().slice(0, 10)}.json`; a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  };
+  $("#imp").onchange = async e => {
+    const f = e.target.files[0]; if (!f) return;
+    try {
+      const j = JSON.parse(await f.text()), data = j.progressi || j;
+      if (typeof data !== "object" || !data.answers) throw new Error("formato non riconosciuto");
+      if (!confirm("Sostituire i progressi attuali con quelli del file?")) return;
+      P = { ...blankProgress(), ...data }; save(); applyTheme(); toast("Progressi importati"); viewMore();
+    } catch (err) { alert("Impossibile importare il file: " + err.message); }
+  };
+  $("#reset").onclick = () => { if (confirm("Cancellare davvero tutti i progressi? Conviene prima esportarli.")) { const s = P.settings; P = blankProgress(); P.settings = s; save(); toast("Progressi azzerati"); } };
+  document.querySelectorAll("button[data-t]").forEach(b => b.onclick = () => { P.settings.theme = b.dataset.t || undefined; save(); applyTheme(); viewMore(); });
+}
+function viewAnomalies(){
+  setView("Anomalie nei dati", `
+    <p class="small muted">Controlli automatici su domande.json e risposte.json. Le domande con anomalie sono escluse dai quiz finché non vengono corrette nel file.</p>
+    ${DB.anomalie.length ? `<div class="card" style="padding:4px 12px"><ul class="list">${DB.anomalie.map(a => { const q = DB.byId[a.id];
+      return `<li style="padding:12px 4px"><b>L${esc(a.id.replace("-", " n."))}</b> – ${esc(a.msg)}${q ? `<div class="small muted">${esc(q.q)}</div>` : ""}</li>`; }).join("")}</ul></div>` : `<p class="empty">Nessuna anomalia.</p>`}
+    <a class="btn full" href="#/altro">← Altro</a>`, "altro");
+}
+
+/* ============ Avvio ============ */
+(async function init(){
+  loadProgress(); applyTheme();
+  try { await loadData(); }
+  catch (e) {
+    setView("Errore", `<div class="card"><p><b>Impossibile caricare i dati.</b></p><p class="small muted">${esc(e.message)}</p>
+      <p class="small">Se hai aperto il file direttamente dal disco (file://), il browser blocca la lettura dei JSON: avvia un piccolo server locale o usa la versione pubblicata (vedi README).</p></div>`, "");
+    return;
+  }
+  route();
+  if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("sw.js").catch(() => {});
+})();
+</script>
+</body>
+</html>
