@@ -187,8 +187,12 @@ async function loadData(){
         q.modello = raw.modello || (modelli[L] && (modelli[L][n] || modelli[L][raw.n])) || null;
         DB.open.push(q);
       } else {
-        q.type = "broken";
-        DB.anomalie.push({id, msg:`ha ${opts.length} opzioni invece di 4: probabile errore di estrazione dal PDF, esclusa dai quiz`});
+        // estratta male dal PDF: la includiamo comunque, con le opzioni disponibili e un avviso
+        q.type = "closed"; q.broken = true;
+        const a = String(ans[n] ?? "").trim().toUpperCase();
+        q.answer = LETTERS.slice(0, opts.length).includes(a) ? a : null;
+        DB.anomalie.push({id, msg:`ha ${opts.length} opzioni invece di 4: probabile errore di estrazione dal PDF (inclusa nei quiz con un avviso)`});
+        DB.closed.push(q);
       }
       DB.byId[id] = q;
     }
@@ -259,13 +263,18 @@ function route(){
   const parts = location.hash.replace(/^#\/?/, "").split("/").filter(Boolean);
   const [r, a, b] = parts;
   ({
-    "": viewHome, quiz: () => a ? startLessonQuiz(+a, b) : viewQuizList(),
+    "": viewHome, quiz: () => a === "tutte" ? startMixQuiz() : a ? startLessonQuiz(+a) : viewQuizList(),
     esame: viewExamIntro, ripasso: viewReview, statistiche: viewStats,
     aperte: () => a ? viewOpenLesson(+a) : viewOpenList(),
     flashcard: viewFlash, altro: viewMore, anomalie: viewAnomalies,
   }[r || ""] || viewHome)();
 }
 window.addEventListener("hashchange", route);
+// Un link alla pagina corrente non genera "hashchange": ricarichiamo la vista a mano
+document.addEventListener("click", e => {
+  const a = e.target.closest('a[href^="#"]');
+  if (a && a.getAttribute("href") === (location.hash || "#/")) { e.preventDefault(); route(); }
+});
 
 /* ============ Home ============ */
 function daysLeft(){ return Math.ceil((startOfDay(EXAM_DATE) - startOfDay(Date.now())) / DAY); }
@@ -302,7 +311,8 @@ function lessonStats(l){
   return {ok, n, p: pct(ok, n)};
 }
 function viewQuizList(){
-  let html = `<p class="muted small">Scegli una lezione. Le domande con risposta nota danno subito il feedback; le altre sono segnate come “risposta non ancora disponibile”.</p>`;
+  let html = `<p class="muted small">Scegli una lezione. Le domande con risposta nota danno subito il feedback; le altre sono segnate come “risposta non ancora disponibile”.</p>
+    <a class="btn primary full" href="#/quiz/tutte">Tutte le ${DB.closed.length} domande chiuse, in ordine casuale</a>`;
   for (const nu of NUCLEI){
     const ls = DB.lezioni.filter(l => l >= nu.da && l <= nu.a);
     if (!ls.length) continue;
@@ -320,7 +330,7 @@ function viewQuizList(){
 }
 
 /* ============ Motore quiz (una domanda alla volta) ============ */
-function prepare(q){ return { q, order: shuffle([0,1,2,3]) }; }
+function prepare(q){ return { q, order: shuffle(q.opts.map((_, k) => k)) }; }
 function runQuiz({ title, items, tab, fromReview, onEnd }){
   let i = 0, score = 0, graded = 0;
   const wrong = [];
@@ -330,6 +340,7 @@ function runQuiz({ title, items, tab, fromReview, onEnd }){
     const known = !!q.answer;
     setView(title, `
       <div class="row small muted"><span class="grow">Domanda ${i + 1} di ${items.length} · Lezione ${q.l}, n. ${q.n}</span>${known ? "" : `<span class="tag warn">risposta non ancora disponibile</span>`}</div>
+      ${q.broken ? `<div class="fb warn" style="font-weight:400">Domanda estratta male dal PDF: le opzioni potrebbero essere incomplete.</div>` : ""}
       <div class="bar" style="margin:8px 0"><i style="width:${100 * i / items.length}%"></i></div>
       <div class="q">${esc(q.q)}</div>
       <div id="opts">${order.map((o, k) => `<button class="opt" data-o="${o}"><span class="k">${LETTERS[k]}</span><span>${esc(q.opts[o])}</span></button>`).join("")}</div>
@@ -366,14 +377,15 @@ function runQuiz({ title, items, tab, fromReview, onEnd }){
   }
   show();
 }
-function startLessonQuiz(l, mode){
+function startMixQuiz(){
+  runQuiz({ title: "Tutte le lezioni", items: shuffle(DB.closed).map(prepare), tab: "quiz",
+    onEnd: () => `<button class="primary full" onclick="route()">Ricomincia</button>` });
+}
+function startLessonQuiz(l){
   const cs = closedOf(l);
   if (!cs.length){ setView(`Lezione ${l}`, `<p class="empty">Nessuna domanda chiusa per questa lezione.</p><a class="btn full" href="#/quiz">← Lezioni</a>`, "quiz"); return; }
-  const known = cs.filter(q => q.answer);
-  const pool = mode === "tutte" || !known.length ? cs : known;
-  runQuiz({ title: `Lezione ${l}`, items: shuffle(pool).map(prepare), tab: "quiz",
-    onEnd: () => `<a class="btn primary full" href="#/quiz/${l}/${mode || ""}" onclick="setTimeout(route,0)">Ripeti la lezione ${l}</a>
-      ${known.length && known.length < cs.length && mode !== "tutte" ? `<a class="btn full" href="#/quiz/${l}/tutte">Vedi anche le ${cs.length - known.length} senza risposta</a>` : ""}
+  runQuiz({ title: `Lezione ${l}`, items: shuffle(cs).map(prepare), tab: "quiz",
+    onEnd: () => `<button class="primary full" onclick="route()">Ripeti la lezione ${l}</button>
       ${DB.lezioni.includes(l + 1) ? `<a class="btn full" href="#/quiz/${l + 1}">Lezione ${l + 1} →</a>` : ""}` });
 }
 
@@ -398,20 +410,25 @@ function viewReview(){
 /* ============ Simulazione d'esame ============ */
 function viewExamIntro(){
   const known = DB.closed.filter(q => q.answer);
-  const nC = Math.min(24, known.length), mins = P.settings.examMinutes || 60;
+  const onlyKnown = !!P.settings.examOnlyKnown;
+  const pool = onlyKnown ? known : DB.closed;
+  const nC = Math.min(24, pool.length), mins = P.settings.examMinutes || 60;
   const last = P.exams.slice(-5).reverse();
   setView("Simulazione d'esame", `
     <div class="card stack">
-      <p><b>${nC} domande chiuse</b> casuali tra quelle con risposta nota + <b>${Math.min(2, DB.open.length)} domande aperte</b>.</p>
-      ${known.length < 24 ? `<div class="fb warn" style="font-weight:400">Per ora le domande chiuse con risposta nota sono solo ${known.length} (l'esame vero ne ha 24). La simulazione usa tutte quelle disponibili; aggiungi altre risposte in risposte.json per arrivare a 24.</div>` : ""}
+      <p><b>${nC} domande chiuse</b> casuali tra ${onlyKnown ? `le ${known.length} con risposta nota` : `tutte le ${DB.closed.length} della banca`} + <b>${Math.min(2, DB.open.length)} domande aperte</b>.</p>
+      ${!onlyKnown && known.length < DB.closed.length ? `<p class="small muted">Le domande senza risposta nota (${DB.closed.length - known.length}) compaiono ma non vengono valutate: il punteggio è calcolato solo su quelle con risposta.</p>` : ""}
+      ${onlyKnown && known.length < 24 ? `<div class="fb warn" style="font-weight:400">Con risposta nota ci sono solo ${known.length} domande chiuse (l'esame ne ha 24).</div>` : ""}
+      <label class="row"><input type="checkbox" id="only" ${onlyKnown ? "checked" : ""} style="width:22px;height:22px"><span class="grow">Solo domande con risposta nota</span></label>
       <label class="row"><span class="grow">Tempo a disposizione</span>
         <select id="mins">${[30, 45, 60, 75, 90, 120].map(m => `<option value="${m}" ${m === mins ? "selected" : ""}>${m} minuti</option>`).join("")}</select></label>
       <p class="small muted">La durata è un'impostazione tua: verifica sul regolamento d'esame quella ufficiale.</p>
       <button class="primary full" id="go" ${nC ? "" : "disabled"}>Inizia la simulazione</button>
     </div>
-    ${last.length ? `<h3>Ultime simulazioni</h3><div class="card" style="padding:4px 12px"><ul class="list">${last.map(e => `<li class="lrow"><span class="t">${fmtDate(e.ts)} · ${e.closedOk}/${e.closedTot} chiuse${e.openScore != null ? ` · aperte ${e.openScore}/${e.openMax}` : ""}</span><span class="tag ${pct(e.closedOk, e.closedTot) >= 60 ? "ok" : "ko"}">${fmtPct(pct(e.closedOk, e.closedTot))}</span></li>`).join("")}</ul></div>` : ""}`, "esame");
+    ${last.length ? `<h3>Ultime simulazioni</h3><div class="card" style="padding:4px 12px"><ul class="list">${last.map(e => `<li class="lrow"><span class="t">${fmtDate(e.ts)} · ${e.closedOk}/${e.closedTot} chiuse${e.unknown ? ` (+${e.unknown} n.d.)` : ""}${e.openScore != null ? ` · aperte ${e.openScore}/${e.openMax}` : ""}</span><span class="tag ${pct(e.closedOk, e.closedTot) >= 60 ? "ok" : "ko"}">${fmtPct(pct(e.closedOk, e.closedTot))}</span></li>`).join("")}</ul></div>` : ""}`, "esame");
   $("#mins").onchange = e => { P.settings.examMinutes = +e.target.value; save(); };
-  $("#go").onclick = () => runExam(shuffle(known).slice(0, nC).map(prepare), shuffle(DB.open).slice(0, 2), P.settings.examMinutes || 60);
+  $("#only").onchange = e => { P.settings.examOnlyKnown = e.target.checked; save(); viewExamIntro(); };
+  $("#go").onclick = () => runExam(shuffle(pool).slice(0, nC).map(prepare), shuffle(DB.open).slice(0, 2), P.settings.examMinutes || 60);
 }
 function runExam(closed, open, minutes){
   const total = closed.length + open.length;
@@ -435,7 +452,7 @@ function runExam(closed, open, minutes){
     let body;
     if (!isOpen){
       const { q, order } = closed[i];
-      body = `<div class="small muted">Domanda chiusa ${i + 1} di ${closed.length}</div><div class="q">${esc(q.q)}</div>
+      body = `<div class="small muted">Domanda chiusa ${i + 1} di ${closed.length} · Lezione ${q.l}${q.answer ? "" : ` <span class="tag warn">risposta n.d.</span>`}</div>${q.broken ? `<div class="fb warn" style="font-weight:400">Domanda estratta male dal PDF: opzioni forse incomplete.</div>` : ""}<div class="q">${esc(q.q)}</div>
         <div id="opts">${order.map((o, k) => `<button class="opt ${ans[i] === o ? "sel" : ""}" data-o="${o}"><span class="k">${LETTERS[k]}</span><span>${esc(q.opts[o])}</span></button>`).join("")}</div>`;
     } else {
       const j = i - closed.length, q = open[j];
@@ -460,13 +477,16 @@ function runExam(closed, open, minutes){
   }
   function submit(){
     if (done) return; done = true; cleanup(); cleanup = null;
-    let ok = 0; const errors = [];
+    let ok = 0; const errors = [], unknown = [];
     closed.forEach(({q, order}, k) => {
-      const chosen = ans[k] != null ? LETTERS[ans[k]] : null, right = chosen === q.answer;
+      const chosen = ans[k] != null ? LETTERS[ans[k]] : null;
+      if (!q.answer){ unknown.push({q, chosen}); return; }
+      const right = chosen === q.answer;
       if (right) ok++; else errors.push({q, chosen});
       if (chosen) record(q, right);
     });
-    const exam = { ts: Date.now(), closedOk: ok, closedTot: closed.length, openIds: open.map(q => q.id), openScores: {}, openScore: null, openMax: open.length * 2, secs: Math.round((Date.now() - startT) / 1000) };
+    const graded = closed.length - unknown.length;
+    const exam = { ts: Date.now(), closedOk: ok, closedTot: graded, unknown: unknown.length, openIds: open.map(q => q.id), openScores: {}, openScore: null, openMax: open.length * 2, secs: Math.round((Date.now() - startT) / 1000) };
     open.forEach((q, j) => { if ((texts[j] || "").trim()) P.open[q.id] = { ...(P.open[q.id] || {}), text: texts[j], ts: Date.now() }; });
     P.exams.push(exam); save();
     const ex = P.exams.length - 1;
@@ -475,8 +495,9 @@ function runExam(closed, open, minutes){
       setView("Risultato simulazione", `
         <div class="card" style="text-align:center">
           <div class="muted">Domande chiuse</div>
-          <div style="font-size:40px;font-weight:700">${ok}/${closed.length}</div>
-          <div class="muted">${fmtPct(pct(ok, closed.length))} · tempo ${fmtTime(e.secs)}${e.openScore != null ? ` · aperte ${e.openScore}/${e.openMax}` : ""}</div>
+          <div style="font-size:40px;font-weight:700">${graded ? `${ok}/${graded}` : "–"}</div>
+          ${unknown.length ? `<div class="small muted">valutate ${graded} su ${closed.length}: ${unknown.length} senza risposta nota</div>` : ""}
+          <div class="muted">${fmtPct(pct(ok, graded))} · tempo ${fmtTime(e.secs)}${e.openScore != null ? ` · aperte ${e.openScore}/${e.openMax}` : ""}</div>
         </div>
         ${open.length ? `<h3>Domande aperte: autovalutazione</h3>` + open.map((q, j) => `
           <div class="card stack">
@@ -488,7 +509,10 @@ function runExam(closed, open, minutes){
         ${errors.length ? `<h3>Errori (${errors.length})</h3>` + errors.map(({q, chosen}) => `
           <div class="card"><div class="small muted">Lezione ${q.l}, n. ${q.n}</div><div style="font-weight:600">${esc(q.q)}</div>
           ${chosen ? `<div class="fb ko" style="font-weight:400">Tua: ${esc(q.opts[LETTERS.indexOf(chosen)])}</div>` : `<div class="fb warn" style="font-weight:400">Non risposta</div>`}
-          <div class="fb ok" style="font-weight:400">Corretta: ${esc(q.opts[LETTERS.indexOf(q.answer)])}</div></div>`).join("") : `<p class="fb ok">Nessun errore nelle domande chiuse!</p>`}
+          <div class="fb ok" style="font-weight:400">Corretta: ${esc(q.opts[LETTERS.indexOf(q.answer)])}</div></div>`).join("") : graded ? `<p class="fb ok">Nessun errore nelle domande chiuse valutate!</p>` : ""}
+        ${unknown.length ? `<h3>Non valutate: risposta non ancora disponibile (${unknown.length})</h3>` + unknown.map(({q, chosen}) => `
+          <div class="card"><div class="small muted">Lezione ${q.l}, n. ${q.n}</div><div style="font-weight:600">${esc(q.q)}</div>
+          <div class="small" style="margin-top:6px">Tua scelta: ${chosen ? esc(q.opts[LETTERS.indexOf(chosen)]) : "<i>nessuna</i>"}</div></div>`).join("") : ""}
         <div class="stack"><a class="btn primary full" href="#/esame">Nuova simulazione</a><a class="btn full" href="#/">Home</a></div>`, "esame");
       document.querySelectorAll("button[data-v]").forEach(b => b.onclick = () => {
         const j = +b.dataset.j, v = +b.dataset.v, q = open[j];
@@ -646,7 +670,7 @@ function viewMore(){
 }
 function viewAnomalies(){
   setView("Anomalie nei dati", `
-    <p class="small muted">Controlli automatici su domande.json e risposte.json. Le domande con anomalie sono escluse dai quiz finché non vengono corrette nel file.</p>
+    <p class="small muted">Controlli automatici su domande.json e risposte.json. Le domande con anomalie restano nei quiz con un avviso: correggile nel file quando puoi.</p>
     ${DB.anomalie.length ? `<div class="card" style="padding:4px 12px"><ul class="list">${DB.anomalie.map(a => { const q = DB.byId[a.id];
       return `<li style="padding:12px 4px"><b>L${esc(a.id.replace("-", " n."))}</b> – ${esc(a.msg)}${q ? `<div class="small muted">${esc(q.q)}</div>` : ""}</li>`; }).join("")}</ul></div>` : `<p class="empty">Nessuna anomalia.</p>`}
     <a class="btn full" href="#/altro">← Altro</a>`, "altro");

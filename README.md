@@ -6,8 +6,8 @@ App per preparare l'esame di **Basi di Dati** (eCampus, 1 dicembre 2026: 24 doma
 Usa **solo** i materiali del corso: `data/domande.json` (banca ufficiale) e `data/risposte.json`. Se manca una risposta, l'app scrive “risposta non ancora disponibile” e non la inventa.
 
 ## Funzioni
-- **Quiz per lezione**: una domanda alla volta, opzioni in ordine casuale, feedback immediato.
-- **Simulazione d'esame**: 24 chiuse casuali (tra quelle con risposta nota) + 2 aperte, timer regolabile, punteggio e riepilogo errori.
+- **Quiz per lezione** (o su tutte le 187 domande chiuse insieme): una domanda alla volta, opzioni in ordine casuale, feedback immediato dove la risposta è nota.
+- **Simulazione d'esame**: 24 chiuse casuali da tutta la banca (quelle senza risposta nota non vengono valutate; c'è l'opzione “solo con risposta nota”) + 2 aperte, timer regolabile, punteggio e riepilogo errori.
 - **Domande aperte**: scrivi la risposta, confrontala con la risposta modello (se c'è) e autovalutati 0/1/2.
 - **Ripasso errori**: le domande sbagliate tornano subito, poi dopo 1, 3 e 7 giorni.
 - **Statistiche**: percentuale per lezione e per nucleo, lezioni più deboli, giorni mancanti all'esame.
@@ -38,7 +38,7 @@ Si aggiungono in due modi:
 ```
 
 ### Domande da correggere
-La L30 n.03 è stata estratta male dal PDF: ha 2 opzioni invece di 4, con le prime tre incollate insieme. Finché non la sistemi a mano in `domande.json` è esclusa dai quiz. Le opzioni spazzatura come “Powered by TCPDF” vengono ignorate in automatico.
+La L30 n.03 è stata estratta male dal PDF: ha 2 opzioni invece di 4, con le prime tre incollate insieme. È inclusa nei quiz con un avviso finché non la sistemi a mano in `domande.json`. Le opzioni spazzatura come “Powered by TCPDF” vengono ignorate in automatico.
 
 Dopo ogni modifica pubblica di nuovo (vedi sotto). L'app scarica sempre i dati aggiornati quando c'è rete e li usa offline quando non c'è. Se cambi `index.html`, aumenta `VERSION` in `sw.js` perché i telefoni ricevano la nuova versione.
 
