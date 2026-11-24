@@ -13,7 +13,8 @@ Usa **solo** i materiali forniti: `data/domande.json` (banca ufficiale), `data/r
 - **Domande aperte**: scrivi la risposta, confrontala con la risposta modello (se c'è) e autovalutati 0/1/2.
 - **Ripasso errori**: le domande sbagliate tornano subito, poi dopo 1, 3 e 7 giorni.
 - **Statistiche**: percentuale per lezione e per nucleo, lezioni più deboli, giorni mancanti all'esame.
-- **Flashcard** dal glossario (se presente `data/glossario.json`).
+- **Glossario per nucleo**: 130 parole chiave spiegate in modo semplice, divise negli 8 nuclei, con ricerca.
+- **Flashcard** dal glossario, filtrabili per nucleo o per lezione.
 - **Esporta/importa progressi** (menu *Altro*): i progressi stanno nel browser, quindi esportali per spostarli tra telefono e computer.
 
 ## Aggiungere le risposte di una nuova lezione
@@ -33,10 +34,10 @@ Si aggiungono in due modi:
 - con il campo `"modello": "testo…"` nella domanda dentro `domande.json`;
 - oppure con un file `data/modelli.json` nella forma `{ "28": { "05": "testo…" } }`.
 
-### Glossario (facoltativo)
-`data/glossario.json`:
+### Glossario
+`data/glossario.json` contiene le definizioni semplici, scritte a partire dalle risposte corrette della banca e dalle risposte modello. Per aggiungere o correggere un termine (`esempio` è facoltativo; il nucleo si ricava dalla lezione):
 ```json
-[ { "termine": "Chiave primaria", "significato": "…", "lezione": 17 } ]
+[ { "termine": "Chiave primaria", "significato": "…", "lezione": 17, "esempio": "…" } ]
 ```
 
 ### Domande da correggere

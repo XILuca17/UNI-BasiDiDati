@@ -210,7 +210,7 @@ async function loadData(){
     }
   }
   DB.nRisposte = DB.closed.filter(q => q.answer).length;
-  if (Array.isArray(glo)) DB.glossario = glo.filter(g => g && g.termine && g.significato).map((g, i) => ({...g, id: "g" + i + ":" + g.termine}));
+  if (Array.isArray(glo)) DB.glossario = glo.filter(g => g && g.termine && g.significato).map(g => ({...g, id: "g:" + g.termine, nucleo: nucleoOf(Number(g.lezione)).id}));
 }
 const closedOf = l => DB.closed.filter(q => q.l === l);
 const openOf = l => DB.open.filter(q => q.l === l);
@@ -269,7 +269,7 @@ function route(){
     "": viewHome, quiz: () => a === "tutte" ? startMixQuiz() : a ? startLessonQuiz(+a) : viewQuizList(),
     esame: viewExamIntro, ripasso: viewReview, statistiche: viewStats,
     aperte: () => a ? viewOpenLesson(+a) : viewOpenList(),
-    flashcard: viewFlash, altro: viewMore, anomalie: viewAnomalies,
+    flashcard: () => viewFlash(a), glossario: () => a ? viewGlossNucleo(+a) : viewGlossList(), altro: viewMore, anomalie: viewAnomalies,
   }[r || ""] || viewHome)();
 }
 window.addEventListener("hashchange", route);
@@ -301,6 +301,7 @@ function viewHome(){
       <a class="btn ${due ? "" : "primary"} full" href="#/quiz">✓ Quiz per lezione</a>
       <a class="btn full" href="#/esame">⏱ Simulazione d'esame</a>
       <a class="btn full" href="#/aperte">✎ Domande aperte</a>
+      <a class="btn full" href="#/glossario">📖 Glossario per nucleo</a>
       <a class="btn full" href="#/flashcard">▭ Flashcard glossario</a>
     </div>
     <p class="small muted" style="margin-top:16px">Banca dati: ${DB.closed.length} domande chiuse (${DB.nRisposte} con risposta nota), ${DB.open.length} aperte, lezioni ${DB.lezioni[0]}–${DB.lezioni.at(-1)}.
@@ -599,27 +600,27 @@ function viewStats(){
 }
 
 /* ============ Flashcard ============ */
-function viewFlash(){
+function viewFlash(startFilter){
   const g = DB.glossario;
   if (!g.length){
     setView("Flashcard", `<div class="card empty">Glossario non ancora disponibile.<br><span class="small">Aggiungi il file <code>data/glossario.json</code> (vedi README) per usare le flashcard.</span></div><a class="btn full" href="#/altro">← Altro</a>`, "altro");
     return;
   }
   const lez = [...new Set(g.map(x => x.lezione).filter(x => x != null))].sort((a, b) => a - b);
-  let filter = "tutte", deck = [], i = 0, flipped = false;
+  let filter = startFilter ? "n" + startFilter : "tutte", deck = [], i = 0, flipped = false;
   function build(){
-    deck = shuffle(g.filter(x => filter === "tutte" ? true : filter === "darivedere" ? !P.flash[x.id]?.known : String(x.lezione) === filter));
+    deck = shuffle(g.filter(x => filter === "tutte" ? true : filter === "darivedere" ? !P.flash[x.id]?.known : filter[0] === "n" ? "n" + x.nucleo === filter : String(x.lezione) === filter));
     i = 0; flipped = false; show();
   }
   function show(){
     const known = g.filter(x => P.flash[x.id]?.known).length;
     const c = deck[i];
     setView("Flashcard", `
-      <div class="row"><select id="f" class="grow"><option value="tutte">Tutti i termini (${g.length})</option><option value="darivedere">Solo da rivedere (${g.length - known})</option>${lez.map(l => `<option value="${l}">Lezione ${l}</option>`).join("")}</select></div>
+      <div class="row"><select id="f" class="grow"><option value="tutte">Tutti i termini (${g.length})</option><option value="darivedere">Solo da rivedere (${g.length - known})</option>${NUCLEI.filter(nu => g.some(x => x.nucleo === nu.id)).map(nu => `<option value="n${nu.id}">Nucleo ${nu.id}: ${esc(nu.nome)}</option>`).join("")}${lez.map(l => `<option value="${l}">Lezione ${l}</option>`).join("")}</select></div>
       ${c ? `<p class="small muted">Carta ${i + 1} di ${deck.length} · ${known} termini segnati come “la so”</p>
         <div class="card flash" id="card" role="button" tabindex="0" aria-label="Gira la carta">
           <div><b>${esc(c.termine)}</b>${c.lezione != null ? `<div class="small muted">Lezione ${esc(c.lezione)}</div>` : ""}</div>
-          ${flipped ? `<div class="back">${esc(c.significato)}</div>` : `<div class="small muted" style="margin-top:12px">Tocca per vedere il significato</div>`}
+          ${flipped ? `<div class="back">${esc(c.significato)}${c.esempio ? `<div class="small muted" style="margin-top:8px">Es.: ${esc(c.esempio)}</div>` : ""}</div>` : `<div class="small muted" style="margin-top:12px">Tocca per vedere il significato</div>`}
         </div>
         <div class="row"><button class="grow" id="no">Da rivedere</button><button class="grow primary" id="yes">La so ✓</button></div>`
       : `<p class="empty">Nessuna carta in questo gruppo.</p>`}
@@ -635,11 +636,54 @@ function viewFlash(){
   build();
 }
 
+/* ============ Glossario per nucleo ============ */
+function glossCard(x){
+  const known = P.flash[x.id]?.known;
+  return `<div class="card" style="margin:10px 0">
+    <div class="row"><b class="grow" style="font-size:18px">${esc(x.termine)}</b><span class="tag">L${esc(x.lezione)}</span>${known ? `<span class="tag ok">la so</span>` : ""}</div>
+    <p style="margin:6px 0 0">${esc(x.significato)}</p>
+    ${x.esempio ? `<p class="small" style="margin:6px 0 0"><span class="muted">Esempio:</span> <code>${esc(x.esempio)}</code></p>` : ""}
+  </div>`;
+}
+function viewGlossList(){
+  const g = DB.glossario;
+  if (!g.length){ viewFlash(); return; }
+  setView("Glossario", `
+    <p class="muted small">Le parole chiave di ogni nucleo, spiegate in modo semplice per un ripasso veloce.</p>
+    <input id="q" type="search" placeholder="Cerca un termine…" aria-label="Cerca nel glossario" style="width:100%;font:inherit;padding:12px;border-radius:12px;border:1px solid var(--border);background:var(--surface);color:var(--text);min-height:48px">
+    <div id="res"></div>`, "altro");
+  const nuclei = `<div class="card" style="padding:4px 12px"><ul class="list">${NUCLEI.map(nu => {
+    const items = g.filter(x => x.nucleo === nu.id); if (!items.length) return "";
+    const known = items.filter(x => P.flash[x.id]?.known).length;
+    return `<li><a class="lrow" href="#/glossario/${nu.id}" style="text-decoration:none"><span class="t"><b>${nu.id}. ${esc(nu.nome)}</b><br><span class="small muted">Lezioni ${nu.da}–${nu.a} · ${items.length} termini</span></span><span class="tag ${known === items.length ? "ok" : ""}">${known}/${items.length}</span></a></li>`;
+  }).join("")}</ul></div>`;
+  const norm = t => t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  const upd = () => {
+    const q = norm($("#q").value.trim());
+    if (!q){ $("#res").innerHTML = nuclei; return; }
+    const hits = g.filter(x => norm(x.termine + " " + x.significato + " " + (x.esempio || "")).includes(q));
+    $("#res").innerHTML = hits.length ? `<p class="small muted">${hits.length} risultati</p>` + hits.map(glossCard).join("") : `<p class="empty">Nessun termine trovato.</p>`;
+  };
+  $("#q").oninput = upd; upd();
+}
+function viewGlossNucleo(id){
+  const nu = NUCLEI.find(n => n.id === id), items = DB.glossario.filter(x => x.nucleo === id).sort((a, b) => a.lezione - b.lezione);
+  if (!nu || !items.length){ viewGlossList(); return; }
+  const prev = NUCLEI.find(n => n.id === id - 1), next = NUCLEI.find(n => n.id === id + 1);
+  setView(`Glossario · ${nu.id}`, `
+    <h2>${nu.id}. ${esc(nu.nome)}</h2>
+    <p class="small muted">Lezioni ${nu.da}–${nu.a} · ${items.length} termini</p>
+    <a class="btn primary full" href="#/flashcard/${id}">▭ Ripassa con le flashcard</a>
+    ${items.map(glossCard).join("")}
+    <div class="row" style="margin-top:12px">${prev ? `<a class="btn grow" href="#/glossario/${prev.id}">← ${prev.id}</a>` : ""}<a class="btn grow" href="#/glossario">Tutti i nuclei</a>${next ? `<a class="btn grow" href="#/glossario/${next.id}">${next.id} →</a>` : ""}</div>`, "altro");
+}
+
 /* ============ Altro: impostazioni, esporta/importa ============ */
 function viewMore(){
   setView("Altro", `
     <div class="stack">
       <a class="btn full" href="#/aperte">✎ Domande aperte</a>
+      <a class="btn full" href="#/glossario">📖 Glossario per nucleo</a>
       <a class="btn full" href="#/flashcard">▭ Flashcard glossario</a>
       <a class="btn full" href="#/anomalie">⚠ Anomalie nei dati (${DB.anomalie.length})</a>
     </div>
