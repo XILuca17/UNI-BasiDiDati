@@ -121,7 +121,7 @@ details summary{cursor:pointer;font-weight:600;padding:8px 0}
 const EXAM_DATE = new Date(2026, 11, 1); // 1 dicembre 2026
 const STORE_KEY = "bdd-progressi-v1";
 const LETTERS = ["A","B","C","D"];
-const REVIEW_DAYS = [1, 3, 7];
+const REVIEW_DAYS = [1, 2, 4]; // giorni dopo ogni risposta giusta in ripasso (prima volta: subito)
 const DAY = 86400000;
 const NUCLEI = [
   {id:1, nome:"Sistemi per le basi di dati", da:2, a:6},
@@ -144,6 +144,14 @@ const fmtPct = v => v == null ? "–" : v + "%";
 const fmtTime = s => { s = Math.max(0, Math.round(s)); const m = Math.floor(s / 60), r = s % 60; return `${m}:${String(r).padStart(2, "0")}`; };
 const fmtDate = t => new Date(t).toLocaleDateString("it-IT", {day:"numeric", month:"short"});
 const startOfDay = t => { const d = new Date(t); d.setHours(0,0,0,0); return d.getTime(); };
+function showUpdateBanner(){
+  if (document.getElementById("upd")) return;
+  const d = document.createElement("div"); d.id = "upd"; d.className = "toast";
+  d.style.cssText = "display:flex;gap:12px;align-items:center;bottom:calc(84px + env(safe-area-inset-bottom))";
+  d.innerHTML = `<span>Nuova versione disponibile</span><button class="primary" style="min-height:40px;padding:6px 12px">Ricarica</button>`;
+  d.querySelector("button").onclick = () => location.reload();
+  document.body.append(d);
+}
 function toast(msg){ const t = document.createElement("div"); t.className = "toast"; t.textContent = msg; document.body.append(t); setTimeout(() => t.remove(), 2600); }
 
 /* ============ Dati ============ */
@@ -162,11 +170,12 @@ async function fetchJSON(url, optional){
 }
 
 async function loadData(){
-  const [dom, ris, glo, mod] = await Promise.all([
+  const [dom, ris, glo, mod, pk] = await Promise.all([
     fetchJSON("data/domande.json"),
     fetchJSON("data/risposte.json", true),
     fetchJSON("data/glossario.json", true),
     fetchJSON("data/modelli.json", true),
+    fetchJSON("data/puntichiave.json", true),
   ]);
   const risposte = ris || {};
   const modelli = mod || {};
@@ -188,6 +197,8 @@ async function loadData(){
       } else if (opts.length === 0){
         q.type = "open";
         q.modello = raw.modello || (modelli[L] && (modelli[L][n] || modelli[L][raw.n])) || null;
+        const pts = pk && pk[L] && (pk[L][n] || pk[L][raw.n]);
+        q.punti = Array.isArray(pts) && pts.length ? pts : null;
         DB.open.push(q);
       } else {
         // estratta male dal PDF: la includiamo comunque, con le opzioni disponibili e un avviso
@@ -217,11 +228,14 @@ const openOf = l => DB.open.filter(q => q.l === l);
 
 /* ============ Progressi (localStorage) ============ */
 let P;
-function blankProgress(){ return { v:1, answers:{}, review:{}, open:{}, exams:[], flash:{}, settings:{ examMinutes:60 } }; }
+function blankProgress(){ return { v:1, answers:{}, review:{}, open:{}, exams:[], flash:{}, flags:{}, settings:{ examMinutes:60 } }; }
 function loadProgress(){
   try { P = JSON.parse(localStorage.getItem(STORE_KEY)) || blankProgress(); } catch { P = blankProgress(); }
   const b = blankProgress();
   for (const k in b) if (P[k] == null) P[k] = b[k];
+  // ripassi salvati con i vecchi intervalli: non oltre l'esame
+  const exam = startOfDay(EXAM_DATE), tomorrow = startOfDay(Date.now()) + DAY;
+  for (const r of Object.values(P.review)) if (Date.now() < exam && r.due >= exam) r.due = tomorrow;
 }
 function save(){ try { localStorage.setItem(STORE_KEY, JSON.stringify(P)); } catch { toast("Impossibile salvare i progressi su questo dispositivo"); } }
 
@@ -235,9 +249,16 @@ function record(q, correct, fromReview){
     P.review[q.id] = { step:0, due: Date.now(), wrong:(r?.wrong || 0) + 1 };
   } else if (r && (fromReview || r.due <= Date.now())){
     if (r.step >= REVIEW_DAYS.length) delete P.review[q.id];
-    else { r.due = startOfDay(Date.now()) + REVIEW_DAYS[r.step] * DAY; r.step++; }
+    else { r.due = nextDue(REVIEW_DAYS[r.step]); r.step++; }
   }
   save();
+}
+// Prossima scadenza: se cadrebbe il giorno dell'esame o dopo, la domanda torna domani (ogni giorno fino all'esame)
+function nextDue(days){
+  const today = startOfDay(Date.now()), exam = startOfDay(EXAM_DATE);
+  let due = today + days * DAY;
+  if (today < exam && due >= exam) due = today + DAY;
+  return due;
 }
 const dueReviews = () => Object.entries(P.review).filter(([id, r]) => r.due <= Date.now() && DB.byId[id]?.answer).map(([id]) => DB.byId[id]);
 
@@ -266,10 +287,10 @@ function route(){
   const parts = location.hash.replace(/^#\/?/, "").split("/").filter(Boolean);
   const [r, a, b] = parts;
   ({
-    "": viewHome, quiz: () => a === "tutte" ? startMixQuiz() : a ? startLessonQuiz(+a) : viewQuizList(),
+    "": viewHome, quiz: () => a === "nuove" ? startNewQuiz() : a === "tutte" ? startMixQuiz() : a ? startLessonQuiz(+a) : viewQuizList(),
     esame: viewExamIntro, ripasso: viewReview, statistiche: viewStats,
     aperte: () => a ? viewOpenLesson(+a) : viewOpenList(),
-    flashcard: () => viewFlash(a), glossario: () => a ? viewGlossNucleo(+a) : viewGlossList(), altro: viewMore, anomalie: viewAnomalies,
+    flashcard: () => viewFlash(a), glossario: () => a ? viewGlossNucleo(+a) : viewGlossList(), altro: viewMore, anomalie: viewAnomalies, ultimo: viewLastDay,
   }[r || ""] || viewHome)();
 }
 window.addEventListener("hashchange", route);
@@ -284,8 +305,12 @@ function daysLeft(){ return Math.ceil((startOfDay(EXAM_DATE) - startOfDay(Date.n
 function viewHome(){
   const d = daysLeft(), due = dueReviews().length;
   const tot = Object.values(P.answers).reduce((s, a) => ({ok:s.ok + a.ok, n:s.n + a.ok + a.ko}), {ok:0, n:0});
-  const seen = Object.keys(P.answers).length;
+  const seen = DB.closed.filter(q => q.answer && P.answers[q.id]).length, never = DB.nRisposte - seen;
+  const hasData = Object.keys(P.answers).length || Object.keys(P.open).length;
+  const bkDays = P.lastBackup ? Math.floor((Date.now() - P.lastBackup) / DAY) : null;
+  const bkWarn = hasData && (bkDays == null || bkDays >= 3);
   setView("Basi di Dati", `
+    ${bkWarn ? `<div class="fb warn" style="font-weight:400">💾 ${bkDays == null ? "Non hai ancora fatto un backup dei progressi." : `Ultimo backup: ${bkDays} giorni fa.`} I progressi sono solo su questo dispositivo. <a href="#/altro">Esporta ora</a></div>` : ""}
     <div class="card hero">
       <div class="muted small">Esame del 1 dicembre 2026</div>
       <b class="big">${d > 0 ? d : d === 0 ? "Oggi" : "Passato"}</b> ${d > 0 ? (d === 1 ? "giorno mancante" : "giorni mancanti") : ""}
@@ -293,20 +318,47 @@ function viewHome(){
     </div>
     <div class="grid">
       <div class="stat"><span class="muted small">Risposte giuste</span><b>${fmtPct(pct(tot.ok, tot.n))}</b><span class="small muted">${tot.n} risposte date</span></div>
-      <div class="stat"><span class="muted small">Domande viste</span><b>${seen}/${DB.nRisposte}</b><span class="small muted">chiuse con risposta nota</span></div>
+      <div class="stat"><span class="muted small">Domande viste</span><b>${seen}/${DB.nRisposte}</b><span class="small muted">${never ? `${never} mai viste` : "tutte viste 🎉"}</span></div>
       <div class="stat"><span class="muted small">Da ripassare oggi</span><b>${due}</b><span class="small muted">errori in scadenza</span></div>
     </div>
     <div class="stack" style="margin-top:16px">
       ${due ? `<a class="btn primary full" href="#/ripasso">↻ Ripassa ${due} ${due === 1 ? "errore" : "errori"}</a>` : ""}
-      <a class="btn ${due ? "" : "primary"} full" href="#/quiz">✓ Quiz per lezione</a>
+      ${d <= 1 && d >= 0 ? `<a class="btn primary full" href="#/ultimo">⚡ Ripasso rapido dell'ultimo giorno</a>` : ""}
+      ${never ? `<a class="btn ${due ? "" : "primary"} full" href="#/quiz/nuove">★ Domande mai viste (${never})</a>` : ""}
+      <a class="btn full" href="#/quiz">✓ Quiz per lezione</a>
       <a class="btn full" href="#/esame">⏱ Simulazione d'esame</a>
       <a class="btn full" href="#/aperte">✎ Domande aperte</a>
       <a class="btn full" href="#/glossario">📖 Glossario per nucleo</a>
       <a class="btn full" href="#/flashcard">▭ Flashcard glossario</a>
+      ${d > 1 ? `<a class="btn full" href="#/ultimo">⚡ Ripasso rapido dell'ultimo giorno</a>` : ""}
     </div>
     <p class="small muted" style="margin-top:16px">Banca dati: ${DB.closed.length} domande chiuse (${DB.nRisposte} con risposta nota), ${DB.open.length} aperte, lezioni ${DB.lezioni[0]}–${DB.lezioni.at(-1)}.
     ${DB.anomalie.length ? `<a href="#/anomalie">${DB.anomalie.length} ${DB.anomalie.length === 1 ? "anomalia" : "anomalie"} nei dati</a>.` : ""}</p>`, "home");
 }
+
+/* ============ Collegamento domande ↔ glossario ============ */
+const STOP = new Set("della delle dello degli dei del nel nella nelle negli con per tra fra una uno che non sono come cosa quale quali sua suo loro alla alle allo agli ogni anche base dati".split(" "));
+const words = t => (t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").match(/[a-z0-9]{4,}/g) || []).filter(w => !STOP.has(w));
+// I termini del glossario della stessa lezione (o, in mancanza, dello stesso nucleo) più legati alla domanda
+function relatedTerms(q, max = 2){
+  if (!DB.glossario.length) return [];
+  const text = new Set(words(q.q + " " + (q.answer ? q.opts[LETTERS.indexOf(q.answer)] : "")));
+  const score = t => { const w = words(t.termine); return w.length ? w.filter(x => text.has(x)).length / w.length + 0.2 * words(t.significato).filter(x => text.has(x)).length / 10 : 0; };
+  let cands = DB.glossario.filter(t => Number(t.lezione) === q.l);
+  if (!cands.length) cands = DB.glossario.filter(t => t.nucleo === nucleoOf(q.l).id);
+  return cands.map(t => [score(t), t]).filter(([s]) => s > 0).sort((a, b) => b[0] - a[0]).slice(0, max).map(([, t]) => t)
+    .concat(cands.length && !cands.some(t => score(t) > 0) ? [cands[0]] : []).slice(0, max);
+}
+const termsHtml = ts => ts.length ? `<div class="card" style="margin:10px 0;background:var(--surface2)"><div class="small muted">📖 Dal glossario</div>${ts.map(t => `<p style="margin:6px 0"><b>${esc(t.termine)}</b>: ${esc(t.significato)}</p>`).join("")}</div>` : "";
+const flagBtn = q => `<button class="ghost small flag" data-id="${q.id}" style="min-height:40px;font-size:14px">${P.flags[q.id] ? "⚑ Segnalata come dubbia (tocca per togliere)" : "⚐ Segnala risposta dubbia"}</button>`;
+function bindFlags(root = document){
+  root.querySelectorAll("button.flag").forEach(b => b.onclick = () => {
+    const id = b.dataset.id;
+    if (P.flags[id]) delete P.flags[id]; else P.flags[id] = { ts: Date.now() };
+    save(); b.outerHTML = flagBtn(DB.byId[id]); bindFlags(root); toast(P.flags[id] ? "Segnalata: la trovi in Anomalie nei dati" : "Segnalazione tolta");
+  });
+}
+const seenIds = () => new Set(Object.keys(P.answers));
 
 /* ============ Elenco lezioni (quiz) ============ */
 function lessonStats(l){
@@ -316,7 +368,8 @@ function lessonStats(l){
 }
 function viewQuizList(){
   let html = `<p class="muted small">Scegli una lezione. Le domande con risposta nota danno subito il feedback; le altre sono segnate come “risposta non ancora disponibile”.</p>
-    <a class="btn primary full" href="#/quiz/tutte">Tutte le ${DB.closed.length} domande chiuse, in ordine casuale</a>`;
+    ${(() => { const n = DB.closed.filter(q => q.answer && !seenIds().has(q.id)).length; return n ? `<a class="btn primary full" href="#/quiz/nuove">Solo le domande mai viste (${n})</a>` : ""; })()}
+    <a class="btn full" href="#/quiz/tutte" style="margin-top:8px">Tutte le ${DB.closed.length} domande chiuse, in ordine casuale</a>`;
   for (const nu of NUCLEI){
     const ls = DB.lezioni.filter(l => l >= nu.da && l <= nu.a);
     if (!ls.length) continue;
@@ -348,6 +401,7 @@ function runQuiz({ title, items, tab, fromReview, onEnd }){
       <div class="bar" style="margin:8px 0"><i style="width:${100 * i / items.length}%"></i></div>
       <div class="q">${esc(q.q)}</div>
       <div id="opts">${order.map((o, k) => `<button class="opt" data-o="${o}"><span class="k">${LETTERS[k]}</span><span>${esc(q.opts[o])}</span></button>`).join("")}</div>
+      ${known ? `<label class="row small" style="margin:6px 0"><input type="checkbox" id="guess" style="width:22px;height:22px"><span class="grow">🎲 Sto tirando a indovinare</span></label>` : ""}
       <div id="fb"></div>
       <div class="row" style="margin-top:12px"><a class="btn" href="#/${tab === "quiz" ? "quiz" : tab}">Esci</a><span class="grow"></span><button class="primary" id="next" hidden>${i + 1 < items.length ? "Avanti →" : "Fine"}</button></div>`, tab);
     const btns = [...document.querySelectorAll("#opts .opt")];
@@ -355,11 +409,16 @@ function runQuiz({ title, items, tab, fromReview, onEnd }){
       const chosen = LETTERS[+b.dataset.o]; // lettera originale
       btns.forEach(x => x.disabled = true);
       if (known){
-        const ok = isRight(q, chosen);
+        const right = isRight(q, chosen), guessed = !!$("#guess")?.checked, ok = right && !guessed;
+        $("#guess")?.closest("label").remove();
         graded++; if (ok) score++; else wrong.push(q);
         btns.forEach(x => { const L = LETTERS[+x.dataset.o]; if (isRight(q, L)) x.classList.add("ok"); else if (x === b) x.classList.add("ko"); });
         const pos = LETTERS[order.indexOf(LETTERS.indexOf(q.answer))];
-        $("#fb").innerHTML = ok ? `<div class="fb ok">✓ Giusto!</div>` : `<div class="fb ko">✗ Sbagliato. La risposta corretta è la ${pos}.</div>`;
+        $("#fb").innerHTML = (ok ? `<div class="fb ok">✓ Giusto!</div>`
+          : right ? `<div class="fb warn">🎲 Giusto, ma l'hai indovinata: conta come da rivedere e va nel ripasso.</div>`
+          : `<div class="fb ko">✗ Sbagliato. La risposta corretta è la ${pos}.</div>`)
+          + (ok ? "" : termsHtml(relatedTerms(q))) + flagBtn(q);
+        bindFlags($("#fb"));
         record(q, ok, fromReview);
       } else {
         b.classList.add("sel");
@@ -381,6 +440,12 @@ function runQuiz({ title, items, tab, fromReview, onEnd }){
   }
   show();
 }
+function startNewQuiz(){
+  const seen = seenIds(), pool = DB.closed.filter(q => q.answer && !seen.has(q.id));
+  if (!pool.length){ setView("Domande mai viste", `<div class="card empty">Hai già visto tutte le ${DB.nRisposte} domande chiuse. 🎉</div><a class="btn full" href="#/quiz">← Quiz</a>`, "quiz"); return; }
+  runQuiz({ title: "Mai viste", items: shuffle(pool).map(prepare), tab: "quiz",
+    onEnd: () => { const left = DB.closed.filter(q => q.answer && !seenIds().has(q.id)).length; return left ? `<button class="primary full" onclick="route()">Continua (${left} ancora mai viste)</button>` : `<p class="fb ok">Hai visto tutte le domande!</p>`; } });
+}
 function startMixQuiz(){
   runQuiz({ title: "Tutte le lezioni", items: shuffle(DB.closed).map(prepare), tab: "quiz",
     onEnd: () => `<button class="primary full" onclick="route()">Ricomincia</button>` });
@@ -400,7 +465,7 @@ function viewReview(){
   if (!due.length){
     setView("Ripasso errori", `
       <div class="card empty">${Object.keys(P.review).length ? "Niente da ripassare oggi. 👍" : "Ancora nessun errore da ripassare. Le domande che sbagli finiscono qui."}</div>
-      <p class="small muted">Ogni domanda sbagliata torna subito in ripasso. Quando la indovini ricompare dopo 1, poi 3, poi 7 giorni; dopo l'ultima risposta giusta esce dal ripasso.</p>
+      <p class="small muted">Ogni domanda sbagliata (o indovinata a caso) torna subito in ripasso. Quando rispondi giusto ricompare dopo 1, poi 2, poi 4 giorni; dopo l'ultima risposta giusta esce dal ripasso. Se la prossima volta cadesse dopo l'esame, torna invece ogni giorno.</p>
       ${later.length ? `<h3>In arrivo</h3><div class="card" style="padding:4px 12px"><ul class="list">${later.map(([id, r]) => `<li class="lrow"><span class="t small">L${DB.byId[id].l} n.${DB.byId[id].n} – ${esc(DB.byId[id].q.slice(0, 80))}${DB.byId[id].q.length > 80 ? "…" : ""}</span><span class="tag">${fmtDate(r.due)}</span></li>`).join("")}</ul></div>` : ""}`, "ripasso");
     return;
   }
@@ -420,7 +485,7 @@ function viewExamIntro(){
   const last = P.exams.slice(-5).reverse();
   setView("Simulazione d'esame", `
     <div class="card stack">
-      <p><b>${nC} domande chiuse</b> casuali tra ${onlyKnown ? `le ${known.length} con risposta nota` : `tutte le ${DB.closed.length} della banca`} + <b>${Math.min(2, DB.open.length)} domande aperte</b>.</p>
+      <p><b>${nC} domande chiuse</b> casuali, distribuite tra gli 8 nuclei in proporzione alle domande di ciascuno, tra ${onlyKnown ? `le ${known.length} con risposta nota` : `tutte le ${DB.closed.length} della banca`} + <b>${Math.min(2, DB.open.length)} domande aperte</b>.</p>
       ${!onlyKnown && known.length < DB.closed.length ? `<p class="small muted">Le domande senza risposta nota (${DB.closed.length - known.length}) compaiono ma non vengono valutate: il punteggio è calcolato solo su quelle con risposta.</p>` : ""}
       ${onlyKnown && known.length < 24 ? `<div class="fb warn" style="font-weight:400">Con risposta nota ci sono solo ${known.length} domande chiuse (l'esame ne ha 24).</div>` : ""}
       <label class="row"><input type="checkbox" id="only" ${onlyKnown ? "checked" : ""} style="width:22px;height:22px"><span class="grow">Solo domande con risposta nota</span></label>
@@ -432,11 +497,20 @@ function viewExamIntro(){
     ${last.length ? `<h3>Ultime simulazioni</h3><div class="card" style="padding:4px 12px"><ul class="list">${last.map(e => `<li class="lrow"><span class="t">${fmtDate(e.ts)} · ${e.closedOk}/${e.closedTot} chiuse${e.unknown ? ` (+${e.unknown} n.d.)` : ""}${e.openScore != null ? ` · aperte ${e.openScore}/${e.openMax}` : ""}</span><span class="tag ${pct(e.closedOk, e.closedTot) >= 60 ? "ok" : "ko"}">${fmtPct(pct(e.closedOk, e.closedTot))}</span></li>`).join("")}</ul></div>` : ""}`, "esame");
   $("#mins").onchange = e => { P.settings.examMinutes = +e.target.value; save(); };
   $("#only").onchange = e => { P.settings.examOnlyKnown = e.target.checked; save(); viewExamIntro(); };
-  $("#go").onclick = () => runExam(shuffle(pool).slice(0, nC).map(prepare), shuffle(DB.open).slice(0, 2), P.settings.examMinutes || 60);
+  $("#go").onclick = () => runExam(balancedPick(pool, nC).map(prepare), shuffle(DB.open).slice(0, 2), P.settings.examMinutes || 60);
+}
+// Sceglie n domande ripartite tra i nuclei in proporzione (metodo dei resti più grandi), poi le mescola
+function balancedPick(pool, n){
+  const groups = NUCLEI.map(nu => shuffle(pool.filter(q => nucleoOf(q.l).id === nu.id))).filter(g => g.length);
+  const tot = groups.reduce((s, g) => s + g.length, 0);
+  const quota = groups.map(g => n * g.length / tot), take = quota.map(Math.floor);
+  let rest = n - take.reduce((a, b) => a + b, 0);
+  quota.map((x, k) => [x - Math.floor(x), k]).sort((a, b) => b[0] - a[0]).forEach(([, k]) => { if (rest > 0 && take[k] < groups[k].length){ take[k]++; rest--; } });
+  return shuffle(groups.flatMap((g, k) => g.slice(0, take[k])));
 }
 function runExam(closed, open, minutes){
   const total = closed.length + open.length;
-  const ans = {}; const texts = {};
+  const ans = {}; const texts = {}; const guess = {};
   const end = Date.now() + minutes * 60000, startT = Date.now();
   let i = 0, done = false, tick;
   window.onbeforeunload = () => "Simulazione in corso";
@@ -457,7 +531,8 @@ function runExam(closed, open, minutes){
     if (!isOpen){
       const { q, order } = closed[i];
       body = `<div class="small muted">Domanda chiusa ${i + 1} di ${closed.length} · Lezione ${q.l}${q.answer ? "" : ` <span class="tag warn">risposta n.d.</span>`}</div>${q.broken ? `<div class="fb warn" style="font-weight:400">Domanda estratta male dal PDF: opzioni forse incomplete.</div>` : ""}<div class="q">${esc(q.q)}</div>
-        <div id="opts">${order.map((o, k) => `<button class="opt ${ans[i] === o ? "sel" : ""}" data-o="${o}"><span class="k">${LETTERS[k]}</span><span>${esc(q.opts[o])}</span></button>`).join("")}</div>`;
+        <div id="opts">${order.map((o, k) => `<button class="opt ${ans[i] === o ? "sel" : ""}" data-o="${o}"><span class="k">${LETTERS[k]}</span><span>${esc(q.opts[o])}</span></button>`).join("")}</div>
+        ${q.answer ? `<label class="row small" style="margin:6px 0"><input type="checkbox" id="guess" ${guess[i] ? "checked" : ""} style="width:22px;height:22px"><span class="grow">🎲 Sto tirando a indovinare</span></label>` : ""}`;
     } else {
       const j = i - closed.length, q = open[j];
       body = `<div class="small muted">Domanda aperta ${j + 1} di ${open.length} · Lezione ${q.l}</div><div class="q">${esc(q.q)}</div>
@@ -472,6 +547,7 @@ function runExam(closed, open, minutes){
     document.querySelectorAll(".dots button").forEach(b => b.onclick = () => { i = +b.dataset.k; show(); });
     document.querySelectorAll("#opts .opt").forEach(b => b.onclick = () => { ans[i] = +b.dataset.o; if (i < total - 1) { i++; } show(); });
     const t = $("#txt"); if (t) t.oninput = () => { texts[i - closed.length] = t.value; };
+    const gu = $("#guess"); if (gu) gu.onchange = () => { guess[i] = gu.checked; };
     $("#prev").onclick = () => { i--; show(); };
     $("#nxt").onclick = () => { i++; show(); };
     $("#sub").onclick = () => {
@@ -481,13 +557,15 @@ function runExam(closed, open, minutes){
   }
   function submit(){
     if (done) return; done = true; cleanup(); cleanup = null;
-    let ok = 0; const errors = [], unknown = [];
+    let ok = 0; const errors = [], unknown = [], guessed = [];
     closed.forEach(({q, order}, k) => {
       const chosen = ans[k] != null ? LETTERS[ans[k]] : null;
       if (!q.answer){ unknown.push({q, chosen}); return; }
       const right = isRight(q, chosen);
       if (right) ok++; else errors.push({q, chosen});
-      if (chosen) record(q, right);
+      if (right && guess[k]) guessed.push(q);
+      // nel punteggio della simulazione conta come giusta, ma per statistiche e ripasso un'indovinata è un errore
+      if (chosen) record(q, right && !guess[k]);
     });
     const graded = closed.length - unknown.length;
     const exam = { ts: Date.now(), closedOk: ok, closedTot: graded, unknown: unknown.length, openIds: open.map(q => q.id), openScores: {}, openScore: null, openMax: open.length * 2, secs: Math.round((Date.now() - startT) / 1000) };
@@ -508,22 +586,26 @@ function runExam(closed, open, minutes){
             <div class="small muted">Lezione ${q.l}, n. ${q.n}</div><div style="font-weight:600">${esc(q.q)}</div>
             <details><summary>La tua risposta</summary><div class="model">${esc(texts[j] || "(nessuna risposta)")}</div></details>
             ${q.modello ? `<details><summary>Risposta modello</summary>${DB.fonteModelli ? `<div class="small muted">Fonte: ${esc(DB.fonteModelli)}</div>` : ""}<div class="model">${esc(q.modello)}</div></details>` : `<p class="small muted">Risposta modello non ancora disponibile per questa domanda.</p>`}
-            <div class="row">${[0, 1, 2].map(v => `<button data-j="${j}" data-v="${v}" class="${e.openScores[j] === v ? "primary" : ""}">${v}</button>`).join("")}<span class="small muted">0 = assente · 1 = parziale · 2 = completa</span></div>
+            ${evalHtml(q, j, { score: e.openScores[j], checks: (e.openChecks || {})[j] })}
           </div>`).join("") : ""}
         ${errors.length ? `<h3>Errori (${errors.length})</h3>` + errors.map(({q, chosen}) => `
           <div class="card"><div class="small muted">Lezione ${q.l}, n. ${q.n}</div><div style="font-weight:600">${esc(q.q)}</div>
           ${chosen ? `<div class="fb ko" style="font-weight:400">Tua: ${esc(q.opts[LETTERS.indexOf(chosen)])}</div>` : `<div class="fb warn" style="font-weight:400">Non risposta</div>`}
-          <div class="fb ok" style="font-weight:400">Corretta: ${esc(q.opts[LETTERS.indexOf(q.answer)])}</div></div>`).join("") : graded ? `<p class="fb ok">Nessun errore nelle domande chiuse valutate!</p>` : ""}
+          <div class="fb ok" style="font-weight:400">Corretta: ${esc(q.opts[LETTERS.indexOf(q.answer)])}</div>${termsHtml(relatedTerms(q, 1))}${flagBtn(q)}</div>`).join("") : graded ? `<p class="fb ok">Nessun errore nelle domande chiuse valutate!</p>` : ""}
+        ${guessed.length ? `<h3>Giuste ma indovinate (${guessed.length})</h3><p class="small muted">Contano nel punteggio, ma sono state messe nel ripasso.</p>` + guessed.map(q => `
+          <div class="card"><div class="small muted">Lezione ${q.l}, n. ${q.n}</div><div style="font-weight:600">${esc(q.q)}</div>
+          <div class="fb ok" style="font-weight:400">Corretta: ${esc(q.opts[LETTERS.indexOf(q.answer)])}</div></div>`).join("") : ""}
         ${unknown.length ? `<h3>Non valutate: risposta non ancora disponibile (${unknown.length})</h3>` + unknown.map(({q, chosen}) => `
           <div class="card"><div class="small muted">Lezione ${q.l}, n. ${q.n}</div><div style="font-weight:600">${esc(q.q)}</div>
           <div class="small" style="margin-top:6px">Tua scelta: ${chosen ? esc(q.opts[LETTERS.indexOf(chosen)]) : "<i>nessuna</i>"}</div></div>`).join("") : ""}
         <div class="stack"><a class="btn primary full" href="#/esame">Nuova simulazione</a><a class="btn full" href="#/">Home</a></div>`, "esame");
-      document.querySelectorAll("button[data-v]").forEach(b => b.onclick = () => {
-        const j = +b.dataset.j, v = +b.dataset.v, q = open[j];
-        e.openScores[j] = v;
+      bindFlags();
+      bindEval(document, j => open[+j], j => ({ score: e.openScores[j], checks: (e.openChecks || {})[j] }), (j, v, ch) => {
+        const q = open[+j];
+        e.openScores[j] = v; if (ch) (e.openChecks || (e.openChecks = {}))[j] = ch;
         e.openScore = Object.keys(e.openScores).length === open.length ? Object.values(e.openScores).reduce((a, x) => a + x, 0) : null;
-        P.open[q.id] = { ...(P.open[q.id] || {}), score: v, ts: Date.now() };
-        save(); render();
+        P.open[q.id] = { ...(P.open[q.id] || {}), score: v, ...(ch ? { checks: ch } : {}), ts: Date.now() };
+        const y = window.scrollY; save(); render(); window.scrollTo(0, y);
       });
     }
     render();
@@ -531,9 +613,30 @@ function runExam(closed, open, minutes){
   show();
 }
 
+/* ============ Valutazione aperte: punti chiave o 0/1/2 ============ */
+const scoreFromChecks = (k, n) => !n ? 0 : k / n >= 0.75 ? 2 : k / n >= 0.4 ? 1 : 0;
+function evalHtml(q, key, st){
+  if (q.punti){
+    const ch = st.checks || [];
+    return `<div class="small muted">Spunta i punti chiave che hai citato nella tua risposta:</div>
+      ${q.punti.map((t, i) => `<label class="row" style="align-items:flex-start;margin:6px 0"><input type="checkbox" class="kp" data-key="${key}" data-i="${i}" ${ch[i] ? "checked" : ""} style="width:22px;height:22px;flex:none;margin-top:2px"><span class="grow">${esc(t)}</span></label>`).join("")}
+      <div class="row"><span class="grow small muted">${ch.filter(Boolean).length}/${q.punti.length} punti</span><b>Voto: ${st.score != null ? st.score : scoreFromChecks(ch.filter(Boolean).length, q.punti.length)}/2</b></div>`;
+  }
+  return `<div class="row">${[0, 1, 2].map(v => `<button data-key="${key}" data-v="${v}" class="${st.score === v ? "primary" : ""}">${v}</button>`).join("")}<span class="small muted">0 = assente · 1 = parziale · 2 = completa</span></div>`;
+}
+// onSet(key, score, checks|null)
+function bindEval(root, qOf, stOf, onSet){
+  root.querySelectorAll("input.kp").forEach(c => c.onchange = () => {
+    const key = c.dataset.key, q = qOf(key), ch = (stOf(key).checks || []).slice();
+    ch[+c.dataset.i] = c.checked;
+    onSet(key, scoreFromChecks(ch.filter(Boolean).length, q.punti.length), ch);
+  });
+  root.querySelectorAll("button[data-v][data-key]").forEach(b => b.onclick = () => onSet(b.dataset.key, +b.dataset.v, null));
+}
+
 /* ============ Domande aperte ============ */
 function viewOpenList(){
-  let html = `<p class="muted small">Scrivi la tua risposta, poi confrontala con la risposta modello (se disponibile) e assegnati un voto da 0 a 2.</p>`;
+  let html = `<p class="muted small">Scrivi la tua risposta, poi confrontala con la risposta modello e spunta i punti chiave che hai citato: il voto (0–2) si calcola da lì.</p>`;
   for (const nu of NUCLEI){
     const ls = DB.lezioni.filter(l => l >= nu.da && l <= nu.a && openOf(l).length);
     if (!ls.length) continue;
@@ -556,7 +659,7 @@ function viewOpenLesson(l){
       <button class="cmp">Confronta con la risposta modello</button>
       <div class="cmpbox" hidden>
         ${q.modello ? `${DB.fonteModelli ? `<div class="small muted">Fonte: ${esc(DB.fonteModelli)}</div>` : ""}<div class="model">${esc(q.modello)}</div>` : `<div class="fb warn" style="font-weight:400">Risposta modello non ancora disponibile. Aggiungila nel campo “modello” (vedi README) e intanto valutati con gli appunti delle slide.</div>`}
-        <div class="row" style="margin-top:10px"><span class="grow">Autovalutazione:</span>${[0, 1, 2].map(v => `<button data-v="${v}" class="${s.score === v ? "primary" : ""}">${v}</button>`).join("")}</div>
+        <div style="margin-top:10px">${evalHtml(q, q.id, s)}</div>
       </div>
       ${s.score != null ? `<div class="small muted">Ultimo voto: ${s.score}/2${s.ts ? " · " + fmtDate(s.ts) : ""}</div>` : ""}
     </div>`;
@@ -565,7 +668,13 @@ function viewOpenLesson(l){
     const id = c.dataset.id, ta = c.querySelector("textarea");
     let tmr; ta.oninput = () => { clearTimeout(tmr); tmr = setTimeout(() => { P.open[id] = { ...(P.open[id] || {}), text: ta.value }; save(); }, 400); };
     c.querySelector(".cmp").onclick = () => { P.open[id] = { ...(P.open[id] || {}), text: ta.value }; save(); c.querySelector(".cmpbox").hidden = false; };
-    c.querySelectorAll("button[data-v]").forEach(b => b.onclick = () => { P.open[id] = { ...(P.open[id] || {}), text: ta.value, score: +b.dataset.v, ts: Date.now() }; save(); viewOpenLesson(l); toast("Voto salvato"); });
+  });
+  bindEval(document, id => DB.byId[id], id => P.open[id] || {}, (id, v, ch) => {
+    const ta = document.querySelector(`.card[data-id="${id}"] textarea`);
+    P.open[id] = { ...(P.open[id] || {}), text: ta ? ta.value : P.open[id]?.text, score: v, ...(ch ? { checks: ch } : {}), ts: Date.now() };
+    const y = window.scrollY; save(); viewOpenLesson(l);
+    const box = document.querySelector(`.card[data-id="${id}"] .cmpbox`); if (box) box.hidden = false;
+    window.scrollTo(0, y);
   });
 }
 
@@ -689,7 +798,7 @@ function viewMore(){
     </div>
     <h3>Progressi</h3>
     <div class="card stack">
-      <p class="small muted">I progressi restano solo su questo dispositivo. Esportali per farne un backup o per spostarli dal telefono al computer.</p>
+      <p class="small muted">I progressi restano solo su questo dispositivo. Esportali per farne un backup o per spostarli dal telefono al computer.${P.lastBackup ? ` Ultimo backup: ${fmtDate(P.lastBackup)}.` : " Nessun backup ancora."}</p>
       <button class="full" id="exp">⬇ Esporta progressi (JSON)</button>
       <label class="btn full" for="imp">⬆ Importa progressi</label><input type="file" id="imp" accept="application/json,.json" hidden>
       <button class="full" id="reset" style="color:var(--ko)">Azzera tutti i progressi</button>
@@ -701,6 +810,7 @@ function viewMore(){
     const blob = new Blob([JSON.stringify({ app:"basi-di-dati", exported: new Date().toISOString(), progressi: P }, null, 2)], {type:"application/json"});
     const a = document.createElement("a"); a.href = URL.createObjectURL(blob);
     a.download = `progressi-basi-di-dati-${new Date().toISOString().slice(0, 10)}.json`; a.click();
+    P.lastBackup = Date.now(); save(); toast("Backup scaricato");
     setTimeout(() => URL.revokeObjectURL(a.href), 1000);
   };
   $("#imp").onchange = async e => {
@@ -720,7 +830,35 @@ function viewAnomalies(){
     <p class="small muted">Controlli automatici su domande.json e risposte.json. Le domande con anomalie restano nei quiz con un avviso: correggile nel file quando puoi.</p>
     ${DB.anomalie.length ? `<div class="card" style="padding:4px 12px"><ul class="list">${DB.anomalie.map(a => { const q = DB.byId[a.id];
       return `<li style="padding:12px 4px"><b>L${esc(a.id.replace("-", " n."))}</b> – ${esc(a.msg)}${q ? `<div class="small muted">${esc(q.q)}</div>` : ""}</li>`; }).join("")}</ul></div>` : `<p class="empty">Nessuna anomalia.</p>`}
-    <a class="btn full" href="#/altro">← Altro</a>`, "altro");
+    <h3>Segnalate da te come dubbie (${Object.keys(P.flags).length})</h3>
+    ${Object.keys(P.flags).length ? `<div class="card" style="padding:4px 12px"><ul class="list">${Object.keys(P.flags).filter(id => DB.byId[id]).sort((a, b) => { const [x, y] = [DB.byId[a], DB.byId[b]]; return x.l - y.l || x.n.localeCompare(y.n); }).map(id => { const q = DB.byId[id];
+      return `<li style="padding:12px 4px"><b>L${q.l} n.${q.n}</b> · risposta attuale: <b>${q.answer || "–"}</b>${q.answer ? ` (${esc(q.opts[LETTERS.indexOf(q.answer)])})` : ""}<div class="small muted">${esc(q.q)}</div>${flagBtn(q)}</li>`; }).join("")}</ul></div>
+      <button class="full" id="copyFlags">📋 Copia elenco (per correggere risposte.json)</button>`
+    : `<p class="small muted">Nessuna. Durante i quiz, dopo aver risposto, usa “⚐ Segnala risposta dubbia”.</p>`}
+    <a class="btn full" href="#/altro" style="margin-top:12px">← Altro</a>`, "altro");
+  bindFlags();
+  const cp = $("#copyFlags");
+  if (cp) cp.onclick = async () => {
+    const txt = Object.keys(P.flags).filter(id => DB.byId[id]).map(id => { const q = DB.byId[id]; return `L${q.l} n.${q.n} – risposta attuale ${q.answer || "-"} – ${q.q}`; }).join("\n");
+    try { await navigator.clipboard.writeText(txt); toast("Elenco copiato"); } catch { prompt("Copia l'elenco:", txt); }
+  };
+}
+
+/* ============ Ripasso rapido dell'ultimo giorno ============ */
+function viewLastDay(){
+  const errs = Object.keys(P.review).map(id => DB.byId[id]).filter(q => q && q.answer).sort((a, b) => a.l - b.l || a.n.localeCompare(b.n));
+  // peso di ogni termine: errori sulle domande collegate + flashcard segnate "da rivedere"
+  const w = new Map();
+  for (const [id, a] of Object.entries(P.answers)){ const q = DB.byId[id]; if (!q || !a.ko) continue; for (const t of relatedTerms(q, 2)) w.set(t.id, (w.get(t.id) || 0) + a.ko); }
+  for (const t of DB.glossario) if (P.flash[t.id] && !P.flash[t.id].known) w.set(t.id, (w.get(t.id) || 0) + 1);
+  const terms = DB.glossario.filter(t => w.has(t.id)).sort((a, b) => w.get(b.id) - w.get(a.id) || a.lezione - b.lezione).slice(0, 30);
+  setView("Ripasso rapido", `
+    <p class="muted small">Da leggere con calma: gli errori ancora aperti con la risposta giusta, e i termini del glossario su cui hai sbagliato di più.</p>
+    <h3>Errori ancora aperti (${errs.length})</h3>
+    ${errs.length ? errs.map(q => `<div class="card"><div class="small muted">Lezione ${q.l}, n. ${q.n} · ${esc(nucleoOf(q.l).nome)}</div><div style="font-weight:600">${esc(q.q)}</div><div class="fb ok" style="font-weight:400">${esc(q.opts[LETTERS.indexOf(q.answer)])}</div></div>`).join("") : `<p class="empty">Nessun errore aperto. 👍</p>`}
+    <h3>Termini da ripassare (${terms.length})</h3>
+    ${terms.length ? terms.map(glossCard).join("") : `<p class="empty">Ancora nessun dato: fai qualche quiz o qualche flashcard.</p>`}
+    <a class="btn full" href="#/">← Home</a>`, "home");
 }
 
 /* ============ Avvio ============ */
@@ -733,7 +871,15 @@ function viewAnomalies(){
     return;
   }
   route();
-  if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("sw.js").catch(() => {});
+  if ("serviceWorker" in navigator && location.protocol !== "file:"){
+    const hadController = !!navigator.serviceWorker.controller;
+    // quando una nuova versione prende il controllo, proponi di ricaricare
+    navigator.serviceWorker.addEventListener("controllerchange", () => { if (hadController) showUpdateBanner(); });
+    navigator.serviceWorker.register("sw.js").then(reg => {
+      reg.update().catch(() => {});
+      document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") reg.update().catch(() => {}); });
+    }).catch(() => {});
+  }
 })();
 </script>
 </body>

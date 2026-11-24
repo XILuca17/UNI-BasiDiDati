@@ -1,0 +1,191 @@
+{
+ "_nota": "Punti chiave per autovalutare le domande aperte, ricavati dalle risposte modello (documento Studocu) e dalle risposte corrette della banca.",
+ "2": {
+  "06": ["Hardware e software di base", "Database (archivio dei dati dell'organizzazione)", "Schema: struttura, operazioni consentite e vincoli", "Applicazioni (programmi per gli utenti)", "Persone/utenti che usano il sistema"],
+  "07": ["Sono 4 stadi in sequenza", "1° applicazioni operative", "2° servizi informatici di funzione", "3° servizi informatici per l'organizzazione", "4° servizi per la pianificazione strategica"]
+ },
+ "3": {
+  "04": ["Approccio convenzionale = dati gestiti in file separati", "Ogni applicazione ha i propri file", "Problemi: ridondanza e incoerenza dei dati", "Dati legati ai programmi (poca indipendenza)"],
+  "05": ["Servono ai dirigenti per prendere decisioni", "Raccolgono dati interni ed esterni all'azienda", "Elaborano e analizzano i dati (report, sintesi)", "Usano il data warehouse, aggiornato periodicamente con dati storici"]
+ },
+ "4": {
+  "05": ["Vantaggio: accesso ai dati indipendente da come sono memorizzati", "Vantaggio: accesso ottimizzato (es. indici)", "Vantaggio: controllo di integrità e completezza dei dati", "Vantaggio: controllo degli accessi e uso multi-utente", "Limiti: niente visualizzazioni grafiche, funzioni matematico-statistiche elementari"]
+ ,
+  "06": ["Base di dati: collezione omogenea di dati strutturati e correlati", "Costruita per uno scopo preciso", "DBMS: insieme di programmi per creare, popolare, manipolare e condividere la base di dati", "Il DBMS garantisce condivisione, protezione e affidabilità"]
+ },
+ "5": {
+  "06": ["Database distribuito: dati su più nodi collegati in rete", "All'utente appare come un unico database logico", "Trasparenza della distribuzione/frammentazione", "Scalabilità: capacità di crescere con dati e utenti", "Scalabilità orizzontale = aggiungere nodi (verticale = potenziare un nodo)"],
+  "07": ["Le 4 caratteristiche: efficienza, concorrenza, affidabilità, sicurezza", "Descrizione corretta della prima caratteristica scelta", "Descrizione corretta della seconda caratteristica scelta", "Un esempio o un meccanismo (es. transazioni, indici, controllo accessi)"]
+ },
+ "6": {
+  "05": ["Tre livelli: esterno, logico, fisico", "Esterno: viste personalizzate per utenti/applicazioni", "Logico: organizzazione dei dati secondo il modello del DBMS", "Fisico: come i dati sono memorizzati sui dispositivi", "Indipendenza tra i livelli (logica e fisica)"],
+  "06": ["I livelli funzionali sono descritti da linguaggi specifici", "Primo linguaggio scelto descritto correttamente (es. DQL: interrogazioni)", "Secondo linguaggio scelto descritto correttamente (es. DDL: definizione degli schemi)", "Esempi: DML (manipolazione), DCL (accessi), DSL (memorizzazione fisica)"]
+ },
+ "7": {
+  "05": ["Conoscenza concreta = stato dell'universo del discorso, i fatti", "Entità organizzate in collezioni omogenee", "Proprietà delle entità (possono cambiare nel tempo)", "Associazioni: legami tra entità"],
+  "06": ["Aspetto ontologico = cosa si suppone esista nell'universo del discorso", "Entità (oggetti concreti o astratti, eventi)", "Proprietà delle entità", "Associazioni tra entità", "Regole/vincoli che le governano"]
+ },
+ "8": {
+  "05": ["Conoscenza astratta: struttura della conoscenza concreta (tipi, proprietà, associazioni)", "Comprende i vincoli d'integrità (statici e dinamici)", "Conoscenza procedurale: le operazioni sui dati", "Operazioni di base e operazioni dell'utente", "Un esempio per ciascuna"]
+ ,
+  "06": ["Riguarda il linguaggio formale usato per costruire il modello", "Serve a rappresentare in modo formale l'universo del discorso", "I linguaggi cambiano secondo obiettivi e meccanismi di astrazione", "Esempi di linguaggi (di specifica, di programmazione, grafici)"]
+ },
+ "9": {
+  "05": ["Unisce dati e operazioni in un unico paradigma", "Oggetto: stato (attributi), comportamento (metodi), identità", "Classi e tipi di oggetti", "Gerarchie ed ereditarietà"],
+  "06": ["Due fasi: definizione del modello e sua realizzazione", "Definizione: struttura della conoscenza concreta (entità, proprietà, associazioni)", "Definizione: conoscenza astratta (vincoli) e procedurale (operazioni)", "Realizzazione: rappresentazione concreta in un linguaggio/DBMS"]
+ },
+ "10": {
+  "05": ["Vincolo di disgiunzione: le sottoclassi non hanno elementi in comune", "Vincolo di copertura: l'unione delle sottoclassi è la superclasse", "I due vincoli sono indipendenti", "Se valgono entrambi le sottoclassi formano una partizione"],
+  "06": ["Si deriva da un'interfaccia già esistente (base/genitore)", "Il nuovo tipo eredita attributi e metodi", "Si specificano solo aggiunte o modifiche", "Riutilizzo e specializzazione"]
+ },
+ "11": {
+  "05": ["ER: entità, relazioni e attributi", "Oggetti: stato e comportamento (metodi) insieme", "ER non rappresenta le operazioni sui dati", "Ereditarietà: limitata nell'ER, piena nel modello a oggetti"]
+ },
+ "12": {
+  "05": ["Analisi dei requisiti: esigenze del committente", "Progettazione: concettuale, logica, fisica", "Realizzazione del sistema", "Breve descrizione di ogni fase"],
+  "06": ["Controllo costante della qualità dei progetti intermedi", "Supporto al progettista senza limitarne la libertà", "Supporto alla gestione del progetto (tempi, compiti, risorse)", "Correggere errori presto costa meno"]
+ },
+ "13": {
+  "05": ["Prototipo: versione preliminare e funzionante del sistema", "Mostra le funzioni essenziali, ignora le prestazioni", "Serve a verificare con gli utenti che i requisiti siano capiti", "Deve costare molto meno della realizzazione definitiva"],
+  "06": ["Basati su meccanismi di astrazione e formalismi grafici", "Diagrammi per i dati (ER, modello a oggetti)", "Diagrammi per le operazioni (diagrammi di flusso dati)", "Diagrammi per il controllo (diagrammi di stato)"]
+ },
+ "14": {
+  "05": ["Raccogliere e documentare le esigenze degli utenti", "Le esigenze possono essere contrastanti: vanno chiarite", "Requisiti funzionali (operazioni da supportare)", "Requisiti non funzionali (prestazioni, sicurezza, volumi)", "Raffina lo studio preliminare"],
+  "06": ["Si parte da un diagramma di stato ad alto livello", "Uno stato complesso si suddivide in sotto-stati più semplici", "Si aggiungono dettagli su transizioni ed eventi", "Approccio iterativo e incrementale per gestire la complessità"]
+ },
+ "15": {
+  "05": ["Frasi chiare, semplici e omogenee", "Evitare ambiguità, sinonimi e omonimi", "Evitare informazioni superflue", "Almeno due esempi"],
+  "06": ["Analisi iniziale e raccolta dei requisiti in linguaggio naturale", "Rielaborazione: eliminare ambiguità, sinonimi, omonimi", "Costruzione del glossario dei termini", "Schema scheletro: classi, associazioni, sottoclassi"]
+ },
+ "16": {
+  "05": ["Definire gli schemi di ogni settore", "Integrare gli schemi in uno schema globale risolvendo i conflitti", "Ristrutturare lo schema finale", "Definire le operazioni"],
+  "06": ["Gestire la complessità con un modello chiaro", "Completezza concettuale", "Indipendenza dalle applicazioni", "Indipendenza dal DBMS"]
+ },
+ "17": {
+  "05": ["Tre famiglie", "Linguaggi algebrici (algebra relazionale)", "Linguaggi basati sul calcolo dei predicati (calcolo relazionale)", "Linguaggi logici tipo Datalog / linguaggi pratici come SQL"],
+  "06": ["Riguarda la struttura dei dati, non i valori", "Schema di relazione: nome R + tipo", "Tipi primitivi e tipi ennupla (attributi con tipo)", "Vincoli d'integrità (chiavi, chiavi esterne)"]
+ },
+ "18": {
+  "05": ["Associazioni uno a uno e uno a molti", "Associazioni molti a molti (nuova relazione con due chiavi esterne)", "Gerarchie fra classi (partizionamento)", "Chiavi primarie", "Attributi multivalore e appiattimento degli attributi composti"]
+ },
+ "19": {
+  "05": ["Sono abbreviazioni di espressioni usate spesso", "Intersezione e divisione", "Giunzione (join) e giunzione naturale", "Semi-giunzione"],
+  "06": ["Primitivi: insieme minimo, non derivabili da altri", "Derivati: ottenuti dai primitivi", "I derivati esprimono in modo sintetico operazioni frequenti", "Un esempio (es. restrizione primitiva, intersezione derivata)"]
+ },
+ "20": {
+  "05": ["Unione associativa: (E1 ∪ E2) ∪ E3 = E1 ∪ (E2 ∪ E3)", "Intersezione associativa", "La differenza non è associativa", "Uso nella riscrittura delle espressioni"],
+  "06": ["Unione commutativa: E1 ∪ E2 = E2 ∪ E1", "Intersezione commutativa", "Differenza non commutativa: E1 − E2 ≠ E2 − E1", "Uso nella riscrittura delle espressioni"]
+ },
+ "21": {
+  "05": ["Linguaggio formale dichiarativo per le interrogazioni", "Risultato = insieme delle ennuple che soddisfano una formula φ", "Le variabili rappresentano ennuple", "Diverso dal calcolo su domini, ma con lo stesso potere espressivo"],
+  "06": ["Linguaggio logico derivato dal Prolog", "Regole di deduzione (clausole di Horn), senza simboli di funzione", "Supporta la ricorsione: più espressivo dell'algebra", "Senza ricorsione ha lo stesso potere dell'algebra positiva"]
+ },
+ "22": {
+  "05": ["Fornire strumenti formali per progettare schemi", "Eliminare le anomalie (inserimento, aggiornamento, cancellazione)", "Giudicare qualità ed equivalenza degli schemi", "Algoritmi per trasformare uno schema in uno equivalente senza anomalie"],
+  "06": ["Problemi da una rappresentazione impropria dei fatti", "Ridondanza (ripetizione delle informazioni)", "Anomalie di inserimento, aggiornamento, cancellazione", "Si risolvono con la normalizzazione"]
+ },
+ "23": {
+  "05": ["Sequenza finita di dipendenze f1, …, fm con fm = f", "Ogni fi è in F oppure ottenuta con una regola di inferenza", "Notazione F ⊢ f", "Ogni prefisso della sequenza è anch'esso una derivazione"],
+  "06": ["Regole di inferenza per dedurre nuove dipendenze funzionali", "Riflessività", "Arricchimento", "Transitività", "Sono corrette e complete"]
+ },
+ "24": {
+  "05": ["Decomposizione: gli attributi degli schemi Ri coprono tutti quelli di R", "Deve preservare i dati (join senza perdita)", "Deve preservare le dipendenze", "Le due proprietà sono indipendenti"],
+  "06": ["Si scompone uno schema mal definito in schemi più piccoli", "Gli schemi ottenuti sono in forma normale", "Equivalenti allo schema originale", "Definizione formale: ρ = {R1(T1), …, Rk(Tk)} con ∪Ti = T"]
+ },
+ "25": {
+  "05": ["3NF meno restrittiva della BCNF", "Per ogni X → A non banale: X superchiave oppure A attributo primo", "Si può sempre decomporre in 3NF preservando dati e dipendenze", "L'algoritmo è polinomiale", "Esempio"],
+  "06": ["Ogni dipendenza non banale X → A deve avere X superchiave", "Altrimenti si hanno anomalie", "Si decompone lo schema finché tutte le parti sono in BCNF", "Non sempre si preservano le dipendenze; algoritmo esponenziale"]
+ },
+ "26": {
+  "04": ["Processo opposto alla normalizzazione", "Introduce ridondanza unendo più relazioni", "Scopo: query più veloci, meno join", "Svantaggio: rischio di incoerenze e più spazio"],
+  "05": ["Dipendenza multivalore X ↠ Y: a un X corrisponde un insieme di Y indipendente dal resto", "Si decompone lo schema in due sottoschemi", "Si raggiunge la quarta forma normale (4NF)", "Esempio"]
+ },
+ "27": {
+  "05": ["SQL embedded: istruzioni SQL dentro il codice del linguaggio ospite", "Precompilatore che traduce EXEC SQL in chiamate di funzione", "SQL dinamico / API di chiamata (es. ODBC, JDBC)", "Vantaggi e limiti delle soluzioni"],
+  "06": ["DDL: definisce i tre livelli (esterno, logico, fisico)", "DML: inserire, cancellare, modificare, reperire dati", "DML procedurale: dici cosa e come", "DML dichiarativo: dici solo cosa"]
+ },
+ "28": {
+  "05": ["Livello di astrazione costante: né troppo generico né troppo preciso", "Evitare sinonimi e omonimi", "Frasi brevi e semplici con struttura uniforme", "Un paragrafo per ogni entità"],
+  "06": ["Progettazione dei dati: struttura e organizzazione dei dati", "Usa modello concettuale (ER) e poi logico", "Progettazione delle transazioni: operazioni sui dati", "Le due attività sono complementari"]
+ },
+ "29": {
+  "05": ["Formalizzare i requisiti in un diagramma ER", "Documentare gli elementi dello schema", "Aggiungere le regole aziendali", "Progettare le transazioni / verificare la qualità dello schema"],
+  "06": ["Coppia di numeri (minimo, massimo)", "Quante volte un'istanza di entità partecipa alla relazione", "N per un massimo non fissato", "Esempio con le cardinalità"]
+ },
+ "30": {
+  "05": ["Totale: ogni istanza del genitore sta in almeno una sotto-entità", "Parziale: alcune istanze non stanno in nessuna", "Disgiunta: un'istanza sta in una sola sotto-entità", "Sovrapposta: può stare in più sotto-entità", "Esempio"],
+  "06": ["Divide un'entità genitore in sotto-entità più specifiche", "Le sotto-entità ereditano attributi e relazioni", "Possono aggiungere attributi e relazioni propri", "Può essere totale/parziale e disgiunta/sovrapposta"]
+ },
+ "31": {
+  "05": ["Si usa XML per descrivere lo schema", "DTD: definisce elementi, attributi e struttura", "XML Schema (XSD): più ricco, con tipi di dati e vincoli", "Vantaggi: leggibile, portabile, non serve un DBMS"],
+  "06": ["Per ogni entità: nome, descrizione, attributi, chiave, tipo, specializzazioni", "Per ogni relazione: nome, descrizione, entità e cardinalità, attributi, tipo", "Per ogni attributo: nome, descrizione, tipo, obbligatorietà", "Le regole aziendali"]
+ },
+ "32": {
+  "05": ["Vincoli di dominio: valori ammessi per un attributo", "Esempi: tipo di dato, intervallo, elenco di valori", "Vincoli di chiave: identificano univocamente le ennuple", "Chiave primaria/candidate, valori unici"],
+  "06": ["I dati sono rappresentati solo tramite valori", "Valori atomici nelle tabelle", "I collegamenti tra tabelle avvengono tramite valori (chiavi esterne), non puntatori", "Indipendenza dalla rappresentazione fisica"]
+ },
+ "33": {
+  "05": ["Si crea una nuova relazione con lo stesso nome", "Contiene le chiavi delle entità coinvolte", "Queste chiavi insieme formano la chiave", "Più gli eventuali attributi della relazione; si possono rinominare"],
+  "06": ["L'attributo composto si sostituisce con i suoi componenti atomici", "Esempio: NomeCompleto → Nome, Cognome", "Gerarchie di attributi composti: dalle foglie verso la radice", "Rispetta l'atomicità del modello relazionale"]
+ },
+ "34": {
+  "04": ["Si aggiunge una chiave esterna in una delle due tabelle", "Conviene metterla dove la partecipazione è obbligatoria", "In alcuni casi si uniscono le due entità in una sola tabella", "Esempio"],
+  "05": ["Il modello relazionale da solo non dice tutto: serve documentazione", "Significato di tabelle e colonne", "Tipo e obbligatorietà degli attributi", "Chiavi candidate e chiavi esterne", "Si può descrivere con XML/DTD"]
+ },
+ "35": {
+  "05": ["Relazioni: concetto teorico; tabelle: implementazione nel DBMS", "Le tabelle SQL ammettono righe duplicate", "Le tabelle SQL ammettono valori NULL", "L'ordine delle righe in SQL si può imporre (ORDER BY)"],
+  "06": ["Duplicati ammessi in SQL (si eliminano con DISTINCT)", "Valori NULL e logica a tre valori", "Funzioni aggregate e ordinamenti", "Vincoli, indici e altri aspetti pratici"]
+ },
+ "36": {
+  "05": ["Il blocco base SELECT – FROM – WHERE", "SELECT: colonne del risultato", "FROM: tabelle da cui si leggono i dati", "WHERE: condizione sulle righe"],
+  "06": ["SELECT * per tutte le colonne", "SELECT con colonne specifiche", "WHERE per filtrare le righe", "ORDER BY per ordinare", "Esempio di query"]
+ },
+ "37": {
+  "05": ["Indica come collegare le tabelle confrontando colonne", "Si scrive nella clausola ON o nel WHERE", "Condizioni del tipo A θ B (A di R, B di S)", "Tipi di join: inner, left, right, full"],
+  "06": ["Combina righe di più tabelle in base a valori corrispondenti", "Modello di corrispondenza basato su valori", "Tipi di join (inner, left, right…)", "Esempio con SELECT … JOIN … ON"]
+ },
+ "38": {
+  "05": ["Si usa GROUP BY", "Divide le righe in gruppi con lo stesso valore", "Applica le funzioni aggregate a ogni gruppo", "HAVING per filtrare i gruppi", "Esempio"],
+  "06": ["COUNT con esempio", "SUM con esempio", "AVG con esempio", "MIN e MAX con esempio"]
+ },
+ "39": {
+  "05": ["La sottoquery restituisce un insieme di valori", "Usato con IN, ANY o ALL nella query esterna", "Il confronto avviene con quell'insieme", "Esempio"],
+  "06": ["Una query dentro un'altra query", "La sottoquery fornisce il risultato usato dalla query esterna", "Si usa in WHERE con operatori di confronto, IN, ANY, ALL, EXISTS", "Esempio"]
+ },
+ "40": {
+  "05": ["Insieme di valori ammessi per un attributo", "Ogni valore è indivisibile (atomico)", "È alla base della prima forma normale", "Esempio di valore atomico e non atomico"],
+  "06": ["INSERT con esempio", "DELETE con WHERE ed esempio", "UPDATE … SET … WHERE con esempio", "Modificano lo stato della base di dati"]
+ },
+ "41": {
+  "05": ["Si usa il vincolo NOT NULL", "Di default gli attributi fuori dalla chiave possono essere NULL", "La chiave primaria è sempre obbligatoria", "Esempio con CREATE TABLE"],
+  "06": ["Colonne che fanno riferimento alla chiave di un'altra tabella", "Garantisce l'integrità referenziale", "Si dichiara con FOREIGN KEY … REFERENCES", "Reazioni alle violazioni (es. CASCADE, SET NULL)", "Esempio"]
+ },
+ "42": {
+  "05": ["Il trigger modifica chiavi in modo da rompere i riferimenti", "Inserisce o aggiorna dati che violano NOT NULL o CHECK", "Trigger a catena possono creare cicli o incoerenze", "Può contrastare le regole aziendali"],
+  "06": ["Il trigger si attiva su INSERT o UPDATE", "Calcola il valore dell'attributo dagli altri attributi", "Così il valore calcolato è sempre coerente", "Esempio (es. totale = quantità × prezzo)"]
+ },
+ "43": {
+  "05": ["Riscrittura delle query: si sostituisce la vista con la sua definizione", "Vantaggio: non si salvano i dati della vista", "Materializzazione: la vista viene calcolata e salvata", "Vantaggio: query veloci; svantaggio: va tenuta aggiornata"],
+  "06": ["Definita dentro una singola interrogazione", "Non appartiene allo schema del database", "Non usabile da altre query", "Si definisce con la clausola WITH"]
+ },
+ "44": {
+  "05": ["SQL è dichiarativo: dice cosa ottenere", "L'algebra è procedurale: dice come ottenerlo", "Ogni query SQL si traduce in operatori dell'algebra", "Il DBMS usa questa traduzione per ottimizzare"],
+  "06": ["Proiezione ↔ SELECT", "Selezione ↔ WHERE", "Join ↔ FROM/WHERE o JOIN", "Operazioni insiemistiche (unione, ecc.)"]
+ },
+ "45": {
+  "05": ["File non ordinato (heap): ricerca sequenziale, costo lineare", "File ordinato: ricerca binaria, inserimenti costosi", "File hash: accesso diretto tramite funzione hash", "Vantaggi e svantaggi di ciascuno"],
+  "06": ["Struttura ausiliaria che velocizza l'accesso ai record", "Indice primario (sul campo di ordinamento, spesso sparso)", "Indice secondario (su altri campi, denso)", "Indici a più livelli / B-tree; costi sugli aggiornamenti"]
+ },
+ "46": {
+  "05": ["Engine = modulo che gestisce memorizzazione e accesso alle tabelle", "Ogni tabella è associata a un engine", "InnoDB: transazioni e chiavi esterne", "MyISAM: niente transazioni, veloce in lettura", "Altri engine (es. MEMORY)"],
+  "06": ["Si usa il comando GRANT", "Livelli: globale, database, tabella (e colonna)", "Si specificano privilegi, oggetto e utente@host", "REVOKE per toglierli", "Esempio"]
+ },
+ "47": {
+  "05": ["Comando UPDATE", "SET con colonne e nuovi valori", "WHERE per scegliere le righe (senza WHERE: tutte)", "Esempio"],
+  "06": ["Comando SELECT … FROM", "WHERE per filtrare", "GROUP BY / HAVING / ORDER BY / LIMIT", "Esempio"]
+ },
+ "48": {
+  "05": ["Vista = tabella virtuale definita da una query", "Si crea con CREATE VIEW nome AS SELECT …", "Non contiene dati propri", "MySQL non supporta viste temporanee né ricorsive"],
+  "06": ["Procedure: CREATE PROCEDURE con parametri IN, OUT, INOUT", "Funzioni: CREATE FUNCTION con RETURNS", "Uso di DELIMITER per definirle", "Si richiamano con CALL (procedure)", "Esempio"]
+ }
+}

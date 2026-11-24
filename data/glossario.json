@@ -57,7 +57,7 @@
  {"termine": "Chiave e chiave esterna", "significato": "La chiave identifica ogni riga. La chiave esterna è un attributo che fa riferimento alla chiave di un'altra tabella. Sono i due vincoli d'integrità più importanti.", "lezione": 17},
  {"termine": "Da schema a oggetti a schema relazionale", "significato": "Le classi diventano tabelle. Le associazioni molti a molti diventano una nuova tabella con due chiavi esterne. Le gerarchie si traducono con partizionamento verticale, orizzontale o diagonale.", "lezione": 18},
  {"termine": "Algebra relazionale", "significato": "Un insieme di operatori che prendono relazioni e restituiscono altre relazioni.", "lezione": 19},
- {"termine": "Operatori primitivi e derivati", "significato": "I primitivi sono il minimo indispensabile (es. restrizione, proiezione, unione, differenza, prodotto). I derivati si ottengono dai primitivi (es. intersezione, giunzione).", "lezione": 19},
+ {"termine": "Operatori primitivi e derivati", "significato": "I primitivi sono un insieme minimo di operatori che non si ricavano da altri (ad esempio la restrizione). I derivati si ottengono dai primitivi e abbreviano operazioni frequenti: intersezione, divisione, giunzione (join), giunzione naturale, semi-giunzione.", "lezione": 19},
  {"termine": "Restrizione (selezione) σ", "significato": "Prende solo le righe che soddisfano una condizione.", "lezione": 19},
  {"termine": "Proiezione π", "significato": "Prende solo alcune colonne. La proiezione generalizzata permette anche costanti ed espressioni aritmetiche.", "lezione": 20},
  {"termine": "Giunzione (join) ⋈", "significato": "Combina le righe di due tabelle che hanno valori corrispondenti.", "lezione": 19},

@@ -1,7 +1,7 @@
 // Service worker: app offline. Aumenta VERSION quando cambi index.html.
-const VERSION = "bdd-v4";
+const VERSION = "bdd-v5";
 const SHELL = ["./", "index.html", "manifest.webmanifest", "icons/icon.svg", "icons/icon-192.png", "icons/icon-512.png"];
-const DATA = ["data/domande.json", "data/risposte.json", "data/glossario.json", "data/modelli.json"];
+const DATA = ["data/domande.json", "data/risposte.json", "data/glossario.json", "data/modelli.json", "data/puntichiave.json"];
 
 self.addEventListener("install", e => {
   e.waitUntil((async () => {
