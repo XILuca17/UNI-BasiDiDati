@@ -1,5 +1,5 @@
 // Service worker: app offline. Aumenta VERSION quando cambi index.html.
-const VERSION = "bdd-v5";
+const VERSION = "bdd-v6";
 const SHELL = ["./", "index.html", "manifest.webmanifest", "icons/icon.svg", "icons/icon-192.png", "icons/icon-512.png"];
 const DATA = ["data/domande.json", "data/risposte.json", "data/glossario.json", "data/modelli.json", "data/puntichiave.json"];
 

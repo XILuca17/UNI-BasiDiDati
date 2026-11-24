@@ -8,7 +8,7 @@ Usa **solo** i materiali forniti: `data/domande.json` (banca ufficiale), `data/r
 **Fonti delle risposte:** le lezioni 15–19 vengono dalle slide del corso. Tutte le altre sono le risposte evidenziate nel documento Studocu “Basi di Dati – voto 27”, che coincide con le slide su tutte le 20 risposte in comune. Anche le risposte modello delle domande aperte (`data/modelli.json`) vengono da quel documento: sono risposte di uno studente, non ufficiali. Se manca una risposta, l'app scrive “risposta non ancora disponibile” e non la inventa.
 
 ## Funzioni
-- **Quiz per lezione**, su tutte le 187 domande o **solo sulle domande mai viste**. Una domanda alla volta, opzioni mescolate, feedback immediato.
+- **Quiz per lezione, per nucleo** (tutte le domande delle lezioni di un nucleo), su tutte le 187 domande o **solo sulle domande mai viste**. Una domanda alla volta, opzioni mescolate, feedback immediato.
   - **🎲 Sto tirando a indovinare**: se la spunti e rispondi giusto, la domanda conta come da rivedere e va nel ripasso.
   - Dopo un errore compaiono i **termini del glossario** collegati alla domanda.
   - **⚐ Segnala risposta dubbia**: le domande segnalate finiscono in *Altro → Anomalie nei dati*, con un pulsante per copiare l'elenco.

@@ -287,7 +287,7 @@ function route(){
   const parts = location.hash.replace(/^#\/?/, "").split("/").filter(Boolean);
   const [r, a, b] = parts;
   ({
-    "": viewHome, quiz: () => a === "nuove" ? startNewQuiz() : a === "tutte" ? startMixQuiz() : a ? startLessonQuiz(+a) : viewQuizList(),
+    "": viewHome, quiz: () => a === "nucleo" ? startNucleoQuiz(+b) : a === "nuove" ? startNewQuiz() : a === "tutte" ? startMixQuiz() : a ? startLessonQuiz(+a) : viewQuizList(),
     esame: viewExamIntro, ripasso: viewReview, statistiche: viewStats,
     aperte: () => a ? viewOpenLesson(+a) : viewOpenList(),
     flashcard: () => viewFlash(a), glossario: () => a ? viewGlossNucleo(+a) : viewGlossList(), altro: viewMore, anomalie: viewAnomalies, ultimo: viewLastDay,
@@ -325,7 +325,7 @@ function viewHome(){
       ${due ? `<a class="btn primary full" href="#/ripasso">↻ Ripassa ${due} ${due === 1 ? "errore" : "errori"}</a>` : ""}
       ${d <= 1 && d >= 0 ? `<a class="btn primary full" href="#/ultimo">⚡ Ripasso rapido dell'ultimo giorno</a>` : ""}
       ${never ? `<a class="btn ${due ? "" : "primary"} full" href="#/quiz/nuove">★ Domande mai viste (${never})</a>` : ""}
-      <a class="btn full" href="#/quiz">✓ Quiz per lezione</a>
+      <a class="btn full" href="#/quiz">✓ Quiz per lezione o per nucleo</a>
       <a class="btn full" href="#/esame">⏱ Simulazione d'esame</a>
       <a class="btn full" href="#/aperte">✎ Domande aperte</a>
       <a class="btn full" href="#/glossario">📖 Glossario per nucleo</a>
@@ -367,13 +367,15 @@ function lessonStats(l){
   return {ok, n, p: pct(ok, n)};
 }
 function viewQuizList(){
-  let html = `<p class="muted small">Scegli una lezione. Le domande con risposta nota danno subito il feedback; le altre sono segnate come “risposta non ancora disponibile”.</p>
+  let html = `<p class="muted small">Scegli un nucleo intero o una singola lezione. Le domande con risposta nota danno subito il feedback; le altre sono segnate come “risposta non ancora disponibile”.</p>
     ${(() => { const n = DB.closed.filter(q => q.answer && !seenIds().has(q.id)).length; return n ? `<a class="btn primary full" href="#/quiz/nuove">Solo le domande mai viste (${n})</a>` : ""; })()}
     <a class="btn full" href="#/quiz/tutte" style="margin-top:8px">Tutte le ${DB.closed.length} domande chiuse, in ordine casuale</a>`;
   for (const nu of NUCLEI){
     const ls = DB.lezioni.filter(l => l >= nu.da && l <= nu.a);
     if (!ls.length) continue;
-    html += `<h3>${nu.id}. ${esc(nu.nome)} <span class="muted small">(L${nu.da}–${nu.a})</span></h3><div class="card" style="padding:4px 12px"><ul class="list">`;
+    const ns = nucleoStats(nu.id), nc = closedOfNucleo(nu.id).length;
+    html += `<h3>${nu.id}. ${esc(nu.nome)} <span class="muted small">(L${nu.da}–${nu.a})</span></h3><div class="card" style="padding:4px 12px"><ul class="list">
+      <li><a class="lrow" href="#/quiz/nucleo/${nu.id}" style="text-decoration:none"><span class="t"><b>▶ Quiz su tutto il nucleo</b><br><span class="small muted">${nc} domande di tutte le lezioni ${nu.da}–${nu.a}</span></span><span class="tag ${ns.p == null ? "" : ns.p >= 70 ? "ok" : ns.p < 50 ? "ko" : "warn"}">${fmtPct(ns.p)}</span></a></li>`;
     for (const l of ls){
       const cs = closedOf(l), known = cs.filter(q => q.answer).length, st = lessonStats(l);
       html += `<li><a class="lrow" href="#/quiz/${l}" style="text-decoration:none">
@@ -383,7 +385,7 @@ function viewQuizList(){
     }
     html += `</ul></div>`;
   }
-  setView("Quiz per lezione", html, "quiz");
+  setView("Quiz per lezione o nucleo", html, "quiz");
 }
 
 /* ============ Motore quiz (una domanda alla volta) ============ */
@@ -445,6 +447,21 @@ function startNewQuiz(){
   if (!pool.length){ setView("Domande mai viste", `<div class="card empty">Hai già visto tutte le ${DB.nRisposte} domande chiuse. 🎉</div><a class="btn full" href="#/quiz">← Quiz</a>`, "quiz"); return; }
   runQuiz({ title: "Mai viste", items: shuffle(pool).map(prepare), tab: "quiz",
     onEnd: () => { const left = DB.closed.filter(q => q.answer && !seenIds().has(q.id)).length; return left ? `<button class="primary full" onclick="route()">Continua (${left} ancora mai viste)</button>` : `<p class="fb ok">Hai visto tutte le domande!</p>`; } });
+}
+const closedOfNucleo = id => DB.closed.filter(q => nucleoOf(q.l).id === id);
+function nucleoStats(id){
+  let ok = 0, n = 0;
+  for (const q of closedOfNucleo(id)){ const a = P.answers[q.id]; if (a){ ok += a.ok; n += a.ok + a.ko; } }
+  return { ok, n, p: pct(ok, n) };
+}
+function startNucleoQuiz(id){
+  const nu = NUCLEI.find(x => x.id === id), cs = nu ? closedOfNucleo(id) : [];
+  if (!cs.length){ viewQuizList(); return; }
+  const next = NUCLEI.find(x => x.id === id + 1);
+  runQuiz({ title: `Nucleo ${id}: ${nu.nome}`, items: shuffle(cs).map(prepare), tab: "quiz",
+    onEnd: () => `<button class="primary full" onclick="route()">Ripeti il nucleo ${id}</button>
+      <a class="btn full" href="#/glossario/${id}">📖 Glossario del nucleo ${id}</a>
+      ${next ? `<a class="btn full" href="#/quiz/nucleo/${next.id}">Nucleo ${next.id}: ${esc(next.nome)} →</a>` : ""}` });
 }
 function startMixQuiz(){
   runQuiz({ title: "Tutte le lezioni", items: shuffle(DB.closed).map(prepare), tab: "quiz",
@@ -701,7 +718,7 @@ function viewStats(){
     <h3>Lezioni più deboli</h3>
     ${weak.length ? `<div class="card" style="padding:4px 12px"><ul class="list">${weak.map(r => `<li><a class="lrow" href="#/quiz/${r.l}" style="text-decoration:none"><span class="t">Lezione ${r.l} <span class="small muted">· ${esc(nucleoOf(r.l).nome)}</span></span><span class="tag ${r.p < 50 ? "ko" : r.p < 70 ? "warn" : "ok"}">${fmtPct(r.p)}</span></a></li>`).join("")}</ul></div>` : `<p class="muted">Rispondi a qualche quiz per vedere le lezioni più deboli.</p>`}
     <h3>Per nucleo tematico</h3>
-    <div class="card">${nucl.map(nu => `<div style="margin:10px 0"><div class="row small"><span class="grow"><b>${nu.id}. ${esc(nu.nome)}</b> <span class="muted">L${nu.da}–${nu.a}</span></span><span>${nu.known ? fmtPct(nu.p) : `<span class="tag warn">risposte n.d.</span>`}</span></div>${bar(nu.p)}
+    <div class="card">${nucl.map(nu => `<div style="margin:10px 0"><div class="row small"><span class="grow"><a href="#/quiz/nucleo/${nu.id}" style="color:inherit"><b>${nu.id}. ${esc(nu.nome)}</b></a> <span class="muted">L${nu.da}–${nu.a}</span></span><span>${nu.known ? fmtPct(nu.p) : `<span class="tag warn">risposte n.d.</span>`}</span></div>${bar(nu.p)}
       <div class="small muted">${nu.n} risposte · ${nu.known} chiuse con risposta${nu.openN ? ` · aperte (autovalutate) ${fmtPct(nu.openP)}` : ""}</div></div>`).join("")}</div>
     <h3>Per lezione</h3>
     <div class="card">${rows.filter(r => r.known).map(r => `<div style="margin:8px 0"><div class="row small"><span class="grow">Lezione ${r.l}</span><span>${fmtPct(r.p)} <span class="muted">(${r.ok}/${r.n})</span></span></div>${bar(r.p)}</div>`).join("") || `<p class="muted">Nessuna lezione con risposte note.</p>`}
@@ -782,7 +799,7 @@ function viewGlossNucleo(id){
   setView(`Glossario · ${nu.id}`, `
     <h2>${nu.id}. ${esc(nu.nome)}</h2>
     <p class="small muted">Lezioni ${nu.da}–${nu.a} · ${items.length} termini</p>
-    <a class="btn primary full" href="#/flashcard/${id}">▭ Ripassa con le flashcard</a>
+    <div class="row"><a class="btn primary grow" href="#/flashcard/${id}">▭ Flashcard</a><a class="btn grow" href="#/quiz/nucleo/${id}">✓ Quiz sul nucleo</a></div>
     ${items.map(glossCard).join("")}
     <div class="row" style="margin-top:12px">${prev ? `<a class="btn grow" href="#/glossario/${prev.id}">← ${prev.id}</a>` : ""}<a class="btn grow" href="#/glossario">Tutti i nuclei</a>${next ? `<a class="btn grow" href="#/glossario/${next.id}">${next.id} →</a>` : ""}</div>`, "altro");
 }
